@@ -12,7 +12,7 @@ import UserService from './components/Services/UserService';
 import Admindshboard from './pages/AdminDashboard/Admindshboard';
 import UpdateUser from './pages/AdminDashboard/component/updateUser';
 import UserManagement from './pages/AdminDashboard/component/UserManagementPage'
-
+import DisableForm from './pages/users/DisableForm';
 function App() {
   
 
@@ -22,7 +22,8 @@ function App() {
     <BrowserRouter>
       <Nav />
     <Routes>
-      
+    <Route path='DisableForm' element={<DisableForm/>}/>
+
         <Route path="/" element={<Home/>} />
         <Route path="/signup" element={<Signup/>} />
         <Route path="/signin" element={<SignIn />} />
