@@ -3,6 +3,7 @@ import axios from 'axios';
 class UserService {
     // static BASE_URL = "http://localhost:8080"
 
+
     static async login(email, password) {
         try {
             const response = await axios.post(`http://localhost:8080/auth/login`, { email, password });
@@ -11,6 +12,7 @@ class UserService {
             throw err;
         }
     }
+
 
     static async register(userData) {
         try {
