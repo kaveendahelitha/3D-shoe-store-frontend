@@ -4,7 +4,6 @@ class UserService {
     // static BASE_URL = "http://localhost:8080"
 
 
-    //login part
     static async login(email, password) {
         try {
             const response = await axios.post(`http://localhost:8080/auth/login`, { email, password });
@@ -14,7 +13,7 @@ class UserService {
         }
     }
 
-     //register part
+
     static async register(userData) {
         try {
             const response = await axios.post(`http://localhost:8080/auth/register`, userData);
