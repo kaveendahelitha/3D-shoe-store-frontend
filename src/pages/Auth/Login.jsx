@@ -10,7 +10,7 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from?.pathname || '/home';
+  //const from = location.state?.from?.pathname || '/';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +26,20 @@ export default function Login() {
       if (response.statusCode === 200) {
         localStorage.setItem('token', response.token);
         localStorage.setItem('role', response.role);
-        navigate(from, { replace: true });
+        //navigate(from, { replace: true });
+        
+        let redirectTo = '/';
+        if (response.role === 'ADMIN') {
+          redirectTo = '/admin';
+        } else if (response.role === 'USER') {
+          redirectTo = '/customer';
+        } else if (response.role === 'EMPLOYEE') {
+          redirectTo = '/employee';
+        } else if (response.role === 'SITE_MANAGER') {
+          redirectTo = '/sitemanager';
+        }
+
+        navigate(redirectTo, { replace: true });
       }
     } catch (error) {
       setError(error.response?.data?.message || error.message);

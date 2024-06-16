@@ -8,7 +8,7 @@ import PageNotFound from './pages/404 Error/pageNotFound';
 //import RegistrationPage from './pages/AdminDashboard/RegistrationPage';
 import ProfilePage from './pages/Customerpage/profile';
 //import UserManagementPage from './pages/AdminDashboard/UserManagementPage';
-import UserService from './components/Services/UserService';
+//import UserService from './components/Services/UserService';
 import Admindshboard from './pages/AdminDashboard/Admindshboard';
 import UpdateUser from './pages/AdminDashboard/component/updateUser';
 import UserManagement from './pages/AdminDashboard/component/UserManagementPage'
@@ -18,6 +18,8 @@ import Employee from './pages/EmployeeDashboard/Employee';
 import Customer from './pages/CustomerDashboard/Customer';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
+import ApiService from './components/service/ApiService';
+import Sitemanager from './pages/SitemanagerDashboard/Sitemanager'
 function App() {
   
 
@@ -27,23 +29,51 @@ function App() {
     <BrowserRouter>
       <Nav />
     <Routes>
-    <Route path='DisableForm' element={<DisableForm/>}/>
+        <Route path='/DisableForm' element={<DisableForm/>}/>
 
         <Route path="/" element={<Home/>} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path='/category' element={<Category />} />
-        <Route path='/employee' element={<Employee />} />
-        <Route path='/customer' element={<Customer />} />
+      
+        
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
 
-        {UserService.adminOnly() && (
+        {ApiService.adminOnly() && (
               <>
                 <Route path="/admin" element={<Admindshboard />} />
-                <Route path="/update-user/:userId" element={<UpdateUser />} />
-                <Route path="/admin/user-management" element={<UserManagement />}/>
+                {/*<Route path="/update-user/:userId" element={<UpdateUser />} />
+                <Route path="/admin/user-management" element={<UserManagement />}/>*/}
+
               </>
             )}
+
+        {ApiService.userOnly() && (
+              <>
+               <Route path='/customer' element={<Customer />} />
+                {/*<Route path="/update-user/:userId" element={<UpdateUser />} />
+                <Route path="/admin/user-management" element={<UserManagement />}/>*/}
+                
+              </>
+            )}
+
+        {ApiService.employeeOnly() && (
+              <>
+                  <Route path='/employee' element={<Employee />} />
+                {/*<Route path="/update-user/:userId" element={<UpdateUser />} />
+                <Route path="/admin/user-management" element={<UserManagement />}/>*/}
+                
+              </>
+            )}
+
+        {ApiService.sitemanager() && (
+              <>
+                <Route path="/site-manager" element={<Sitemanager/>} />
+                {/*<Route path="/update-user/:userId" element={<UpdateUser />} />
+                <Route path="/admin/user-management" element={<UserManagement />}/>*/}
+                
+              </>
+            )}  
        
         <Route path="*" element={<PageNotFound/>} /> 
       </Routes>

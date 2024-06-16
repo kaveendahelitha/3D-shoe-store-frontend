@@ -28,7 +28,7 @@ export default class ApiService {
     }
 
 
-
+      /* This  gets all products from CPC */
     static async getProductsByColorPriceAndCategory(category, productColor, priceRange) {
         const url = `${this.BASE_URL}/products/available-products-by-color-category-and-pricerange?category=${category}&productColor=${productColor}&priceRange=${priceRange}`;
         try {
@@ -54,6 +54,7 @@ export default class ApiService {
             throw error;
         }
     }
+    /* This  gets all products colors */
 
     static async getAllProductColors() {
         try {
@@ -64,7 +65,7 @@ export default class ApiService {
             throw error;
         }
     }
-
+    /* This  gets all products price */
     static async getAllProductsPriceLevels() {
         try {
             const response = await axios.get(`${this.BASE_URL}/products/priceranges`);
@@ -103,5 +104,21 @@ export default class ApiService {
     static isSitemanager() {
         const role = localStorage.getItem('role');
         return role === 'SITE_MANAGER';
+    }
+
+    static adminOnly(){
+        return this.isAuthenticated() && this.isAdmin();
+    }
+
+    static userOnly(){
+        return this.isAuthenticated() && this.isUser();
+    }
+
+    static employeeOnly(){
+        return this.isAuthenticated() && this.isEmployee();
+    }
+
+    static sitemanager(){
+        return this.isAuthenticated() && this.isSitemanager();
     }
 }

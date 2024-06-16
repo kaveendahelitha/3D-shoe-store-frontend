@@ -5,7 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import ApiService from '../service/ApiService';
 
 const navigation = [
-  { name: 'Home', href: '/home', current: false },
+  { name: 'Home', href: '/', current: false },
   { name: 'Products', href: '/products', current: false },
   { name: 'Find my product', href: '/find-product', current: false },
   { name: 'Employee', href: '/employee', current: false },
@@ -30,7 +30,7 @@ export default function Nav() {
     const isLogout = window.confirm('Are you sure you want to logout this user?');
     if (isLogout) {
       ApiService.logout();
-      navigate('/home');
+      navigate('/login');
     }
   };
 

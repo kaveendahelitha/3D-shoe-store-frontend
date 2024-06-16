@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from 'react'
 
-export default function Customer() {
-    
-    
-    
-    return (
-        <div className="">customer</div>
-    )
-    }
+const Customer = () => {
+  return (
+    <div>Customer</div>
+  )
+}
+
+export default Customer
