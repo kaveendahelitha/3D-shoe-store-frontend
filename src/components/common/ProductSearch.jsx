@@ -72,69 +72,69 @@ const ProductSearch = ({ handleSearchResult }) => {
 
   return (
     <section>
-    <div className="search-container flex flex-col md:flex-row md:items-center px-4 py-2 space-y-4 md:space-y-0 md:space-x-4">
-  <div className="search-field flex-grow bg-blue-100 rounded-md">
-    <label className="block mb-2">Category</label>
-    <select
-      className="border rounded px-3 py-2 w-full"
-      value={category}
-      onChange={(e) => setProductCategory(e.target.value)}
-    >
-      <option disabled value="">
-        Select Product Category
-      </option>
-      {categories.map((category, index) => (
-        <option key={index} value={category}>
-          {category}
-        </option>
-      ))}
-    </select>
-  </div>
-  <div className="search-field flex-grow bg-blue-100 rounded-md">
-    <label className="block mb-2">Color</label>
-    <select
-      className="border rounded px-3 py-2 w-full"
-      value={productColor}
-      onChange={(e) => setProductColor(e.target.value)}
-    >
-      <option disabled value="">
-        Select Product Color
-      </option>
-      {productColors.map((color, index) => (
-        <option key={index} value={color}>
-          {color}
-        </option>
-      ))}
-    </select>
-  </div>
-  <div className="search-field flex-grow bg-blue-100 rounded-md">
-    <label className="block mb-2">Price range</label>
-    <select
-      className="border rounded px-3 py-2 w-full"
-      value={priceRange}
-      onChange={(e) => setPriceRange(e.target.value)}
-    >
-      <option disabled value="">
-        Select Product price range
-      </option>
-      {priceRanges.map(({ priceRange }, index) => (
-        <option key={index} value={priceRange}>
-          {priceRange}
-        </option>
-      ))}
-    </select>
-  </div>
-  <button
-    className="home-search-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-    onClick={handleInternalSearch}
-  >
-    Search Product
-  </button>
-
-</div>
-{error && <p className="error-message">{error}</p>}
-
-</section>
+      <div className="rounded-lg bg-blue-200 p-4">
+        <div className="search-container text-sm flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
+          <div className="search-field flex-grow bg-blue-100 rounded-md">
+            <label className="block mb-2">Category</label>
+            <select
+              className="border rounded px-3 py-2 w-full"
+              value={category}
+              onChange={(e) => setProductCategory(e.target.value)}
+            >
+              <option disabled value="">
+                Select Product Category
+              </option>
+              {categories.map((category, index) => (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="search-field flex-grow bg-blue-100 rounded-md">
+            <label className="block mb-2">Color</label>
+            <select
+              className="border rounded px-3 py-2 w-full"
+              value={productColor}
+              onChange={(e) => setProductColor(e.target.value)}
+            >
+              <option disabled value="">
+                Select Product Color
+              </option>
+              {productColors.map((color, index) => (
+                <option key={index} value={color}>
+                  {color}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="search-field text-sm flex-grow bg-blue-100 rounded-md">
+            <label className="block mb-2">Price range</label>
+            <select
+              className="border rounded px-3 py-2 w-full"
+              value={priceRange}
+              onChange={(e) => setPriceRange(e.target.value)}
+            >
+              <option disabled value="">
+                Select Product price range
+              </option>
+              {priceRanges.map(({ priceRange }, index) => (
+                <option key={index} value={priceRange}>
+                  {priceRange}
+                </option>
+              ))}
+            </select>
+          </div>
+          <button
+            className="home-search-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            onClick={handleInternalSearch}
+          >
+            Search Product
+          </button>
+        </div>
+        {error && <p className="error-message">{error}</p>}
+      </div>
+    </section>
   );
 };
 
