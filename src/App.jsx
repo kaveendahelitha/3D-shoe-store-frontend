@@ -21,6 +21,9 @@ import Register from './pages/Auth/Register';
 import ApiService from './components/service/ApiService';
 import Sitemanager from './pages/SitemanagerDashboard/Sitemanager';
 import CreateEmployeeComponent from './components/Employee/CreateEmployeeComponent';
+import ListEmployeeComponent from './components/Employee/ListEmployeeComponent';
+import UpdateEmployeeComponent from './components/Employee/UpdateEmployeeComponent';
+import ViewEmployeeComponent from './components/Employee/ViewEmployeeComponent';
 import Dashboard from './pages/Dashboard';
 import Layout from './pages/Layout';
 
@@ -56,7 +59,28 @@ function App() {
           />
 
 
-   
+<Route
+          path="/update-employee/:id"
+            element={
+              <Layout>
+                <UpdateEmployeeComponent />
+              </Layout>
+            }
+          />
+
+<Route
+          path="/view-employee/:id"
+            element={
+              <Layout>
+                <ViewEmployeeComponent />
+              </Layout>
+            }
+          />
+
+
+
+
+
 
 
 
