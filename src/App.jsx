@@ -21,6 +21,11 @@ import Register from './pages/Auth/Register';
 import ApiService from './components/service/ApiService';
 import Sitemanager from './pages/SitemanagerDashboard/Sitemanager';
 import Dashboard from './pages/Dashboard';
+import Layout from './pages/Layout';
+
+
+import './App.css';
+
 function App() {
   
 
@@ -30,11 +35,18 @@ function App() {
     <BrowserRouter>
       <Nav />
     <Routes>
+        
+    <Route
+            path="/dashboard"
+            element={
+              <Layout>
+                <Dashboard />
+              </Layout>
+            }
+          />
+
+
         <Route path='/DisableForm' element={<DisableForm/>}/>
-        <Route path="/dashboard" element={<Dashboard />} /> 
-
-
-
         <Route path="/" element={<Home/>} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path='/category' element={<Category />} />
