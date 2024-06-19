@@ -19,7 +19,8 @@ import Customer from './pages/CustomerDashboard/Customer';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 import ApiService from './components/service/ApiService';
-import Sitemanager from './pages/SitemanagerDashboard/Sitemanager'
+import Sitemanager from './pages/SitemanagerDashboard/Sitemanager';
+import Dashboard from './pages/Dashboard';
 function App() {
   
 
@@ -30,6 +31,9 @@ function App() {
       <Nav />
     <Routes>
         <Route path='/DisableForm' element={<DisableForm/>}/>
+        <Route path="/dashboard" element={<Dashboard />} /> 
+
+
 
         <Route path="/" element={<Home/>} />
         <Route path="/profile" element={<ProfilePage />} />
