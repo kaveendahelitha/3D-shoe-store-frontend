@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import EmployeeService from '../../services/EmployeeService';
-
+import '../../styles/CreateEmployeeComponent.css';
 
 
 const CreateEmployeeComponent = () => {
