@@ -59,7 +59,7 @@ function App() {
           />
 
 
-<Route
+    <Route
           path="/update-employee/:id"
             element={
               <Layout>
@@ -68,7 +68,7 @@ function App() {
             }
           />
 
-<Route
+     <Route
           path="/view-employee/:id"
             element={
               <Layout>
@@ -78,10 +78,24 @@ function App() {
           />
 
 
+      <Route
+          path="/employees"
+            element={
+              <Layout>
+                <ListEmployeeComponent />
+              </Layout>
+            }
+          />
 
 
-
-
+      <Route
+          path="/"
+            element={
+              <Layout>
+                <ListEmployeeComponent />
+              </Layout>
+            }
+          />
 
 
 
