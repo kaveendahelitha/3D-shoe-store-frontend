@@ -20,6 +20,7 @@ import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 import ApiService from './components/service/ApiService';
 import Sitemanager from './pages/SitemanagerDashboard/Sitemanager';
+import CreateEmployeeComponent from './components/Employee/CreateEmployeeComponent';
 import Dashboard from './pages/Dashboard';
 import Layout from './pages/Layout';
 
@@ -44,6 +45,16 @@ function App() {
               </Layout>
             }
           />
+
+    <Route
+          path="/add-employee/:id"
+            element={
+              <Layout>
+                <CreateEmployeeComponent />
+              </Layout>
+            }
+          />
+
 
 
         <Route path='/DisableForm' element={<DisableForm/>}/>
