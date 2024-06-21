@@ -127,17 +127,17 @@ const Category = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="flex min-h-screen mt-16">
-      <aside className="w-1/4 bg-blue-200 p-4">
+    <div className="flex text-sm min-h-screen mt-16">
+      <aside className="w-1/4 bg-blue-800 p-4 text-gray-200">
         <div className="top-0">
           <h2 className="text-lg font-semibold mb-4">Filter by Product Category:</h2>
           <div className="mb-4">
-            <label htmlFor="categorySelect" className="block mb-2">Category:</label>
+            <label htmlFor="categorySelect" className="block mb-2 ">Category:</label>
             <select
               id="categorySelect"
               value={selectedCategory}
               onChange={handleCategoryChange}
-              className="border rounded px-3 py-2 w-full"
+              className="border rounded px-3 py-2 w-full text-black"
             >
               <option value="">All</option>
               {categories.map((category, index) => (
