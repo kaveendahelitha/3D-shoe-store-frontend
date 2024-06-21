@@ -19,7 +19,17 @@ import Customer from './pages/CustomerDashboard/Customer';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 import ApiService from './components/service/ApiService';
-import Sitemanager from './pages/SitemanagerDashboard/Sitemanager'
+import Sitemanager from './pages/SitemanagerDashboard/Sitemanager';
+import CreateEmployeeComponent from './components/Employee/CreateEmployeeComponent';
+import ListEmployeeComponent from './components/Employee/ListEmployeeComponent';
+import UpdateEmployeeComponent from './components/Employee/UpdateEmployeeComponent';
+import ViewEmployeeComponent from './components/Employee/ViewEmployeeComponent';
+import Dashboard from './pages/Dashboard';
+import Layout from './pages/Layout';
+
+
+import './App.css';
+
 function App() {
   
 
@@ -29,8 +39,67 @@ function App() {
     <BrowserRouter>
       <Nav />
     <Routes>
-        <Route path='/DisableForm' element={<DisableForm/>}/>
+        
+    <Route
+            path="/dashboard"
+            element={
+              <Layout>
+                <Dashboard />
+              </Layout>
+            }
+          />
 
+    <Route
+          path="/add-employee/:id"
+            element={
+              <Layout>
+                <CreateEmployeeComponent />
+              </Layout>
+            }
+          />
+
+
+    <Route
+          path="/update-employee/:id"
+            element={
+              <Layout>
+                <UpdateEmployeeComponent />
+              </Layout>
+            }
+          />
+
+     <Route
+          path="/view-employee/:id"
+            element={
+              <Layout>
+                <ViewEmployeeComponent />
+              </Layout>
+            }
+          />
+
+
+      <Route
+          path="/employees"
+            element={
+              <Layout>
+                <ListEmployeeComponent />
+              </Layout>
+            }
+          />
+
+
+      <Route
+          path="/"
+            element={
+              <Layout>
+                <ListEmployeeComponent />
+              </Layout>
+            }
+          />
+
+
+
+        <Route path='/DisableForm' element={<DisableForm/>}/>
         <Route path="/" element={<Home/>} />
         <Route path="/profile" element={<ProfilePage />} />
         <Route path='/category' element={<Category />} />
