@@ -6,7 +6,7 @@ import ApiService from '../service/ApiService';
 
 const navigation = [
   { name: 'Home', href: '/', current: false },
-  { name: 'Products', href: '/products', current: false },
+  { name: 'Category', href: '/category', current: false },
   { name: 'Find my product', href: '/find-product', current: false },
   { name: 'Employee', href: '/employee', current: false },
   { name: 'Sitemanager', href: '/sitemanager', current: false },
