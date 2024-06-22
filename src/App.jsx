@@ -40,7 +40,34 @@ function App() {
       <Nav />
     <Routes>
         
-    <Route
+    
+
+
+   
+
+
+
+        <Route path='/DisableForm' element={<DisableForm/>}/>
+        <Route path="/" element={<Home/>} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path='/category' element={<Category />} />
+      
+        
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
+
+        {ApiService.adminOnly() && (
+              <>
+              
+                <Route
+          path="/admin"
+            element={
+              <Layout>
+                <ListEmployeeComponent />
+              </Layout>
+            }
+          />
+          <Route
             path="/dashboard"
             element={
               <Layout>
@@ -86,31 +113,6 @@ function App() {
               </Layout>
             }
           />
-
-
-      <Route
-          path="/"
-            element={
-              <Layout>
-                <ListEmployeeComponent />
-              </Layout>
-            }
-          />
-
-
-
-        <Route path='/DisableForm' element={<DisableForm/>}/>
-        <Route path="/" element={<Home/>} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path='/category' element={<Category />} />
-      
-        
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-
-        {ApiService.adminOnly() && (
-              <>
-                <Route path="/admin" element={<Admindshboard />} />
                 {/*<Route path="/update-user/:userId" element={<UpdateUser />} />
                 <Route path="/admin/user-management" element={<UserManagement />}/>*/}
 
