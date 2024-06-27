@@ -24,6 +24,7 @@ import CreateEmployeeComponent from './components/Employee/CreateEmployeeCompone
 import ListEmployeeComponent from './components/Employee/ListEmployeeComponent';
 import UpdateEmployeeComponent from './components/Employee/UpdateEmployeeComponent';
 import ViewEmployeeComponent from './components/Employee/ViewEmployeeComponent';
+import ImageUploader from './components/image/ImageUploader';
 import Dashboard from './pages/Dashboard';
 import Layout from './pages/Layout';
 
@@ -105,6 +106,10 @@ function App() {
           />
 
 
+
+
+
+
       <Route
           path="/employees"
             element={
@@ -147,6 +152,7 @@ function App() {
             )}  
        
         <Route path="*" element={<PageNotFound/>} /> 
+        <Route path="/image"   element={<ImageUploader />} />
       </Routes>
     </BrowserRouter>
      
