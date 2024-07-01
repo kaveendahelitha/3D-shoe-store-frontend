@@ -11,7 +11,7 @@ function Dashboard() {
             .then(response => response.json())
             .then(data => setDashboardData(data));
 
-        fetch('http://localhost:8080/api/v1/chartData')
+            fetch('http://localhost:8080/api/v1/sales/chartData')
             .then(response => response.json())
             .then(data => setChartData(data));
     }, []);
