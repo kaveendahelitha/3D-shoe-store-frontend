@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import SaleService from '../services/SaleService';
+import SaleService from '../../services/SaleService';
 
 const ListSaleComponent = () => {
     const [sales, setSales] = useState([]);

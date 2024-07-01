@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import SaleService from '../services/SaleService';
+import SaleService from '../../services/SaleService';
 
 
 const CreateSaleComponent = () => {
