@@ -24,6 +24,14 @@ import CreateEmployeeComponent from './components/Employee/CreateEmployeeCompone
 import ListEmployeeComponent from './components/Employee/ListEmployeeComponent';
 import UpdateEmployeeComponent from './components/Employee/UpdateEmployeeComponent';
 import ViewEmployeeComponent from './components/Employee/ViewEmployeeComponent';
+
+import ListSaleComponent from './components/Sales/ListSaleComponent';
+import CreateSaleComponent from './components/Sales/CreateSaleComponent';
+import UpdateSaleComponent from './components/Sales/UpdateSaleComponent';
+
+
+
+import ImageUploader from './components/image/ImageUploader';
 import Dashboard from './pages/Dashboard';
 import Layout from './pages/Layout';
 
@@ -104,6 +112,40 @@ function App() {
             }
           />
 
+<Route
+          path="/sales"
+            element={
+              <Layout>
+                <ListSaleComponent />
+              </Layout>
+            }
+          />
+
+
+<Route
+          path="/add-sale/:id"
+            element={
+              <Layout>
+                <CreateSaleComponent />
+              </Layout>
+            }
+          />
+
+
+<Route
+          path="/update-sale/:id"
+            element={
+              <Layout>
+                <UpdateSaleComponent />
+              </Layout>
+            }
+          />
+
+
+
+
+
+
 
       <Route
           path="/employees"
@@ -147,6 +189,7 @@ function App() {
             )}  
        
         <Route path="*" element={<PageNotFound/>} /> 
+        <Route path="/image"   element={<ImageUploader />} />
       </Routes>
     </BrowserRouter>
      
