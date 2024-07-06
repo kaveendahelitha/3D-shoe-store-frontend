@@ -21,7 +21,7 @@
     "@react-three/gltfjsx": "^4.3.4",
     "@types/three": "^0.165.0",
     
-    "three": "^0.165.0"
+    "three": "^0.165.0",
 
     "@mui/material": "^5.15.20",
     "axios": "^1.7.2",

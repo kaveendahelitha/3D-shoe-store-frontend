@@ -8,7 +8,7 @@ const navigation = [
   { name: 'Home', href: '/', current: false },
 
   { name: 'Customize', href: '/customize', current: false },
-  { name: 'Aboutus', href: '#', current: false }
+  { name: 'Aboutus', href: '#', current: false },
 
   { name: 'Category', href: '/category', current: false },
   { name: 'Find my product', href: '/find-product', current: false },
