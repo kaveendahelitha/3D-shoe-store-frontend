@@ -7,13 +7,13 @@ import Footer from '../../components/Footer/footer';
 
 const Home = () => {
   return (
-    <div className="mt-9">
+    <>
       <Header />
       <HomePageFeatures />
       <Carousel />
       <ProductSection />
       <Footer />
-    </div>
+    </>
   );
 };
 
