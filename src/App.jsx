@@ -14,7 +14,9 @@ import UpdateUser from './pages/AdminDashboard/component/updateUser';
 import UserManagement from './pages/AdminDashboard/component/UserManagementPage';
 import Loader from './components/Loader';
 import Customize from './pages/3D pages/Customize';
-import Modelpage from './pages/3D pages/Modelpage';
+import Modelpage1 from './pages/3D pages/Modelpage1';
+import Modelpage2 from './pages/3D pages/Modelpage2';
+import Modelpage3 from './pages/3D pages/Modelpage3';
 
 function App() {
 
@@ -40,7 +42,9 @@ function App() {
               <Route path="/signin" element={<SignIn />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/customize" element={<Customize />} />
-              <Route path="/modelpage" element={<Modelpage />} />
+              <Route path="/modelpage-1" element={<Modelpage1 />} />
+              <Route path="/modelpage-2" element={<Modelpage2 />} />
+              <Route path="/modelpage-3" element={<Modelpage3 />} />
 
 
               {UserService.adminOnly() && ( // Assuming this returns a boolean value for admin access

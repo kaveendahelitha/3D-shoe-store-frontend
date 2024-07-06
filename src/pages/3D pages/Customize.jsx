@@ -31,7 +31,7 @@ const Customize = () => {
       <div className="track mt-4">
         <ul className="list flex space-x-4 overflow-x-auto">
           <li className="slide flex-shrink-0">
-            <a href="/modelpage" className="block text-center">
+            <a href="/modelpage-1" className="block text-center">
               <img
                 data-src="https://d2t2u1vclegqzc.cloudfront.net/home/model-chelsea.jpg"
                 loading="lazy"
@@ -43,7 +43,7 @@ const Customize = () => {
             </a>
           </li>
           <li className="slide flex-shrink-0">
-            <a href="/en/custom-high-tops/personalize" className="block text-center">
+            <a href="/modelpage-2" className="block text-center">
               <img
                 data-src="https://d2t2u1vclegqzc.cloudfront.net/home/model-boot.jpg"
                 loading="lazy"
@@ -55,7 +55,7 @@ const Customize = () => {
             </a>
           </li>
           <li className="slide flex-shrink-0">
-            <a href="/en/custom-jada-high-tops/personalize" className="block text-center">
+            <a href="/modelpage-3" className="block text-center">
               <img
                 data-src="https://d2t2u1vclegqzc.cloudfront.net/home/model-jada.jpg"
                 loading="lazy"
