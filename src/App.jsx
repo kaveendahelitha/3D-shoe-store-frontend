@@ -1,9 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Nav from './components/nav/nav';
 import Home from './pages/Home/home';
 import PageNotFound from './pages/404 Error/pageNotFound';
-
 
 //import RegistrationPage from './pages/AdminDashboard/RegistrationPage';
 import ProfilePage from './pages/Customerpage/profile';
@@ -11,7 +10,14 @@ import ProfilePage from './pages/Customerpage/profile';
 //import UserService from './components/Services/UserService';
 import Admindshboard from './pages/AdminDashboard/Admindshboard';
 import UpdateUser from './pages/AdminDashboard/component/updateUser';
-import UserManagement from './pages/AdminDashboard/component/UserManagementPage'
+
+import UserManagement from './pages/AdminDashboard/component/UserManagementPage';
+import Loader from './components/Loader';
+import Customize from './pages/3D pages/Customize';
+import Modelpage1 from './pages/3D pages/Modelpage1';
+import Modelpage2 from './pages/3D pages/Modelpage2';
+import Modelpage3 from './pages/3D pages/Modelpage3';
+
 import DisableForm from './pages/users/DisableForm';
 import Category from './pages/Category';
 import Employee from './pages/EmployeeDashboard/Employee';
@@ -29,175 +35,143 @@ import ListSaleComponent from './components/Sales/ListSaleComponent';
 import CreateSaleComponent from './components/Sales/CreateSaleComponent';
 import UpdateSaleComponent from './components/Sales/UpdateSaleComponent';
 
-
-
 import ImageUploader from './components/image/ImageUploader';
 import Dashboard from './pages/Dashboard';
 import Layout from './pages/Layout';
 
-
 import './App.css';
 
 function App() {
-  
+  const [isLoading, setIsLoading] = React.useState(true); // Initial loading state
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false); // Simulate loading completion after some time (replace with your actual loading logic)
+    }, 800); // Adjust timeout as needed
+  }, []);
 
   return (
     <>
-   
-    <BrowserRouter>
-      <Nav />
-    <Routes>
-        
-    
+      <BrowserRouter>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <>
+            <Nav />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/customize" element={<Customize />} />
+              <Route path="/modelpage-1" element={<Modelpage1 />} />
+              <Route path="/modelpage-2" element={<Modelpage2 />} />
+              <Route path="/modelpage-3" element={<Modelpage3 />} />
+              <Route path="/DisableForm" element={<DisableForm />} />
+              <Route path="/category" element={<Category />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
 
+              {ApiService.adminOnly() && (
+                <>
+                  <Route
+                    path="/admin"
+                    element={
+                      <Layout>
+                        <ListEmployeeComponent />
+                      </Layout>
+                    }
+                  />
+                  <Route
+                    path="/dashboard"
+                    element={
+                      <Layout>
+                        <Dashboard />
+                      </Layout>
+                    }
+                  />
+                  <Route
+                    path="/add-employee/:id"
+                    element={
+                      <Layout>
+                        <CreateEmployeeComponent />
+                      </Layout>
+                    }
+                  />
+                  <Route
+                    path="/update-employee/:id"
+                    element={
+                      <Layout>
+                        <UpdateEmployeeComponent />
+                      </Layout>
+                    }
+                  />
+                  <Route
+                    path="/view-employee/:id"
+                    element={
+                      <Layout>
+                        <ViewEmployeeComponent />
+                      </Layout>
+                    }
+                  />
+                  <Route
+                    path="/sales"
+                    element={
+                      <Layout>
+                        <ListSaleComponent />
+                      </Layout>
+                    }
+                  />
+                  <Route
+                    path="/add-sale/:id"
+                    element={
+                      <Layout>
+                        <CreateSaleComponent />
+                      </Layout>
+                    }
+                  />
+                  <Route
+                    path="/update-sale/:id"
+                    element={
+                      <Layout>
+                        <UpdateSaleComponent />
+                      </Layout>
+                    }
+                  />
+                  <Route
+                    path="/employees"
+                    element={
+                      <Layout>
+                        <ListEmployeeComponent />
+                      </Layout>
+                    }
+                  />
+                </>
+              )}
 
-   
+              {ApiService.userOnly() && (
+                <>
+                  <Route path="/customer" element={<Customer />} />
+                </>
+              )}
 
+              {ApiService.employeeOnly() && (
+                <>
+                  <Route path="/employee" element={<Employee />} />
+                </>
+              )}
 
-
-        <Route path='/DisableForm' element={<DisableForm/>}/>
-        <Route path="/" element={<Home/>} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path='/category' element={<Category />} />
-      
-        
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-
-        {ApiService.adminOnly() && (
-              <>
-              
-                <Route
-          path="/admin"
-            element={
-              <Layout>
-                <ListEmployeeComponent />
-              </Layout>
-            }
-          />
-          <Route
-            path="/dashboard"
-            element={
-              <Layout>
-                <Dashboard />
-              </Layout>
-            }
-          />
-
-    <Route
-          path="/add-employee/:id"
-            element={
-              <Layout>
-                <CreateEmployeeComponent />
-              </Layout>
-            }
-          />
-
-
-    <Route
-          path="/update-employee/:id"
-            element={
-              <Layout>
-                <UpdateEmployeeComponent />
-              </Layout>
-            }
-          />
-
-     <Route
-          path="/view-employee/:id"
-            element={
-              <Layout>
-                <ViewEmployeeComponent />
-              </Layout>
-            }
-          />
-
-<Route
-          path="/sales"
-            element={
-              <Layout>
-                <ListSaleComponent />
-              </Layout>
-            }
-          />
-
-
-<Route
-          path="/add-sale/:id"
-            element={
-              <Layout>
-                <CreateSaleComponent />
-              </Layout>
-            }
-          />
-
-
-<Route
-          path="/update-sale/:id"
-            element={
-              <Layout>
-                <UpdateSaleComponent />
-              </Layout>
-            }
-          />
-
-
-
-
-
-
-
-      <Route
-          path="/employees"
-            element={
-              <Layout>
-                <ListEmployeeComponent />
-              </Layout>
-            }
-          />
-                {/*<Route path="/update-user/:userId" element={<UpdateUser />} />
-                <Route path="/admin/user-management" element={<UserManagement />}/>*/}
-
-              </>
-            )}
-
-        {ApiService.userOnly() && (
-              <>
-               <Route path='/customer' element={<Customer />} />
-                {/*<Route path="/update-user/:userId" element={<UpdateUser />} />
-                <Route path="/admin/user-management" element={<UserManagement />}/>*/}
-                
-              </>
-            )}
-
-        {ApiService.employeeOnly() && (
-              <>
-                  <Route path='/employee' element={<Employee />} />
-                {/*<Route path="/update-user/:userId" element={<UpdateUser />} />
-                <Route path="/admin/user-management" element={<UserManagement />}/>*/}
-                
-              </>
-            )}
-
-        {ApiService.sitemanager() && (
-              <>
-                <Route path="/site-manager" element={<Sitemanager/>} />
-                {/*<Route path="/update-user/:userId" element={<UpdateUser />} />
-                <Route path="/admin/user-management" element={<UserManagement />}/>*/}
-                
-              </>
-            )}  
-       
-        <Route path="*" element={<PageNotFound/>} /> 
-        <Route path="/image"   element={<ImageUploader />} />
-      </Routes>
-    </BrowserRouter>
-     
-      
-      
-       
+              {ApiService.sitemanager() && (
+                <>
+                  <Route path="/site-manager" element={<Sitemanager />} />
+                </>
+              )}
+              <Route path="*" element={<PageNotFound />} />
+              <Route path="/image" element={<ImageUploader />} />
+            </Routes>
+          </>
+        )}
+      </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
