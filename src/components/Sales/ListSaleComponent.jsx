@@ -12,9 +12,11 @@ const ListSaleComponent = () => {
     }, []);
 
     const deleteSale = (id) => {
-        SaleService.deleteSale(id).then((res) => {
-            setSales(sales.filter(sale => sale.id !== id));
-        });
+        if (window.confirm("Are you sure you want to delete this sale?")) {
+            SaleService.deleteSale(id).then((res) => {
+                setSales(sales.filter(sale => sale.id !== id));
+            });
+        }
     };
 
     return (
