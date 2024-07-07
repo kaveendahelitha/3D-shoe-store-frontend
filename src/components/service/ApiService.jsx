@@ -41,7 +41,7 @@ export default class ApiService {
     }
 
      /* This  gets all products from the database */
-     static async getAllProducts() {
+    static async getAllProducts() {
         const result = await axios.get(`${this.BASE_URL}/products/all`)
         return result.data
     }
@@ -74,6 +74,13 @@ export default class ApiService {
             console.error('Error fetching product prices:', error.message);
             throw error;
         }
+    }
+
+    static async addProduct(productData) {
+        const response = await axios.post(`${this.BASE_URL}/products/add`, productData, {
+            headers: this.getHeader()
+        });
+        return response.data;
     }
 
     static logout() {

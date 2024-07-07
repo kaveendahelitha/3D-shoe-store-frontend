@@ -1,15 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BsCart3, BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsListCheck, BsMenuButtonWideFill, BsFillGearFill } from 'react-icons/bs';
+import { BsCart3, BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsMenuButtonWideFill, BsFillGearFill } from 'react-icons/bs';
 
-function Sidebar({ openSidebarToggle, OpenSidebar }) {
+function Sidebar({ openSidebarToggle, handleSidebarToggle }) {
   return (
     <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive" : ""}>
       <div className='sidebar-title'>
         <div className='sidebar-brand'>
           <BsCart3 className='icon_header' /> SHOP
         </div>
-        <span className='icon close_icon' onClick={OpenSidebar}>X</span>
+        <span className='icon close_icon' onClick={handleSidebarToggle}>X</span>
       </div>
 
       <ul className='sidebar-list'>
@@ -28,15 +28,16 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
             <BsFillGrid3X3GapFill className='icon' /> Add Employee
           </Link>
         </li>
+
         <li className='sidebar-list-item'>
-          <Link to="/update-employee/1">
-            <BsPeopleFill className='icon' /> Update Employee
+          <Link to="/admin-product">
+            <BsPeopleFill className='icon' /> Product
           </Link>
         </li>
 
         <li className='sidebar-list-item'>
           <Link to="/sales">
-          <BsFillGrid3X3GapFill className='icon' /> Sales
+            <BsFillGrid3X3GapFill className='icon' /> Sales
           </Link>
         </li>
         

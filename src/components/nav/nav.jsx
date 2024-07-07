@@ -62,7 +62,7 @@ export default function Nav() {
                   <a href='/'>
                   <img
                     className="h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+                    src="logo1.png"
                     alt="Your Company"
                   /></a>
                 </div>

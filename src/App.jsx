@@ -8,10 +8,10 @@ import PageNotFound from './pages/404 Error/pageNotFound';
 import ProfilePage from './pages/Customerpage/profile';
 //import UserManagementPage from './pages/AdminDashboard/UserManagementPage';
 //import UserService from './components/Services/UserService';
-import Admindshboard from './pages/AdminDashboard/Admindshboard';
-import UpdateUser from './pages/AdminDashboard/component/updateUser';
+//import Admindshboard from './pages/AdminDashboard/Admindshboard';
+//import UpdateUser from './pages/AdminDashboard/component/updateUser';
 
-import UserManagement from './pages/AdminDashboard/component/UserManagementPage';
+//import UserManagement from './pages/AdminDashboard/component/UserManagementPage';
 import Loader from './components/Loader';
 import Customize from './pages/3D pages/Customize';
 import Modelpage1 from './pages/3D pages/Modelpage1';
@@ -38,6 +38,7 @@ import UpdateSaleComponent from './components/Sales/UpdateSaleComponent';
 import ImageUploader from './components/image/ImageUploader';
 import Dashboard from './pages/Dashboard';
 import Layout from './pages/Layout';
+import AdminViewProduts from './components/Products-Admin/AdminViewProduts';
 
 import './App.css';
 
@@ -142,8 +143,21 @@ function App() {
                       <Layout>
                         <ListEmployeeComponent />
                       </Layout>
-                    }
-                  />
+                    }                 
+                   />
+
+                  <Route
+                    path="/admin-product"
+                    element={
+                      <Layout>
+                        <AdminViewProduts />
+                      </Layout>
+                    }                 
+                   />
+
+                 
+
+                
                 </>
               )}
 

@@ -74,7 +74,7 @@ const CreateEmployeeComponent = () => {
                         <div className="card-body">
                             <form>
                                 <div className="form-group">
-                                    <label> First Name: </label>
+                                    <label> First Name </label>
                                     <input
                                         placeholder="First Name"
                                         name="firstName"
@@ -84,7 +84,7 @@ const CreateEmployeeComponent = () => {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label> Last Name: </label>
+                                    <label> Last Name </label>
                                     <input
                                         placeholder="Last Name"
                                         name="lastName"
@@ -94,7 +94,7 @@ const CreateEmployeeComponent = () => {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label> Email Id: </label>
+                                    <label> Email Id </label>
                                     <input
                                         placeholder="Email Address"
                                         name="emailId"
