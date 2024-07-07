@@ -1,55 +1,35 @@
-.container {
-    margin: 0 auto;
-  }
-  
-  .card {
-    padding: 1rem;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.375rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    background-color: white;
-    color: black;
-  }
-  
-  .text-center {
-    text-align: center;
-  }
-  
-  .text-blue-600 {
-    color: #2563eb;
-  }
-  
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-  
-  .form-group input {
-    width: 100%;
-    padding: 0.5rem;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.375rem;
-  }
-  
-  .btn {
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
-    text-align: center;
-  }
-  
-  .btn-success {
-    background-color: #3b82f6;
-    color: white;
-  }
-  
-  .btn-danger {
-    background-color: #ef4444;
-    color: white;
-    margin-left: 0.5rem;
-  }
-  
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  border-collapse: collapse;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #e9ecef;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #e9ecef;
+  background-color: #f8f9fa;
+}
+
+.table tbody + tbody {
+  border-top: 2px solid #e9ecef;
+}
+
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.075);
+}
