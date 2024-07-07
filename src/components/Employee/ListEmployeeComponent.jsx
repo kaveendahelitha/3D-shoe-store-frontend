@@ -22,11 +22,13 @@ const ListEmployeeComponent = () => {
     };
 
     const deleteEmployee = (employeeId) => {
-        EmployeeService.deleteEmployee(employeeId).then((response) => {
-            fetchEmployees();
-        }).catch((error) => {
-            console.log(error);
-        });
+        if (window.confirm("Are you sure you want to delete this employee?")) {
+            EmployeeService.deleteEmployee(employeeId).then((response) => {
+                fetchEmployees();
+            }).catch((error) => {
+                console.log(error);
+            });
+        }
     };
 
     return (
