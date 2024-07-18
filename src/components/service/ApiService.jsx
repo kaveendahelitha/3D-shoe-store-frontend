@@ -83,6 +83,23 @@ export default class ApiService {
         return response.data;
     }
 
+    static async updateProduct(id, productData) {
+        const response = await axios.put(`${this.BASE_URL}/products/product-update/${id}`, productData, {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
+
+    static async deleteProduct(id) {
+        const response = await axios.delete(`${this.BASE_URL}/products/product-delete/${id}`, {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
+
+    
+
+
     static logout() {
         localStorage.removeItem('token');
         localStorage.removeItem('role');

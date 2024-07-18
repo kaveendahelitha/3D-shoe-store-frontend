@@ -9,11 +9,9 @@ const Customize = () => {
         <h1 className="text-thin text-4xl font-light">
           <strong>See</strong>
           &nbsp;everything with&nbsp;
-          <strong>Clarity</strong>
+          <strong>3D</strong>
         </h1>
-        <p className="text-gray-700 text-lg">
-          Buying eyewear should leave you happy and good-looking, with money in your pocket. Glasses, sunglasses, and contacts—we’ve got your eyes covered.
-        </p>
+        
         
       </div>
       <div className="banner-img md:w-1/2">
@@ -39,7 +37,7 @@ const Customize = () => {
                 className="lazyload w-full h-48 object-cover rounded-md"
                 src="https://d2t2u1vclegqzc.cloudfront.net/home/model-chelsea.jpg"
               />
-              <p className="name mt-2 text-sm font-medium">Chelseas</p>
+              <p className="name mt-2 text-sm font-medium">model 1</p>
             </a>
           </li>
           <li className="slide flex-shrink-0">
@@ -51,7 +49,7 @@ const Customize = () => {
                 className="lazyload w-full h-48 object-cover rounded-md"
                 src="https://d2t2u1vclegqzc.cloudfront.net/home/model-boot.jpg"
               />
-              <p className="name mt-2 text-sm font-medium">High tops</p>
+              <p className="name mt-2 text-sm font-medium">model 2</p>
             </a>
           </li>
           <li className="slide flex-shrink-0">
@@ -63,7 +61,7 @@ const Customize = () => {
                 className="lazyload w-full h-48 object-cover rounded-md"
                 src="https://d2t2u1vclegqzc.cloudfront.net/home/model-jada.jpg"
               />
-              <p className="name mt-2 text-sm font-medium">Jada</p>
+              <p className="name mt-2 text-sm font-medium">model 3</p>
             </a>
           </li>
         </ul>
