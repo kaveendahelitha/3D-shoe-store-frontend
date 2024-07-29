@@ -20,10 +20,10 @@ const Home = () => {
 
       <div className="fixed bottom-4 right-4">
       <button
-        className="p-3 bg-blue-500 rounded-full text-white shadow-lg hover:bg-blue-600 focus:outline-none"
+        className="p-3 bg-green-500 rounded-full text-white shadow-lg hover:bg-green-800 focus:outline-none"
         onClick={handleClick}
       >
-        <FaComments size={24} />
+        <FaComments size={40} />
       </button>
     </div>
     </>
