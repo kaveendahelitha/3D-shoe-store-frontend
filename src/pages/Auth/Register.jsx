@@ -158,6 +158,7 @@ export default function Register() {
                                     id="password"
                                     placeholder="Password"
                                     name="password"
+                                    minLength="8"
                                 />
                                 {/* password icon */}
                             </div>
