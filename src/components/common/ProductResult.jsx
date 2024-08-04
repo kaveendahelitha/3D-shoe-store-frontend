@@ -21,16 +21,16 @@ const ProductResult = ({ productSearchResults }) => {
                 <h3 className="text-sm text-gray-700">
                   {product.productName}
                 </h3>
-                <p className="mt-1 text-sm text-gray-500">{product.productColor}</p>
+               {/*} <p className="mt-1 text-sm text-gray-500">{product.productColor}</p>*/}
                 <p className="mt-1 text-sm text-gray-500">{product.productDescription}</p>
               
               
-                <p className="text-sm font-medium text-gray-900">{product.productPrice}</p>
+                <p className="text-sm font-medium text-gray-900">Rs.{product.productPrice}/=</p>
                 <button
                   className="ml-2 px-4 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                   onClick={() => navigate(`/order/${product.id}`)}
                 >
-                  Order Now
+                  Add to Cart
                 </button>
               </div>
             </div>

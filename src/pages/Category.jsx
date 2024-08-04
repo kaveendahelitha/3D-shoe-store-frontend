@@ -111,7 +111,7 @@ const Category = () => {
     if (selectedPriceRange) {
       filtered = filtered.filter(product => {
         const priceRange = computePriceRange(product.productPrice);
-        console.log('Product Price Range:', priceRange); // Debug: log each computed price range
+        console.log('Product Price Range(Rs.):', priceRange); // Debug: log each computed price range
         return priceRange === selectedPriceRange;
       });
     }
@@ -132,7 +132,7 @@ const Category = () => {
         <div className="top-0">
           <h2 className="text-lg font-semibold mb-4">Filter by Product Category:</h2>
           <div className="mb-4">
-            <label htmlFor="categorySelect" className="block mb-2 ">Category:</label>
+            <label htmlFor="categorySelect" className="block mb-2 "></label>
             <select
               id="categorySelect"
               value={selectedCategory}
@@ -150,7 +150,7 @@ const Category = () => {
         </div>
 
         <div className="top-0">
-          <h2 className="text-lg font-semibold mb-4">Filter by Product Color:</h2>
+          <h2 className="text-lg font-semibold mb-4">Color:</h2>
           <div className="mb-4">
             <div className="flex items-center mb-2">
               <input
@@ -182,7 +182,7 @@ const Category = () => {
         </div>
 
         <div className="top-0">
-          <h2 className="text-lg font-semibold mb-4">Filter by Product Price Range:</h2>
+          <h2 className="text-lg font-semibold mb-4">Filter by Product Price Range(Rs.):</h2>
           <div className="mb-4">
             <div className="flex items-center mb-2">
               <input
