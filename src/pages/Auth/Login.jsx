@@ -32,7 +32,7 @@ export default function Login() {
         if (response.role === 'ADMIN') {
           redirectTo = '/admin';
         } else if (response.role === 'USER') {
-          redirectTo = '/customer';
+          redirectTo = '/';
         } else if (response.role === 'EMPLOYEE') {
           redirectTo = '/employee';
         } else if (response.role === 'SITE_MANAGER') {

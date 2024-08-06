@@ -26,7 +26,6 @@ const Category = () => {
       try {
         const response = await ApiService.getAllProducts();
         const allProducts = response.productList;
-        console.log('All Products:', allProducts); // Debug: log all products
         setProducts(allProducts);
         setFilteredProducts(allProducts);
       } catch (error) {
@@ -55,7 +54,6 @@ const Category = () => {
     const fetchProductPriceRanges = async () => {
       try {
         const priceLevels = await ApiService.getAllProductsPriceLevels();
-        console.log('Price Levels:', priceLevels); // Debug: log price levels
         setPriceRanges(priceLevels);
       } catch (error) {
         console.error('Error fetching products price levels:', error.message);
@@ -95,12 +93,6 @@ const Category = () => {
   };
 
   const filterProducts = () => {
-    console.log('Selected Filters:', {
-      selectedCategory,
-      selectedProductColor,
-      selectedPriceRange,
-    }); // Debug: log selected filters
-
     let filtered = products;
     if (selectedCategory) {
       filtered = filtered.filter(product => product.category === selectedCategory);
@@ -111,11 +103,9 @@ const Category = () => {
     if (selectedPriceRange) {
       filtered = filtered.filter(product => {
         const priceRange = computePriceRange(product.productPrice);
-        console.log('Product Price Range(Rs.):', priceRange); // Debug: log each computed price range
         return priceRange === selectedPriceRange;
       });
     }
-    console.log('Filtered Products:', filtered); // Debug: log filtered products
     setFilteredProducts(filtered);
     setCurrentPage(1);
   };
@@ -127,95 +117,88 @@ const Category = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="flex text-sm min-h-screen mt-16">
-      <aside className="w-1/4 bg-blue-800 p-4 text-gray-200">
-        <div className="top-0">
-          <h2 className="text-lg font-semibold mb-4">Filter by Product Category:</h2>
-          <div className="mb-4">
-            <label htmlFor="categorySelect" className="block mb-2 "></label>
-            <select
-              id="categorySelect"
-              value={selectedCategory}
-              onChange={handleCategoryChange}
-              className="border rounded px-3 py-2 w-full text-black"
-            >
-              <option value="">All</option>
-              {categories.map((category, index) => (
-                <option key={index} value={category}>
-                  {category}
-                </option>
-              ))}
-            </select>
-          </div>
+    <div className="flex min-h-screen bg-gray-200">
+      <aside className="w-1/4 bg-gray-800 p-6 text-gray-200 shadow-lg">
+        <h2 className="text-lg font-semibold mb-4 text-white">Filter by Product Category:</h2>
+        <div className="mb-6">
+          <select
+            id="categorySelect"
+            value={selectedCategory}
+            onChange={handleCategoryChange}
+            className="border rounded-lg px-3 py-2 w-full text-gray-800"
+          >
+            <option value="">All</option>
+            {categories.map((category, index) => (
+              <option key={index} value={category}>
+                {category}
+              </option>
+            ))}
+          </select>
         </div>
 
-        <div className="top-0">
-          <h2 className="text-lg font-semibold mb-4">Color:</h2>
-          <div className="mb-4">
-            <div className="flex items-center mb-2">
+        <h2 className="text-lg font-semibold mb-4 text-white">Color:</h2>
+        <div className="mb-6">
+          <div className="flex items-center mb-2">
+            <input
+              type="radio"
+              id="color-all"
+              name="productColor"
+              value=""
+              checked={selectedProductColor === ''}
+              onChange={handleColorChange}
+              className="mr-2"
+            />
+            <label htmlFor="color-all" className="text-white">All</label>
+          </div>
+          {productColors.map((color, index) => (
+            <div key={index} className="flex items-center mb-2">
               <input
                 type="radio"
-                id="color-all"
+                id={`color-${index}`}
                 name="productColor"
-                value=""
-                checked={selectedProductColor === ''}
+                value={color}
+                checked={selectedProductColor === color}
                 onChange={handleColorChange}
                 className="mr-2"
               />
-              <label htmlFor="color-all">All</label>
+              <label htmlFor={`color-${index}`} className="text-white">{color}</label>
             </div>
-            {productColors.map((color, index) => (
-              <div key={index} className="flex items-center mb-2">
-                <input
-                  type="radio"
-                  id={`color-${index}`}
-                  name="productColor"
-                  value={color}
-                  checked={selectedProductColor === color}
-                  onChange={handleColorChange}
-                  className="mr-2"
-                />
-                <label htmlFor={`color-${index}`}>{color}</label>
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
 
-        <div className="top-0">
-          <h2 className="text-lg font-semibold mb-4">Filter by Product Price Range(Rs.):</h2>
-          <div className="mb-4">
-            <div className="flex items-center mb-2">
+        <h2 className="text-lg font-semibold mb-4 text-white">Filter by Product Price Range (Rs.):</h2>
+        <div className="mb-6">
+          <div className="flex items-center mb-2">
+            <input
+              type="radio"
+              id="price-all"
+              name="priceRange"
+              value=""
+              checked={selectedPriceRange === ''}
+              onChange={handlePriceLevelChange}
+              className="mr-2"
+            />
+            <label htmlFor="price-all" className="text-white">All</label>
+          </div>
+          {priceRanges.map(({ priceRange }, index) => (
+            <div key={index} className="flex items-center mb-2">
               <input
                 type="radio"
-                id="price-all"
+                id={`price-${index}`}
                 name="priceRange"
-                value=""
-                checked={selectedPriceRange === ''}
+                value={priceRange}
+                checked={selectedPriceRange === priceRange}
                 onChange={handlePriceLevelChange}
                 className="mr-2"
               />
-              <label htmlFor="price-all">All</label>
+              <label htmlFor={`price-${index}`} className="text-white">{priceRange}</label>
             </div>
-            {priceRanges.map(({ priceRange }, index) => (
-              <div key={index} className="flex items-center mb-2">
-                <input
-                  type="radio"
-                  id={`price-${index}`}
-                  name="priceRange"
-                  value={priceRange}
-                  checked={selectedPriceRange === priceRange}
-                  onChange={handlePriceLevelChange}
-                  className="mr-2"
-                />
-                <label htmlFor={`price-${index}`}>{priceRange}</label>
-              </div>
-            ))}
-          </div>
+          ))}
         </div>
       </aside>
 
-      <main className="flex-1 pt-8 px-4 pb-2">
-        <h2 className="text-xl font-semibold mb-4">All Products</h2>
+      <main className="flex-1 p-8">
+        <h2 className="text-2xl font-semibold mb-4 text-gray-800">All Products</h2>
         <ProductSearch handleSearchResult={handleSearchResult} />
         <ProductResult productSearchResults={currentProducts} />
         <Pagination

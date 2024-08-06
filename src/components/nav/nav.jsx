@@ -14,7 +14,7 @@ const navigation = [
   { name: 'Find my product', href: '/find-product', current: false },
   { name: 'Employee', href: '/employee', current: false },
   { name: 'Sitemanager', href: '/sitemanager', current: false },
-  { name: 'Profile', href: '/customer', current: false },
+  { name: 'DisableForm', href: '/disableform', current: false },
   { name: 'Admin', href: '/admin', current: false },
 ];
 
@@ -72,7 +72,7 @@ export default function Nav() {
                       if (
                         (item.name === 'Employee' && !isEmployee) ||
                         (item.name === 'Sitemanager' && !isSitemanager) ||
-                        (item.name === 'Profile' && !isUser) ||
+                        (item.name === 'DisableForm' && !isUser) ||
                         (item.name === 'Admin' && !isAdmin) ||
                         (!isAuthenticated && (item.name === 'Login' || item.name === 'Register'))
                       ) {

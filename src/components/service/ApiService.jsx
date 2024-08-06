@@ -11,8 +11,17 @@ export default class ApiService {
         };
     }
 
-
-
+    static async updateUserProfile(userData) {
+        try {
+            const response = await axios.put(`${this.BASE_URL}/users/update`, userData, {
+                headers: this.getHeader()
+            });
+            return response.data;
+        } catch (error) {
+            console.error('Error updating user profile:', error.response ? error.response.data : error.message);
+            throw error;
+        }
+    }
  /**AUTH */
 
     /* This  register a new user */
@@ -27,6 +36,27 @@ export default class ApiService {
         return response.data
     }
 
+    /*  This is  to get the user profile */
+    static async getAllUsers() {
+        const response = await axios.get(`${this.BASE_URL}/users/all`, {
+            headers: this.getHeader()
+        })
+        return response.data
+    }
+
+    static async getUserProfile() {
+        const response = await axios.get(`${this.BASE_URL}/users/get-logged-in-profile-info`, {
+            headers: this.getHeader()
+        })
+        return response.data
+    }
+ /* This is to delete a user */
+ static async deleteUser(userId) {
+    const response = await axios.delete(`${this.BASE_URL}/users/delete/${userId}`, {
+        headers: this.getHeader()
+    })
+    return response.data
+}
 
       /* This  gets all products from CPC */
     static async getProductsByColorPriceAndCategory(category, productColor, priceRange) {

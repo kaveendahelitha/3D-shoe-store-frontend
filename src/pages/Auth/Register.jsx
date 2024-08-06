@@ -8,6 +8,7 @@ export default function Register() {
     const [formData, setFormData] = useState({
         userFirstname: '',
         userLastname: '',
+        phoneNumber:'',
         address: '',
         email: '',
         password: '',
@@ -25,8 +26,8 @@ export default function Register() {
 
 
     const validateForm = () => {
-        const { userFirstname,userLastname,address,email,password } = formData;
-        if (!userFirstname|| !userLastname|| !address || !email || !password ) {
+        const { userFirstname,userLastname,phoneNumber,address,email,password } = formData;
+        if (!userFirstname|| !userLastname|| !phoneNumber || !address || !email || !password ) {
             return false;
         }
         return true;
@@ -49,6 +50,7 @@ export default function Register() {
             setFormData({
                 userFirstname: '',
                 userLastname: '',
+                phoneNumber:'',
                 address: '',
                 email: '',
                 password: '',
@@ -112,7 +114,25 @@ export default function Register() {
                                     name="userLastname"
                                 />
                             </div>
+
+                           
 </div>
+<div className="text-left my-2">
+                                <label htmlFor="phoneNumber" className="text-xs text-[#002D74]">
+                                    Contact Number:
+                                </label>
+                                <input
+                                    required
+                                    value={formData.phoneNumber}
+                                    onChange={handleInputChange}
+                                    id="phoneNumber"
+                                    className="block p-2 mt-2 rounded-xl border w-full"
+                                    type="text"
+                                    name="phoneNumber"
+                                />
+                            </div>
+
+
                             <div className="text-left my-2">
                                 <label htmlFor="address" className="text-xs text-[#002D74]">
                                     Enter Your Address

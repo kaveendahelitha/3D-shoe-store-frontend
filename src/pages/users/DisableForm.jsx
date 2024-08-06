@@ -48,7 +48,7 @@ export default function DisableForm() {
     e.preventDefault();
     console.log('Form submitted'); // Add this line
     try {
-      await axios.post('http://localhost:8080/user', user);
+      await axios.post('http://localhost:8080/disableuser', user);
       console.log('Data sent successfully'); // Add this line
       setUser({
         leftCheckbox: false,
@@ -64,7 +64,7 @@ export default function DisableForm() {
         comfortAndClosurePreferences: "",
         description: ""
       });
-      alert('User registered successfully');
+      alert('Order Submitted successfully');
       navigate(0); // Reload the current page
 
     } catch (error) {
