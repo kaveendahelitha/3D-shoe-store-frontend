@@ -5,7 +5,7 @@ import Home from './pages/Home/home';
 import PageNotFound from './pages/404 Error/pageNotFound';
 
 //import RegistrationPage from './pages/AdminDashboard/RegistrationPage';
-import ProfilePage from './pages/Customerpage/profile';
+
 //import UserManagementPage from './pages/AdminDashboard/UserManagementPage';
 //import UserService from './components/Services/UserService';
 //import Admindshboard from './pages/AdminDashboard/Admindshboard';
@@ -61,7 +61,7 @@ function App() {
             <Nav />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/profile" element={<ProfilePage />} />
+              
               <Route path="/customize" element={<Customize />} />
               <Route path="/modelpage-1" element={<Modelpage1 />} />
               <Route path="/modelpage-2" element={<Modelpage2 />} />
@@ -70,7 +70,7 @@ function App() {
               <Route path="/category" element={<Category />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-
+              <Route path="/uploader" element={<ImageUploader />} />
               {ApiService.adminOnly() && (
                 <>
                   <Route

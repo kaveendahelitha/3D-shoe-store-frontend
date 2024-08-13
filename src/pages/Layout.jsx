@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Sidebar from '../components/Sidebar/Sidebar';
+import Sidebar from '../components/Sidebar/AdminSidebar';
 
 function Layout({ children }) {
     const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
