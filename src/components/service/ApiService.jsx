@@ -108,10 +108,33 @@ export default class ApiService {
 
     static async addProduct(productData) {
         const response = await axios.post(`${this.BASE_URL}/products/add`, productData, {
+            headers: {
+                ...this.getHeader(),
+                'Content-Type': 'multipart/form-data', // Explicitly set for form-data requests
+            },
+        });
+        return response.data;
+    }
+
+    static async updateProduct(id, productData) {
+        const response = await axios.put(`${this.BASE_URL}/products/product-update/${id}`, productData, {
+            headers: {
+                ...this.getHeader(),
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        return response.data;
+    }
+
+    static async deleteProduct(id) {
+        const response = await axios.delete(`${this.BASE_URL}/products/product-delete/${id}`, {
             headers: this.getHeader()
         });
         return response.data;
     }
+
+    
+
 
     static logout() {
         localStorage.removeItem('token');

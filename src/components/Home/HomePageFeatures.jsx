@@ -7,28 +7,28 @@ const CollectionMain = () => {
       imageUrl: 'https://www.dsifootcandy.lk/wp-content/uploads/2021/10/Collections-mens-still-1.jpg',
       imageHoverUrl: 'https://www.dsifootcandy.lk/wp-content/uploads/2021/10/Collections-mens-hover-d.jpg',
       imageFrontUrl: 'https://www.dsifootcandy.lk/wp-content/uploads/2022/04/Footwear-Men2-414x320-2.png',
-      link: 'http://www.dsifootcandy.lk/product-category/men/footwear/',
+      link: '/category',
     },
     {
       title: 'Women',
       imageUrl: 'https://www.dsifootcandy.lk/wp-content/uploads/2021/10/Collections-women-still.jpg',
       imageHoverUrl: 'https://www.dsifootcandy.lk/wp-content/uploads/2021/10/Collections-women-hover.jpg',
       imageFrontUrl: 'https://www.dsifootcandy.lk/wp-content/uploads/2022/04/Footwear-Women-414x320-2.png',
-      link: 'http://www.dsifootcandy.lk/product-category/women/womens-footwear/',
+      link: '/category',
     },
     {
       title: 'Boys',
       imageUrl: 'https://www.dsifootcandy.lk/wp-content/uploads/2021/10/Collections-boy-still.jpg',
       imageHoverUrl: 'https://www.dsifootcandy.lk/wp-content/uploads/2021/10/Collections-boy-hover-blue-light.jpg',
       imageFrontUrl: 'https://www.dsifootcandy.lk/wp-content/uploads/2022/04/Collections-boy-shoe-1.png',
-      link: 'http://www.dsifootcandy.lk/product-category/boys/footwear-boys/',
+      link: '/category',
     },
     {
       title: 'Girls',
       imageUrl: 'https://www.dsifootcandy.lk/wp-content/uploads/2021/10/Collections-girl-still.jpg',
       imageHoverUrl: 'https://www.dsifootcandy.lk/wp-content/uploads/2021/10/Collections-girl-hover-pink-light.jpg',
       imageFrontUrl: 'https://www.dsifootcandy.lk/wp-content/uploads/2022/04/Collections-Girl-shoe-414x320-1.png',
-      link: 'http://www.dsifootcandy.lk/product-category/girls/footwear-girls/',
+      link: '/category',
     },
   ];
 
