@@ -10,8 +10,6 @@ export default function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  //const from = location.state?.from?.pathname || '/';
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -26,8 +24,7 @@ export default function Login() {
       if (response.statusCode === 200) {
         localStorage.setItem('token', response.token);
         localStorage.setItem('role', response.role);
-        //navigate(from, { replace: true });
-        
+
         let redirectTo = '/';
         if (response.role === 'ADMIN') {
           redirectTo = '/admin';
@@ -39,7 +36,8 @@ export default function Login() {
           redirectTo = '/sitemanager';
         }
 
-        navigate(redirectTo, { replace: true });
+        // Refresh the page after setting the token and role
+        window.location.href = redirectTo;
       }
     } catch (error) {
       setError(error.response?.data?.message || error.message);
