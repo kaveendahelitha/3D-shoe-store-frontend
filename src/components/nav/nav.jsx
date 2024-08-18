@@ -8,12 +8,16 @@ const navigation = [
   { name: 'Home', href: '/', current: false },
 
   { name: 'Customize', href: '/customize', current: false },
-    { name: 'Produts', href: '/category', current: false },
-  { name: 'Employee', href: '/employee', current: false },
-  { name: 'Disableform', href: '/DisableForm', current: false },
+  { name: 'Produts', href: '/category', current: false },
   
-  { name: 'Sitemanager', href: '/sitemanager', current: false },
+ 
+  
+  
   { name: 'DisableForm', href: '/disableform', current: false },
+
+  { name: 'Customer', href: '/customer', current: false },
+  { name: 'Employee', href: '/employee', current: false },
+  { name: 'Sitemanager', href: '/sitemanager', current: false },
   { name: 'Admin', href: '/admin', current: false },
 ];
 
@@ -71,6 +75,7 @@ export default function Nav() {
                       if (
                         (item.name === 'Employee' && !isEmployee) ||
                         (item.name === 'Sitemanager' && !isSitemanager) ||
+                        (item.name === 'Customer' && !isUser)||
                         (item.name === 'DisableForm' && !isUser) ||
                         (item.name === 'Admin' && !isAdmin) ||
                         (!isAuthenticated && (item.name === 'Login' || item.name === 'Register'))
@@ -180,8 +185,9 @@ export default function Nav() {
                 if (
                   (item.name === 'Employee' && !isEmployee) ||
                   (item.name === 'Sitemanager' && !isSitemanager) ||
-                  (item.name === 'Profile' && !isUser) ||
+                  (item.name === 'Customer' && !isUser) ||
                   (item.name === 'Admin' && !isAdmin) ||
+                  
                   (!isAuthenticated && (item.name === 'Login' || item.name === 'Register'))
                 ) {
                   return null;
