@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import ApiService from '../service/ApiService';
+import ProductService from '../service/ProductService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AdminViewProducts = () => {
   const [products, setProducts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [currentProductId, setCurrentProductId] = useState(null);
-  const [formData, setFormData] = useState({
-    productName: '',
-    category: '',
-    productPrice: '',
-    productPhotoFile: null,
-    productColor: '',
-    productDescription: '',
-  });
+  const [productName, setProductName] = useState('');
+  const [category, setCategory] = useState('');
+  const [productPrice, setProductPrice] = useState('');
+  const [productColor, setProductColor] = useState('');
+  const [productDescription, setProductDescription] = useState('');
+  const [productPhoto, setProductPhoto] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
@@ -32,47 +32,55 @@ const AdminViewProducts = () => {
 
   const openModal = (product = null) => {
     if (product) {
-      setFormData({
-        productName: product.productName,
-        category: product.category,
-        productPrice: product.productPrice,
-        productPhotoFile: null,
-        productColor: product.productColor,
-        productDescription: product.productDescription,
-      });
+      setProductName(product.productName);
+      setCategory(product.category);
+      setProductPrice(product.productPrice);
+      setProductColor(product.productColor);
+      setProductDescription(product.productDescription);
       setCurrentProductId(product.id);
       setImagePreview(product.productPhotoUrl);
     } else {
-      setFormData({
-        productName: '',
-        category: '',
-        productPrice: '',
-        productPhotoFile: null,
-        productColor: '',
-        productDescription: '',
-      });
-      setCurrentProductId(null);
-      setImagePreview(null);
+      resetForm();
     }
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setFormData({
-      productName: '',
-      category: '',
-      productPrice: '',
-      productPhotoFile: null,
-      productColor: '',
-      productDescription: '',
-    });
-    setImagePreview(null);
+    resetForm();
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const openDeleteModal = (productId) => {
+    setCurrentProductId(productId);
+    setIsDeleteModalOpen(true);
+  };
+
+  const closeDeleteModal = () => {
+    setIsDeleteModalOpen(false);
+    setCurrentProductId(null);
+  };
+
+  const handleDeleteProduct = async () => {
+    try {
+      await ApiService.deleteProduct(currentProductId);
+      toast.success('Product deleted successfully!');
+      setProducts(products.filter((product) => product.id !== currentProductId));
+    } catch (error) {
+      console.error('Error deleting product:', error);
+      toast.error('Failed to delete product.');
+    }
+    closeDeleteModal();
+  };
+
+  const resetForm = () => {
+    setProductName('');
+    setCategory('');
+    setProductPrice('');
+    setProductColor('');
+    setProductDescription('');
+    setProductPhoto(null);
+    setImagePreview(null);
+    setCurrentProductId(null);
   };
 
   const handleFileChange = (e) => {
@@ -86,29 +94,34 @@ const AdminViewProducts = () => {
         toast.error('Only JPG and PNG files are allowed.');
         return;
       }
-      setFormData({ ...formData, productPhotoFile: file });
+      setProductPhoto(file);
       setImagePreview(URL.createObjectURL(file));
     }
   };
 
   const handleAddOrUpdateProduct = async (e) => {
     e.preventDefault();
-    const productData = new FormData();
-    productData.append('productName', formData.productName);
-    productData.append('category', formData.category);
-    productData.append('productPrice', formData.productPrice);
-    if (formData.productPhotoFile) {
-      productData.append('productPhotoFile', formData.productPhotoFile);
+
+    const productData = {
+      productName,
+      category,
+      productPrice,
+      productColor,
+      productDescription
+    };
+
+    const formData = new FormData();
+    formData.append('product', new Blob([JSON.stringify(productData)], { type: 'application/json' }));
+    if (productPhoto) {
+      formData.append('productPhoto', productPhoto);
     }
-    productData.append('productColor', formData.productColor);
-    productData.append('productDescription', formData.productDescription);
 
     try {
       if (currentProductId) {
-        await ApiService.updateProduct(currentProductId, productData);
+        await ProductService.updateProduct(currentProductId, formData);
         toast.success('Product updated successfully!');
       } else {
-        await ApiService.addProduct(productData);
+        await ProductService.addProduct(formData);
         toast.success('Product added successfully!');
       }
       const result = await ApiService.getAllProducts();
@@ -178,7 +191,7 @@ const AdminViewProducts = () => {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
           <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md h-2/3 overflow-y-auto">
             <h2 className="text-2xl font-bold mb-4">{currentProductId ? 'Update Product' : 'Add Product'}</h2>
             <form onSubmit={handleAddOrUpdateProduct} className="w-full mx-auto">
@@ -187,9 +200,8 @@ const AdminViewProducts = () => {
                 <input 
                   type="text" 
                   id="productName" 
-                  name="productName" 
-                  value={formData.productName} 
-                  onChange={handleChange} 
+                  value={productName} 
+                  onChange={(e) => setProductName(e.target.value)} 
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
                   required 
                 />
@@ -199,9 +211,8 @@ const AdminViewProducts = () => {
                 <input 
                   type="text" 
                   id="category" 
-                  name="category" 
-                  value={formData.category} 
-                  onChange={handleChange} 
+                  value={category} 
+                  onChange={(e) => setCategory(e.target.value)} 
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
                   required 
                 />
@@ -211,37 +222,19 @@ const AdminViewProducts = () => {
                 <input 
                   type="number" 
                   id="productPrice" 
-                  name="productPrice" 
-                  value={formData.productPrice} 
-                  onChange={handleChange} 
+                  value={productPrice} 
+                  onChange={(e) => setProductPrice(e.target.value)} 
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
                   required 
                 />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium mb-1" htmlFor="productPhotoFile">Image</label>
-                <input 
-                  type="file" 
-                  id="productPhotoFile" 
-                  name="productPhotoFile" 
-                  onChange={handleFileChange} 
-                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-                  accept="image/jpeg, image/png"
-                />
-                {imagePreview && (
-                  <div className="mt-4">
-                    <img src={imagePreview} alt="Preview" className="h-32 w-32 object-cover rounded-md mx-auto" />
-                  </div>
-                )}
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium mb-1" htmlFor="productColor">Color</label>
                 <input 
                   type="text" 
                   id="productColor" 
-                  name="productColor" 
-                  value={formData.productColor} 
-                  onChange={handleChange} 
+                  value={productColor} 
+                  onChange={(e) => setProductColor(e.target.value)} 
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
                   required 
                 />
@@ -250,19 +243,35 @@ const AdminViewProducts = () => {
                 <label className="block text-sm font-medium mb-1" htmlFor="productDescription">Description</label>
                 <textarea 
                   id="productDescription" 
-                  name="productDescription" 
-                  value={formData.productDescription} 
-                  onChange={handleChange} 
+                  value={productDescription} 
+                  onChange={(e) => setProductDescription(e.target.value)} 
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
                   rows="4"
                   required 
                 />
               </div>
-              <div className="flex justify-end">
+              <div className="mb-4">
+                <label className="block text-sm font-medium mb-1" htmlFor="productPhoto">Photo</label>
+                <input 
+                  type="file" 
+                  id="productPhoto" 
+                  onChange={handleFileChange} 
+                  accept="image/jpeg, image/png"
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                />
+                {imagePreview && (
+                  <img 
+                    src={imagePreview} 
+                    alt="Preview" 
+                    className="mt-2 h-32 w-32 object-cover rounded-md"
+                  />
+                )}
+              </div>
+              <div className="flex justify-end mt-6">
                 <button 
                   type="button" 
                   onClick={closeModal} 
-                  className="mr-4 bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition duration-300"
+                  className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md mr-2 hover:bg-gray-400 transition duration-300"
                 >
                   Cancel
                 </button>
@@ -270,7 +279,7 @@ const AdminViewProducts = () => {
                   type="submit" 
                   className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300"
                 >
-                  {currentProductId ? 'Update' : 'Add'}
+                  {currentProductId ? 'Update' : 'Add'} Product
                 </button>
               </div>
             </form>
@@ -278,7 +287,28 @@ const AdminViewProducts = () => {
         </div>
       )}
 
-      {/* Add the Delete Modal component here */}
+      {isDeleteModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
+          <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
+            <h2 className="text-xl font-bold mb-4">Confirm Delete</h2>
+            <p className="mb-6">Are you sure you want to delete this product?</p>
+            <div className="flex justify-end">
+              <button 
+                onClick={closeDeleteModal} 
+                className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md mr-2 hover:bg-gray-400 transition duration-300"
+              >
+                Cancel
+              </button>
+              <button 
+                onClick={handleDeleteProduct} 
+                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

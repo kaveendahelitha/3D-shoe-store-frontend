@@ -11,24 +11,20 @@ export default class ApiService {
         };
     }
 
+    /** AUTH */
 
-
- /**AUTH */
-
-    /* This  register a new user */
     static async registerUser(registration) {
-        const response = await axios.post(`${this.BASE_URL}/auth/register`, registration)
-        return response.data
+        const response = await axios.post(`${this.BASE_URL}/auth/register`, registration);
+        return response.data;
     }
 
-    /* This  login a registered user */
     static async loginUser(loginDetails) {
-        const response = await axios.post(`${this.BASE_URL}/auth/login`, loginDetails)
-        return response.data
+        const response = await axios.post(`${this.BASE_URL}/auth/login`, loginDetails);
+        return response.data;
     }
 
+    /** PRODUCTS */
 
-      /* This  gets all products from CPC */
     static async getProductsByColorPriceAndCategory(category, productColor, priceRange) {
         const url = `${this.BASE_URL}/products/available-products-by-color-category-and-pricerange?category=${category}&productColor=${productColor}&priceRange=${priceRange}`;
         try {
@@ -40,11 +36,11 @@ export default class ApiService {
         }
     }
 
-     /* This  gets all products from the database */
     static async getAllProducts() {
-        const result = await axios.get(`${this.BASE_URL}/products/all`)
-        return result.data
+        const result = await axios.get(`${this.BASE_URL}/products/all`);
+        return result.data;
     }
+
     static async getAllProductsCategories() {
         try {
             const response = await axios.get(`${this.BASE_URL}/products/categories`);
@@ -54,7 +50,6 @@ export default class ApiService {
             throw error;
         }
     }
-    /* This  gets all products colors */
 
     static async getAllProductColors() {
         try {
@@ -65,7 +60,7 @@ export default class ApiService {
             throw error;
         }
     }
-    /* This  gets all products price */
+
     static async getAllProductsPriceLevels() {
         try {
             const response = await axios.get(`${this.BASE_URL}/products/priceranges`);
@@ -76,35 +71,26 @@ export default class ApiService {
         }
     }
 
-    static async addProduct(productData) {
-        const response = await axios.post(`${this.BASE_URL}/products/add`, productData, {
-            headers: {
-                ...this.getHeader(),
-                'Content-Type': 'multipart/form-data', // Explicitly set for form-data requests
-            },
-        });
-        return response.data;
-    }
+   // static async addProduct(productData) {
+     //  const response = await axios.post(`${this.BASE_URL}/products/add`, productData, {
+     //   headers: {
+      //          ...this.getHeader(),
+      //          'Content-Type': 'multipart/form-data', // Set for form-data requests
+       //     },
+      //  });
+    // return response.data;
+   // }
 
-    static async updateProduct(id, productData) {
-        const response = await axios.put(`${this.BASE_URL}/products/product-update/${id}`, productData, {
-            headers: {
-                ...this.getHeader(),
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-        return response.data;
-    }
+   
+
+   
 
     static async deleteProduct(id) {
         const response = await axios.delete(`${this.BASE_URL}/products/product-delete/${id}`, {
-            headers: this.getHeader()
+            headers: this.getHeader(),
         });
         return response.data;
     }
-
-    
-
 
     static logout() {
         localStorage.removeItem('token');
@@ -136,19 +122,19 @@ export default class ApiService {
         return role === 'SITE_MANAGER';
     }
 
-    static adminOnly(){
+    static adminOnly() {
         return this.isAuthenticated() && this.isAdmin();
     }
 
-    static userOnly(){
+    static userOnly() {
         return this.isAuthenticated() && this.isUser();
     }
 
-    static employeeOnly(){
+    static employeeOnly() {
         return this.isAuthenticated() && this.isEmployee();
     }
 
-    static sitemanager(){
+    static sitemanager() {
         return this.isAuthenticated() && this.isSitemanager();
     }
 }
