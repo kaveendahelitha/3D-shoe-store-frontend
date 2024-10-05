@@ -8,12 +8,16 @@ const navigation = [
   { name: 'Home', href: '/', current: false },
 
   { name: 'Customize', href: '/customize', current: false },
-    { name: 'Produts', href: '/category', current: false },
-  { name: 'Employee', href: '/employee', current: false },
-  { name: 'Disableform', href: '/DisableForm', current: false },
+  { name: 'Produts', href: '/category', current: false },
   
+ 
+  
+  
+  { name: 'DisableForm', href: '/disableform', current: false },
+
+  { name: 'Customer', href: '/customer', current: false },
+  { name: 'Employee', href: '/employee', current: false },
   { name: 'Sitemanager', href: '/sitemanager', current: false },
-  { name: 'Profile', href: '/customer', current: false },
   { name: 'Admin', href: '/admin', current: false },
 ];
 
@@ -71,7 +75,8 @@ export default function Nav() {
                       if (
                         (item.name === 'Employee' && !isEmployee) ||
                         (item.name === 'Sitemanager' && !isSitemanager) ||
-                        (item.name === 'Profile' && !isUser) ||
+                        (item.name === 'Customer' && !isUser)||
+                        (item.name === 'DisableForm' && !isUser) ||
                         (item.name === 'Admin' && !isAdmin) ||
                         (!isAuthenticated && (item.name === 'Login' || item.name === 'Register'))
                       ) {
@@ -130,17 +135,7 @@ export default function Nav() {
                       leaveTo="transform opacity-0 scale-95"
                     >
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        <Menu.Item>
-                          {({ active }) => (
-                            <NavLink
-                              to="/profile"
-                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                              activeClassName="text-gray-900"
-                            >
-                              Your Profile
-                            </NavLink>
-                          )}
-                        </Menu.Item>
+                        
                         <Menu.Item>
                           {({ active }) => (
                             <a
@@ -190,8 +185,9 @@ export default function Nav() {
                 if (
                   (item.name === 'Employee' && !isEmployee) ||
                   (item.name === 'Sitemanager' && !isSitemanager) ||
-                  (item.name === 'Profile' && !isUser) ||
+                  (item.name === 'Customer' && !isUser) ||
                   (item.name === 'Admin' && !isAdmin) ||
+                  
                   (!isAuthenticated && (item.name === 'Login' || item.name === 'Register'))
                 ) {
                   return null;

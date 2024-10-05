@@ -1,34 +1,32 @@
 import React, { useEffect, useState } from 'react';
-import ApiService from '../service/ApiService'; // Adjust the path as necessary
+import ApiService from '../service/ApiService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AdminViewProducts = () => {
   const [products, setProducts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [currentProductId, setCurrentProductId] = useState(null);
   const [formData, setFormData] = useState({
     productName: '',
     category: '',
     productPrice: '',
-    productPhotoUrl: '',
+    productPhotoFile: null,
     productColor: '',
     productDescription: '',
   });
+  const [imagePreview, setImagePreview] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const result = await ApiService.getAllProducts();
-        const all = result.productList;
-        setProducts(all); // Adjust based on your actual response structure
+        setProducts(result.productList);
       } catch (error) {
         console.error('Error fetching products:', error);
         toast.error('Failed to fetch products.');
       }
     };
-
     fetchProducts();
   }, []);
 
@@ -38,36 +36,38 @@ const AdminViewProducts = () => {
         productName: product.productName,
         category: product.category,
         productPrice: product.productPrice,
-        productPhotoUrl: product.productPhotoUrl,
+        productPhotoFile: null,
         productColor: product.productColor,
         productDescription: product.productDescription,
       });
       setCurrentProductId(product.id);
+      setImagePreview(product.productPhotoUrl);
     } else {
       setFormData({
         productName: '',
         category: '',
         productPrice: '',
-        productPhotoUrl: '',
+        productPhotoFile: null,
         productColor: '',
         productDescription: '',
       });
       setCurrentProductId(null);
+      setImagePreview(null);
     }
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-  };
-
-  const openDeleteModal = (productId) => {
-    setCurrentProductId(productId);
-    setIsDeleteModalOpen(true);
-  };
-
-  const closeDeleteModal = () => {
-    setIsDeleteModalOpen(false);
+    setFormData({
+      productName: '',
+      category: '',
+      productPrice: '',
+      productPhotoFile: null,
+      productColor: '',
+      productDescription: '',
+    });
+    setImagePreview(null);
   };
 
   const handleChange = (e) => {
@@ -75,15 +75,40 @@ const AdminViewProducts = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 8 * 1024 * 1024) {
+        toast.error('Image size should be less than 8 MB.');
+        return;
+      }
+      if (!['image/jpeg', 'image/png'].includes(file.type)) {
+        toast.error('Only JPG and PNG files are allowed.');
+        return;
+      }
+      setFormData({ ...formData, productPhotoFile: file });
+      setImagePreview(URL.createObjectURL(file));
+    }
+  };
+
   const handleAddOrUpdateProduct = async (e) => {
     e.preventDefault();
+    const productData = new FormData();
+    productData.append('productName', formData.productName);
+    productData.append('category', formData.category);
+    productData.append('productPrice', formData.productPrice);
+    if (formData.productPhotoFile) {
+      productData.append('productPhotoFile', formData.productPhotoFile);
+    }
+    productData.append('productColor', formData.productColor);
+    productData.append('productDescription', formData.productDescription);
 
     try {
       if (currentProductId) {
-        await ApiService.updateProduct(currentProductId, formData);
+        await ApiService.updateProduct(currentProductId, productData);
         toast.success('Product updated successfully!');
       } else {
-        await ApiService.addProduct(formData);
+        await ApiService.addProduct(productData);
         toast.success('Product added successfully!');
       }
       const result = await ApiService.getAllProducts();
@@ -92,22 +117,7 @@ const AdminViewProducts = () => {
       console.error(`Error ${currentProductId ? 'updating' : 'adding'} product:`, error);
       toast.error(`Failed to ${currentProductId ? 'update' : 'add'} product.`);
     }
-
     closeModal();
-  };
-
-  const handleDeleteProduct = async () => {
-    try {
-      await ApiService.deleteProduct(currentProductId);
-      const result = await ApiService.getAllProducts();
-      setProducts(result.productList);
-      toast.success('Product deleted successfully!');
-    } catch (error) {
-      console.error('Error deleting product:', error);
-      toast.error('Failed to delete product.');
-    }
-
-    closeDeleteModal();
   };
 
   return (
@@ -173,14 +183,14 @@ const AdminViewProducts = () => {
             <h2 className="text-2xl font-bold mb-4">{currentProductId ? 'Update Product' : 'Add Product'}</h2>
             <form onSubmit={handleAddOrUpdateProduct} className="w-full mx-auto">
               <div className="mb-4">
-                <label className="block text-sm font-medium mb-1" htmlFor="productName">Product Name</label>
+                <label className="block text-sm font-medium mb-1" htmlFor="productName">Name</label>
                 <input 
                   type="text" 
                   id="productName" 
                   name="productName" 
-                  className="w-full border border-gray-300 p-2 rounded-md"
-                  value={formData.productName}
-                  onChange={handleChange}
+                  value={formData.productName} 
+                  onChange={handleChange} 
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
                   required 
                 />
               </div>
@@ -190,9 +200,9 @@ const AdminViewProducts = () => {
                   type="text" 
                   id="category" 
                   name="category" 
-                  className="w-full border border-gray-300 p-2 rounded-md"
-                  value={formData.category}
-                  onChange={handleChange}
+                  value={formData.category} 
+                  onChange={handleChange} 
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
                   required 
                 />
               </div>
@@ -202,23 +212,27 @@ const AdminViewProducts = () => {
                   type="number" 
                   id="productPrice" 
                   name="productPrice" 
-                  className="w-full border border-gray-300 p-2 rounded-md"
-                  value={formData.productPrice}
-                  onChange={handleChange}
+                  value={formData.productPrice} 
+                  onChange={handleChange} 
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
                   required 
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium mb-1" htmlFor="productPhotoUrl">Image URL</label>
+                <label className="block text-sm font-medium mb-1" htmlFor="productPhotoFile">Image</label>
                 <input 
-                  type="text" 
-                  id="productPhotoUrl" 
-                  name="productPhotoUrl" 
-                  className="w-full border border-gray-300 p-2 rounded-md"
-                  value={formData.productPhotoUrl}
-                  onChange={handleChange}
-                  required 
+                  type="file" 
+                  id="productPhotoFile" 
+                  name="productPhotoFile" 
+                  onChange={handleFileChange} 
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                  accept="image/jpeg, image/png"
                 />
+                {imagePreview && (
+                  <div className="mt-4">
+                    <img src={imagePreview} alt="Preview" className="h-32 w-32 object-cover rounded-md mx-auto" />
+                  </div>
+                )}
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium mb-1" htmlFor="productColor">Color</label>
@@ -226,9 +240,9 @@ const AdminViewProducts = () => {
                   type="text" 
                   id="productColor" 
                   name="productColor" 
-                  className="w-full border border-gray-300 p-2 rounded-md"
-                  value={formData.productColor}
-                  onChange={handleChange}
+                  value={formData.productColor} 
+                  onChange={handleChange} 
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
                   required 
                 />
               </div>
@@ -237,17 +251,18 @@ const AdminViewProducts = () => {
                 <textarea 
                   id="productDescription" 
                   name="productDescription" 
-                  className="w-full border border-gray-300 p-2 rounded-md"
-                  value={formData.productDescription}
-                  onChange={handleChange}
+                  value={formData.productDescription} 
+                  onChange={handleChange} 
+                  className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
+                  rows="4"
                   required 
                 />
               </div>
               <div className="flex justify-end">
                 <button 
                   type="button" 
-                  className="bg-gray-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-gray-600 transition duration-300"
-                  onClick={closeModal}
+                  onClick={closeModal} 
+                  className="mr-4 bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600 transition duration-300"
                 >
                   Cancel
                 </button>
@@ -263,30 +278,7 @@ const AdminViewProducts = () => {
         </div>
       )}
 
-      {isDeleteModalOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-            <h2 className="text-2xl font-bold mb-4">Delete Product</h2>
-            <p className="mb-4">Are you sure you want to delete this product?</p>
-            <div className="flex justify-end">
-              <button 
-                type="button" 
-                className="bg-gray-500 text-white px-4 py-2 rounded-md mr-2 hover:bg-gray-600 transition duration-300"
-                onClick={closeDeleteModal}
-              >
-                Cancel
-              </button>
-              <button 
-                type="button" 
-                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600 transition duration-300"
-                onClick={handleDeleteProduct}
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Add the Delete Modal component here */}
     </div>
   );
 };

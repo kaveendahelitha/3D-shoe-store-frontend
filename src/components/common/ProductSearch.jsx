@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ApiService from '../service/ApiService';
+import { FaSearch } from 'react-icons/fa';
 
 const ProductSearch = ({ handleSearchResult }) => {
   const [category, setProductCategory] = useState('');
@@ -58,7 +59,7 @@ const ProductSearch = ({ handleSearchResult }) => {
       const response = await ApiService.getProductsByColorPriceAndCategory(category, productColor, priceRange);
 
       if (response.productList.length === 0) {
-        showError('Product not currently available for this price range on the selected product category and color.');
+        showError('No products found for the selected criteria.');
         handleSearchResult([]); // Reset search results if no products found
       } else {
         handleSearchResult(response.productList);
@@ -71,13 +72,14 @@ const ProductSearch = ({ handleSearchResult }) => {
   };
 
   return (
-    <section>
-      <div className="rounded-lg bg-blue-200 p-4">
-        <div className="search-container text-sm flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
-          <div className="search-field flex-grow bg-blue-100 rounded-md">
-            <label className="block mb-2">Category</label>
+    <section className="p-6 bg-white rounded-lg shadow-lg">
+      <div className="flex flex-col md:flex-row items-center bg-blue-50 p-4 rounded-lg">
+       
+        <div className="flex flex-grow flex-col md:flex-row md:space-x-4">
+          <div className="flex-1 bg-blue-100 p-4 rounded-md shadow-md mb-4 md:mb-0">
+            <label className="block mb-2 text-blue-700 font-semibold">Category</label>
             <select
-              className="border rounded px-3 py-2 w-full"
+              className="border border-blue-300 rounded px-3 py-2 w-full"
               value={category}
               onChange={(e) => setProductCategory(e.target.value)}
             >
@@ -91,10 +93,10 @@ const ProductSearch = ({ handleSearchResult }) => {
               ))}
             </select>
           </div>
-          <div className="search-field flex-grow bg-blue-100 rounded-md">
-            <label className="block mb-2">Color</label>
+          <div className="flex-1 bg-blue-100 p-4 rounded-md shadow-md mb-4 md:mb-0">
+            <label className="block mb-2 text-blue-700 font-semibold">Color</label>
             <select
-              className="border rounded px-3 py-2 w-full"
+              className="border border-blue-300 rounded px-3 py-2 w-full"
               value={productColor}
               onChange={(e) => setProductColor(e.target.value)}
             >
@@ -108,15 +110,15 @@ const ProductSearch = ({ handleSearchResult }) => {
               ))}
             </select>
           </div>
-          <div className="search-field text-sm flex-grow bg-blue-100 rounded-md">
-            <label className="block mb-2">Price range</label>
+          <div className="flex-1 bg-blue-100 p-4 rounded-md shadow-md">
+            <label className="block mb-2 text-blue-700 font-semibold">Price Range</label>
             <select
-              className="border rounded px-3 py-2 w-full"
+              className="border border-blue-300 rounded px-3 py-2 w-full"
               value={priceRange}
               onChange={(e) => setPriceRange(e.target.value)}
             >
               <option disabled value="">
-                Select Product price range
+                Select Price Range
               </option>
               {priceRanges.map(({ priceRange }, index) => (
                 <option key={index} value={priceRange}>
@@ -125,15 +127,15 @@ const ProductSearch = ({ handleSearchResult }) => {
               ))}
             </select>
           </div>
-          <button
-            className="home-search-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-            onClick={handleInternalSearch}
-          >
-            Search Product
-          </button>
         </div>
-        {error && <p className="error-message">{error}</p>}
+        <button
+          className="mt-4 md:mt-0 bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 flex items-center"
+          onClick={handleInternalSearch}
+        >
+          <FaSearch className="mr-2" /> Search
+        </button>
       </div>
+      {error && <p className="mt-4 text-red-500">{error}</p>}
     </section>
   );
 };
