@@ -9,16 +9,16 @@ const navigation = [
 
   { name: 'Customize', href: '/customize', current: false },
   { name: 'Produts', href: '/category', current: false },
-  
- 
-  
-  
-  { name: 'DisableForm', href: '/disableform', current: false },
-
-  { name: 'Customer', href: '/customer', current: false },
   { name: 'Employee', href: '/employee', current: false },
-  { name: 'Sitemanager', href: '/sitemanager', current: false },
-  { name: 'Admin', href: '/admin', current: false },
+  { name: 'DisableForm', href: '/disableform', current: false },
+  
+  
+  { name: 'Sitemanager', href: '/site-manager', current: false },
+  { name: 'Profile', href: '/customer', current: false },
+  { name: 'Admin', href: '/dashboard', current: false },
+
+
+
 ];
 
 
@@ -43,7 +43,7 @@ export default function Nav() {
   };
 
   return (
-    <Disclosure as="nav" className="bg-gray-800 fixed inset-x-0 top-0 z-50">
+    <Disclosure as="nav" className="bg-blue-800 fixed inset-x-0 top-0 z-50">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
