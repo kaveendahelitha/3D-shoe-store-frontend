@@ -154,7 +154,7 @@ function App() {
 
               {ApiService.userOnly() && (
                 <>
-                  <Route path="/customer" element={ <Layout><Customer /></Layout>} />
+                  <Route path="/customer" element={ <Customer />} />
                 </>
               )}
 

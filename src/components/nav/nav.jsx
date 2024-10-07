@@ -14,7 +14,7 @@ const navigation = [
   
   
   { name: 'Sitemanager', href: '/site-manager', current: false },
-  { name: 'Profile', href: '/customer', current: false },
+  { name: 'Customer', href: '/customer', current: false },
   { name: 'Admin', href: '/dashboard', current: false },
 
 
