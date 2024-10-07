@@ -21,7 +21,8 @@ import Modelpage3 from './pages/3D pages/Modelpage3';
 import DisableForm from './pages/users/DisableForm';
 import Category from './pages/Category';
 import Employee from './pages/EmployeeDashboard/Employee';
-import Customer from './pages/CustomerDashboard/Customer';
+import Customer from './pages/Customerpage/ProfilePage';
+
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
 import ApiService from './components/service/ApiService';
@@ -40,7 +41,12 @@ import Dashboard from './pages/Dashboard';
 import Layout from './pages/Layout';
 import LayoutSitemanager from './pages/SitemanagerDashboard/LayoutSitemanager';
 import AdminViewProduts from './components/Products-Admin/AdminViewProduts';
+
 import Order from './components/common/Order'
+
+
+
+
 import './App.css';
 
 function App() {
