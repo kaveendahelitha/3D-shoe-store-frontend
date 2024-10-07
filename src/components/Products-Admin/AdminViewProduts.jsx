@@ -210,17 +210,22 @@ const AdminViewProducts = () => {
               </div>
               <div className="mb-4">
                 <label className="block text-sm font-medium mb-1" htmlFor="category">Category</label>
-                <input 
-                  type="text" 
-                  id="category" 
-                  value={category} 
-                  onChange={(e) => setCategory(e.target.value)} 
+                <select
+                  id="category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
                   className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-500"
-                  required 
-                />
+                  required
+                >
+                  <option value="">Select Category</option>
+                  <option value="Men">Men</option>
+                  <option value="Women">Women</option>
+                  <option value="Kids">Kids</option>
+                  <option value="Girls">Girls</option>
+                </select>
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-medium mb-1" htmlFor="productPrice">Price</label>
+                <label className="block text-sm font-medium mb-1" htmlFor="productPrice">Price RS:</label>
                 <input 
                   type="number" 
                   id="productPrice" 
