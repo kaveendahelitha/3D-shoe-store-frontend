@@ -24,6 +24,7 @@ export default class ApiService {
     }
 
     /** PRODUCTS */
+    
 
     static async getProductsByColorPriceAndCategory(category, productColor, priceRange) {
         const url = `${this.BASE_URL}/products/available-products-by-color-category-and-pricerange?category=${category}&productColor=${productColor}&priceRange=${priceRange}`;

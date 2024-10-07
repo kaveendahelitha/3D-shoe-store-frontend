@@ -12,9 +12,9 @@ const navigation = [
   { name: 'Employee', href: '/employee', current: false },
   { name: 'Disableform', href: '/DisableForm', current: false },
   
-  { name: 'Sitemanager', href: '/sitemanager', current: false },
+  { name: 'Sitemanager', href: '/site-manager', current: false },
   { name: 'Profile', href: '/customer', current: false },
-  { name: 'Admin', href: '/admin', current: false },
+  { name: 'Admin', href: '/dashboard', current: false },
 ];
 
 
@@ -39,7 +39,7 @@ export default function Nav() {
   };
 
   return (
-    <Disclosure as="nav" className="bg-gray-800 fixed inset-x-0 top-0 z-50">
+    <Disclosure as="nav" className="bg-blue-800 fixed inset-x-0 top-0 z-50">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">

@@ -130,9 +130,9 @@ const Category = () => {
     <div className="flex text-sm min-h-screen mt-16">
       <aside className="w-1/4 bg-blue-800 p-4 text-gray-200">
         <div className="top-0">
-          <h2 className="text-lg font-semibold mb-4">Filter by Product Category:</h2>
+          <h2 className="text-lg font-semibold mb-4">Filter by Product Category</h2>
           <div className="mb-4">
-            <label htmlFor="categorySelect" className="block mb-2 ">Category:</label>
+            <label htmlFor="categorySelect" className="block mb-2 ">Category</label>
             <select
               id="categorySelect"
               value={selectedCategory}
@@ -150,7 +150,7 @@ const Category = () => {
         </div>
 
         <div className="top-0">
-          <h2 className="text-lg font-semibold mb-4">Filter by Product Color:</h2>
+          <h2 className="text-lg font-semibold mb-4">Filter by Product Color</h2>
           <div className="mb-4">
             <div className="flex items-center mb-2">
               <input
@@ -182,7 +182,7 @@ const Category = () => {
         </div>
 
         <div className="top-0">
-          <h2 className="text-lg font-semibold mb-4">Filter by Product Price Range:</h2>
+          <h2 className="text-lg font-semibold mb-4">Filter by Product Price Range</h2>
           <div className="mb-4">
             <div className="flex items-center mb-2">
               <input

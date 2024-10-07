@@ -38,8 +38,9 @@ import UpdateSaleComponent from './components/Sales/UpdateSaleComponent';
 import ImageUploader from './components/image/ImageUploader';
 import Dashboard from './pages/Dashboard';
 import Layout from './pages/Layout';
+import LayoutSitemanager from './pages/SitemanagerDashboard/LayoutSitemanager';
 import AdminViewProduts from './components/Products-Admin/AdminViewProduts';
-
+import Order from './components/common/Order'
 import './App.css';
 
 function App() {
@@ -71,16 +72,10 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/uploader" element={<ImageUploader />} />
+              <Route path="/order" element={<Order/>}/>
               {ApiService.adminOnly() && (
                 <>
-                  <Route
-                    path="/admin"
-                    element={
-                      <Layout>
-                        <ListEmployeeComponent />
-                      </Layout>
-                    }
-                  />
+
                   <Route
                     path="/dashboard"
                     element={
@@ -90,29 +85,17 @@ function App() {
                     }
                   />
                   <Route
-                    path="/add-employee/:id"
+                    path="/admin"
                     element={
                       <Layout>
-                        <CreateEmployeeComponent />
+                        <Dashboard />
                       </Layout>
                     }
                   />
-                  <Route
-                    path="/update-employee/:id"
-                    element={
-                      <Layout>
-                        <UpdateEmployeeComponent />
-                      </Layout>
-                    }
-                  />
-                  <Route
-                    path="/view-employee/:id"
-                    element={
-                      <Layout>
-                        <ViewEmployeeComponent />
-                      </Layout>
-                    }
-                  />
+                  {/* add employee */}
+                  
+                  
+                 
                   <Route
                     path="/sales"
                     element={
@@ -137,6 +120,7 @@ function App() {
                       </Layout>
                     }
                   />
+                  {/* list employee */}
                   <Route
                     path="/employees"
                     element={
@@ -146,6 +130,7 @@ function App() {
                     }                 
                    />
 
+                  {/* product niew-adding-update-delete */}
                   <Route
                     path="/admin-product"
                     element={
@@ -163,7 +148,7 @@ function App() {
 
               {ApiService.userOnly() && (
                 <>
-                  <Route path="/customer" element={<Customer />} />
+                  <Route path="/customer" element={ <Layout><Customer /></Layout>} />
                 </>
               )}
 
@@ -175,7 +160,30 @@ function App() {
 
               {ApiService.sitemanager() && (
                 <>
-                  <Route path="/site-manager" element={<Sitemanager />} />
+                  <Route path="/site-manager" 
+                  element={ 
+                  <LayoutSitemanager>
+                    <Sitemanager />
+                  </LayoutSitemanager>} />
+                   
+                 {/* product niew-adding-update-delete */}
+                  <Route
+                    path="/site-manager-view-product"
+                    element={
+                      <LayoutSitemanager>
+                        <AdminViewProduts /> 
+                      </LayoutSitemanager>
+                    }                 
+                   />
+                  {/* list employee */}
+                  <Route
+                    path="/employees"
+                    element={
+                      <LayoutSitemanager>
+                        <ListEmployeeComponent />  
+                      </LayoutSitemanager>
+                    }                 
+                   />
                 </>
               )}
               <Route path="*" element={<PageNotFound />} />

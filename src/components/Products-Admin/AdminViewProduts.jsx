@@ -5,6 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const AdminViewProducts = () => {
+  const API_BASE_URL = 'http://localhost:8080';
   const [products, setProducts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -38,7 +39,7 @@ const AdminViewProducts = () => {
       setProductColor(product.productColor);
       setProductDescription(product.productDescription);
       setCurrentProductId(product.id);
-      setImagePreview(product.productPhotoUrl);
+      setImagePreview(`${API_BASE_URL}/products/image/${product.productPhotoUrl}`);
     } else {
       resetForm();
     }
@@ -167,7 +168,7 @@ const AdminViewProducts = () => {
                 <td className="py-3 px-4 border-b text-center align-middle">{product.category}</td>
                 <td className="py-3 px-4 border-b text-center align-middle">{product.productPrice}</td>
                 <td className="py-3 px-4 border-b text-center align-middle">
-                  <img src={product.productPhotoUrl} alt={product.productName} className="h-16 w-16 object-cover rounded-md mx-auto" />
+                  <img  src={`${API_BASE_URL}/products/image/${product.productPhotoUrl}`} alt={product.productName} className="h-16 w-16 object-cover rounded-md mx-auto" />
                 </td>
                 <td className="py-3 px-4 border-b text-center align-middle">{product.productColor}</td>
                 <td className="py-3 px-4 border-b text-center align-middle">
@@ -189,6 +190,7 @@ const AdminViewProducts = () => {
           </tbody>
         </table>
       </div>
+
 
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
@@ -286,6 +288,8 @@ const AdminViewProducts = () => {
           </div>
         </div>
       )}
+
+
 
       {isDeleteModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 overflow-y-auto">
