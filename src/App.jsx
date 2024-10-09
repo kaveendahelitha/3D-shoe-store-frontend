@@ -42,8 +42,8 @@ import Layout from './pages/Layout';
 import LayoutSitemanager from './pages/SitemanagerDashboard/LayoutSitemanager';
 import AdminViewProduts from './components/Products-Admin/AdminViewProduts';
 
-import Order from './components/common/Order'
-
+import BuyNow from './components/common/BuyNow'
+import BuyProduct from './components/common/BuyProduct';
 
 
 
@@ -78,7 +78,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/uploader" element={<ImageUploader />} />
-              <Route path="/order" element={<Order/>}/>
+              <Route path="/buy-now/:id" element={<BuyNow/>}/>
               {ApiService.adminOnly() && (
                 <>
 
@@ -155,6 +155,8 @@ function App() {
               {ApiService.userOnly() && (
                 <>
                   <Route path="/customer" element={ <Customer />} />
+                  
+                  <Route path="/buy-product" element={ <BuyProduct />} />
                 </>
               )}
 
