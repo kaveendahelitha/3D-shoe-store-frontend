@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import EmployeeService from '../../services/EmployeeService';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../../styles/CreateEmployeeComponent.css';
-
 
 const CreateEmployeeComponent = () => {
     const { id } = useParams();
@@ -12,14 +13,14 @@ const CreateEmployeeComponent = () => {
     const [emailId, setEmailId] = useState('');
 
     useEffect(() => {
-        if (id === '_add') {
-            return;
-        } else {
+        if (id !== '_add') {
             EmployeeService.getEmployeeById(id).then((res) => {
                 let employee = res.data;
                 setFirstName(employee.firstName);
                 setLastName(employee.lastName);
                 setEmailId(employee.emailId);
+            }).catch(error => {
+                toast.error('Error fetching employee data');
             });
         }
     }, [id]);
@@ -27,15 +28,20 @@ const CreateEmployeeComponent = () => {
     const saveOrUpdateEmployee = (e) => {
         e.preventDefault();
         let employee = { firstName, lastName, emailId };
-        console.log('employee => ' + JSON.stringify(employee));
 
         if (id === '_add') {
             EmployeeService.createEmployee(employee).then(res => {
+                toast.success('Employee added successfully!');
                 navigate('/employees');
+            }).catch(error => {
+                toast.error('Error adding employee');
             });
         } else {
             EmployeeService.updateEmployee(employee, id).then(res => {
+                toast.success('Employee updated successfully!');
                 navigate('/employees');
+            }).catch(error => {
+                toast.error('Error updating employee');
             });
         }
     };
@@ -66,6 +72,7 @@ const CreateEmployeeComponent = () => {
 
     return (
         <div>
+            <ToastContainer />
             <br></br>
             <div className="container">
                 <div className="row">
@@ -74,7 +81,7 @@ const CreateEmployeeComponent = () => {
                         <div className="card-body">
                             <form>
                                 <div className="form-group">
-                                    <label> First Name: </label>
+                                    <label> First Name </label>
                                     <input
                                         placeholder="First Name"
                                         name="firstName"
@@ -84,7 +91,7 @@ const CreateEmployeeComponent = () => {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label> Last Name: </label>
+                                    <label> Last Name </label>
                                     <input
                                         placeholder="Last Name"
                                         name="lastName"
@@ -94,7 +101,7 @@ const CreateEmployeeComponent = () => {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label> Email Id: </label>
+                                    <label> Email Id </label>
                                     <input
                                         placeholder="Email Address"
                                         name="emailId"

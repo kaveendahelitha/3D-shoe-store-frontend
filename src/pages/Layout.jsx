@@ -1,6 +1,5 @@
-// src/Layout.js (or src/components/Layout.js)
 import React, { useState } from 'react';
-import Sidebar from '../components/Sidebar/Sidebar';
+import Sidebar from '../components/Sidebar/AdminSidebar';
 
 function Layout({ children }) {
     const [openSidebarToggle, setOpenSidebarToggle] = useState(false);
@@ -11,7 +10,7 @@ function Layout({ children }) {
 
     return (
         <div className="grid-container">
-            <Sidebar openSidebarToggle={openSidebarToggle} OpenSidebar={handleSidebarToggle} />
+            <Sidebar openSidebarToggle={openSidebarToggle} handleSidebarToggle={handleSidebarToggle} />
             <header className="layout_header">
                 <span className="menu-icon" onClick={handleSidebarToggle}>☰</span>
                 <h1>Golden Star</h1>

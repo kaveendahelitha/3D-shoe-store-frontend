@@ -1,20 +1,31 @@
 import React from 'react';
-
+import { FaComments } from 'react-icons/fa';
 import Header from '../../components/Home/header';
-import CarouselIndicatorsOutside from '../../components/Home/carousel';
-import Product from '../../components/Home/product';
+import HomePageFeatures from '../../components/Home/HomePageFeatures';
+//import Carousel from '../../components/Home/carousel';
+//import ProductSection from '../../components/Home/product';
 import Footer from '../../components/Footer/footer';
 
 const Home = () => {
+
+  const handleClick = () => {
+    window.location.href = 'https://gsm-mart-chat-app-client.vercel.app/';
+  };
   return (
     <>
-      
-     
-        <Header />
-        <CarouselIndicatorsOutside/>
-        <Product/>
-        <Footer/>
-   
+      <Header />
+      <HomePageFeatures />
+    
+      <Footer />
+
+      <div className="fixed bottom-4 right-4">
+      <button
+        className="p-3 bg-green-500 rounded-full text-white shadow-lg hover:bg-green-800 focus:outline-none"
+        onClick={handleClick}
+      >
+        <FaComments size={40} />
+      </button>
+    </div>
     </>
   );
 };

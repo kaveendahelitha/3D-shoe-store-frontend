@@ -1,10 +1,6 @@
-
-
 body {
   margin: 0;
   padding: 0;
-  background-color:white;
-  color:blue;
   font-family: 'Montserrat', sans-serif;
 }
 
@@ -22,7 +18,6 @@ body {
   margin-right: 5px;
 }
 
-
 .grid-container {
   display: grid;
   grid-template-columns: 260px 1fr 1fr 1fr;
@@ -34,28 +29,26 @@ body {
   margin-top: 60px;
 }
 
-/* Header  */
+/* Header */
 .layout_header {
   grid-area: header;
   height: 60px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10 30px 0 30px;
-  box-shadow: 0 6px 7px -3px rgba(0, 0, 0, 0.35);
+  padding: 10px 30px 0 30px;
+  box-shadow: 0 6px 7px -3px rgba(21, 72, 214, 0.35);
 }
 
 .menu-icon {
   display: none;
 }
-/* End Header  */
 
-/* Sidebar  */
+/* Sidebar */
 #sidebar {
   grid-area: sidebar;
   height: 100%;
   background-color: #0a3a93;
-  
   overflow-y: auto;
   transition: all 0.5s;
   -webkit-transition: all 0.5s;
@@ -65,7 +58,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px 0px 30px;
+  padding: 15px 30px 0 30px;
   margin-bottom: 30px;
 }
 
@@ -85,7 +78,7 @@ body {
 }
 
 .sidebar-list-item {
-  padding: 20px 20px 20px 20px;
+  padding: 20px;
   font-size: 18px;
 }
 
@@ -102,22 +95,14 @@ body {
 .sidebar-responsive {
   display: inline !important;
   position: absolute;
-  /*
-    we want the z-index of the sidebar higher so that
-    the charts are not showing over the sidebar 
-    on small screens
-  */
   z-index: 12 !important;
 }
 
-/* End Sidebar  */
-
-
-/* Main  */  
+/* Main */
 .main-container {
   grid-area: main;
   overflow-y: auto;
-  padding: 20px 20px;
+  padding: 20px;
   color: black;
 }
 
@@ -154,7 +139,7 @@ body {
 }
 
 .card:nth-child(4) {
-  background-color:  #2962ff;
+  background-color: #2962ff;
 }
 
 .card-inner {
@@ -175,11 +160,7 @@ body {
   height: 300px;
 }
 
-/* End Main  */
-
-
 /* Medium <= 992px */
-  
 @media screen and (max-width: 992px) {
   .grid-container {
     grid-template-columns: 1fr;
@@ -201,8 +182,8 @@ body {
     display: inline;
   }
 }
+
 /* Small <= 768px */
-  
 @media screen and (max-width: 768px) {
   .main-cards {
     grid-template-columns: 1fr;
@@ -217,10 +198,8 @@ body {
 }
 
 /* Extra Small <= 576px */
-
 @media screen and (max-width: 576px) {
   .hedaer-left {
     display: none;
   }
 }
-

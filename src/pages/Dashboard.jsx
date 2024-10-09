@@ -25,7 +25,7 @@ function Dashboard() {
             <div className='main-cards'>
                 <div className='card'>
                     <div className='card-inner'>
-                        <h3>PRODUCTS</h3>
+                        <h3>ITEMS</h3>
                         <BsFillArchiveFill className='card_icon'/>
                     </div>
                     <h1>{dashboardData.itemsCount}</h1>
