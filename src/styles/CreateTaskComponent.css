@@ -1,0 +1,91 @@
+/* Enhanced AddTaskComponent.css */
+
+.add-task-container {
+  margin-top: 30px;
+  padding: 25px;
+  background: linear-gradient(135deg, #570450, #7a006a); 
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.add-task-container:hover {
+  transform: translateY(-5px);
+}
+
+.add-task-title {
+  text-align: center;
+  color: #fff; 
+  margin-bottom: 25px;
+  font-size: 26px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.add-task-card {
+  background-color: rgb(240, 236, 240);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  border-radius: 8px;
+}
+
+.add-task-card-body {
+  padding: 20px;
+}
+
+.add-task-form-group {
+  margin-bottom: 20px;
+}
+
+.add-task-input,
+.add-task-select {
+  width: 100%;
+  padding: 12px;
+  margin: 5px 0 15px;
+  border-radius: 6px;
+  border: 1px solid #88076c;
+  background-color: #fafafa;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.add-task-input:focus,
+.add-task-select:focus {
+  border-color: #5a009d;
+  box-shadow: 0 0 8px rgba(88, 7, 108, 0.4);
+}
+
+.add-task-btn-save {
+  background-color: #32072e; 
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.add-task-btn-save:hover {
+  background-color: #5a009d;
+  transform: translateY(-3px);
+}
+
+.add-task-btn-cancel {
+  background-color: #ff4d4d; 
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.add-task-btn-cancel:hover {
+  background-color: #ff1a1a;
+  transform: translateY(-3px);
+}

@@ -45,6 +45,11 @@ import AdminViewProduts from './components/Products-Admin/AdminViewProduts';
 import Order from './components/common/Order'
 
 
+import CreateTask from './components/TaskManagement/CreateTask';
+import ListTask from './components/TaskManagement/ListTask';
+import Layer2 from './components/Layer2';
+import { ThemeProvider } from './components/TaskManagement/ThemeContext';
+
 
 
 import './App.css';
@@ -194,8 +199,45 @@ function App() {
               )}
               <Route path="*" element={<PageNotFound />} />
               <Route path="/image" element={<ImageUploader />} />
+
+
+
+{/* Task Management Routes (Wrapped with ThemeProvider) */}
+<Route
+            path="/tasks"
+            element={
+              <ThemeProvider>
+                <Layer2>
+                  <ListTask />
+                </Layer2>
+              </ThemeProvider>
+            }
+          />
+          <Route
+            path="/add-task/:id"
+            element={
+              <ThemeProvider>
+                <Layer2>
+                  <CreateTask />
+                </Layer2>
+              </ThemeProvider>
+            }
+          />
+
+
+
+
+
+
+
+
             </Routes>
           </>
+
+
+
+
+
         )}
       </BrowserRouter>
     </>

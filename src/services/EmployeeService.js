@@ -23,6 +23,10 @@ class EmployeeService {
     deleteEmployee(employeeId){
         return axios.delete(`${EMPLOYEE_API_BASE_URL}/${employeeId}`);
     }
+
+    getEmployeeDropdown() {
+        return axios.get(`${EMPLOYEE_API_BASE_URL}/dropdown`);
+    }
 }
 
 export default new EmployeeService();
