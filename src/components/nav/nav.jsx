@@ -1,29 +1,29 @@
-import React, { Fragment } from 'react';
-import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { NavLink, useNavigate } from 'react-router-dom';
-import ApiService from '../service/ApiService';
+import React, { Fragment } from "react";
+import { Disclosure, Menu, Transition } from "@headlessui/react";
+import {
+  Bars3Icon,
+  BellIcon,
+  XMarkIcon,
+  ShoppingCartIcon,
+} from "@heroicons/react/24/outline";
+import { NavLink, useNavigate } from "react-router-dom";
+import ApiService from "../service/ApiService";
 
 const navigation = [
-  { name: 'Home', href: '/', current: false },
+  { name: "Home", href: "/", current: false },
 
-  { name: 'Customize', href: '/customize', current: false },
-  { name: 'Produts', href: '/category', current: false },
-  { name: 'Employee', href: '/employee', current: false },
-  { name: 'DisableForm', href: '/disableform', current: false },
-  
-  
-  { name: 'Sitemanager', href: '/site-manager', current: false },
-  { name: 'Customer', href: '/customer', current: false },
-  { name: 'Admin', href: '/dashboard', current: false },
+  { name: "Customize", href: "/customize", current: false },
+  { name: "Produts", href: "/category", current: false },
+  { name: "Employee", href: "/employee", current: false },
+  { name: "DisableForm", href: "/disableform", current: false },
 
-
-
+  { name: "Sitemanager", href: "/site-manager", current: false },
+  { name: "Customer", href: "/customer", current: false },
+  { name: "Admin", href: "/dashboard", current: false },
 ];
 
-
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function Nav() {
@@ -35,11 +35,17 @@ export default function Nav() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    const isLogout = window.confirm('Are you sure you want to logout this user?');
+    const isLogout = window.confirm(
+      "Are you sure you want to logout this user?"
+    );
     if (isLogout) {
       ApiService.logout();
-      navigate('/login');
+      navigate("/login");
     }
+  };
+
+  const handleCartClick = () => {
+    navigate("/cart"); // Redirect to cart page on cart icon click
   };
 
   return (
@@ -62,23 +68,25 @@ export default function Nav() {
               </div>
               <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
-                  <a href='/'>
-                  <img
-                    className="h-8 w-auto"
-                    src="logo1.png"
-                    alt="Your Company"
-                  /></a>
+                  <a href="/">
+                    <img
+                      className="h-8 w-auto"
+                      src="logo1.png"
+                      alt="Your Company"
+                    />
+                  </a>
                 </div>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => {
                       if (
-                        (item.name === 'Employee' && !isEmployee) ||
-                        (item.name === 'Sitemanager' && !isSitemanager) ||
-                        (item.name === 'Customer' && !isUser)||
-                        (item.name === 'DisableForm' && !isUser) ||
-                        (item.name === 'Admin' && !isAdmin) ||
-                        (!isAuthenticated && (item.name === 'Login' || item.name === 'Register'))
+                        (item.name === "Employee" && !isEmployee) ||
+                        (item.name === "Sitemanager" && !isSitemanager) ||
+                        (item.name === "Customer" && !isUser) ||
+                        (item.name === "DisableForm" && !isUser) ||
+                        (item.name === "Admin" && !isAdmin) ||
+                        (!isAuthenticated &&
+                          (item.name === "Login" || item.name === "Register"))
                       ) {
                         return null;
                       }
@@ -88,8 +96,10 @@ export default function Nav() {
                           key={item.name}
                           to={item.href}
                           className={classNames(
-                            item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                            'rounded-md px-3 py-2 text-sm font-medium'
+                            item.current
+                              ? "bg-gray-900 text-white"
+                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            "rounded-md px-3 py-2 text-sm font-medium"
                           )}
                           activeClassName="bg-gray-900 text-white"
                           exact={true}
@@ -111,6 +121,19 @@ export default function Nav() {
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
+                {isAuthenticated && (
+                  // Show Cart Icon if the user is authenticated
+                  <button
+                    type="button"
+                    className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                    onClick={handleCartClick} // Redirect to cart on click
+                  >
+                    <span className="absolute -inset-1.5" />
+                    <span className="sr-only">View cart</span>
+                    <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
+                  </button>
+                )}
+                
                 {isAuthenticated ? (
                   // User is authenticated, show profile dropdown
                   <Menu as="div" className="relative ml-3">
@@ -119,10 +142,10 @@ export default function Nav() {
                         <span className="absolute -inset-1.5" />
                         <span className="sr-only">Open user menu</span>
                         <img
-  className="h-8 w-8 rounded-full"
-  src="profile.png"
-  alt="Profile"
-/>
+                          className="h-8 w-8 rounded-full"
+                          src="profile.png"
+                          alt="Profile"
+                        />
                       </Menu.Button>
                     </div>
                     <Transition
@@ -135,13 +158,15 @@ export default function Nav() {
                       leaveTo="transform opacity-0 scale-95"
                     >
                       <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        
                         <Menu.Item>
                           {({ active }) => (
                             <a
                               href="#"
                               onClick={handleLogout}
-                              className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700"
+                              )}
                             >
                               Sign out
                             </a>
@@ -156,18 +181,18 @@ export default function Nav() {
                     <NavLink
                       to="/login"
                       className={classNames(
-                        'text-gray-300 hover:bg-gray-700 hover:text-white',
-                        'rounded-md px-3 py-2 text-sm font-medium'
+                        "text-gray-300 hover:bg-gray-700 hover:text-white",
+                        "rounded-md px-3 py-2 text-sm font-medium"
                       )}
                       activeClassName="bg-gray-900 text-white"
                     >
-                      {isAuthenticated ? 'Logout' : 'Login'}
+                      {isAuthenticated ? "Logout" : "Login"}
                     </NavLink>
                     <NavLink
                       to="/register"
                       className={classNames(
-                        'text-gray-300 hover:bg-gray-700 hover:text-white',
-                        'rounded-md px-3 py-2 text-sm font-medium'
+                        "text-gray-300 hover:bg-gray-700 hover:text-white",
+                        "rounded-md px-3 py-2 text-sm font-medium"
                       )}
                       activeClassName="bg-gray-900 text-white"
                     >
@@ -183,12 +208,12 @@ export default function Nav() {
             <div className="space-y-1 px-2 pb-3 pt-2">
               {navigation.map((item) => {
                 if (
-                  (item.name === 'Employee' && !isEmployee) ||
-                  (item.name === 'Sitemanager' && !isSitemanager) ||
-                  (item.name === 'Customer' && !isUser) ||
-                  (item.name === 'Admin' && !isAdmin) ||
-                  
-                  (!isAuthenticated && (item.name === 'Login' || item.name === 'Register'))
+                  (item.name === "Employee" && !isEmployee) ||
+                  (item.name === "Sitemanager" && !isSitemanager) ||
+                  (item.name === "Customer" && !isUser) ||
+                  (item.name === "Admin" && !isAdmin) ||
+                  (!isAuthenticated &&
+                    (item.name === "Login" || item.name === "Register"))
                 ) {
                   return null;
                 }
@@ -199,10 +224,12 @@ export default function Nav() {
                     as={NavLink}
                     to={item.href}
                     className={classNames(
-                      item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                      'block rounded-md px-3 py-2 text-base font-medium'
+                      item.current
+                        ? "bg-gray-900 text-white"
+                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      "block rounded-md px-3 py-2 text-base font-medium"
                     )}
-                    aria-current={item.current ? 'page' : undefined}
+                    aria-current={item.current ? "page" : undefined}
                   >
                     {item.name}
                   </Disclosure.Button>
