@@ -48,6 +48,8 @@ import Order from './components/common/Order'
 import CreateTask from './components/TaskManagement/CreateTask';
 import ListTask from './components/TaskManagement/ListTask';
 import Layer2 from './components/Layer2';
+import Layer3 from './components/Layer3';
+
 import { ThemeProvider } from './components/TaskManagement/ThemeContext';
 
 
@@ -198,8 +200,7 @@ function App() {
                 </>
               )}
               <Route path="*" element={<PageNotFound />} />
-              <Route path="/image" element={<ImageUploader />} />
-
+              
 
 
 {/* Task Management Routes (Wrapped with ThemeProvider) */}
@@ -224,7 +225,19 @@ function App() {
             }
           />
 
-
+  {/* User Management Routes (Wrapped with ThemeProvider) */}
+<Route
+            
+         
+            path="/image"
+            element={
+              <ThemeProvider>
+                <Layer3>
+                <ImageUploader />
+                </Layer3>
+              </ThemeProvider>
+            }
+          />
 
 
 
