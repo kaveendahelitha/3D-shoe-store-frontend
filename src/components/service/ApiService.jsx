@@ -12,7 +12,10 @@ export default class ApiService {
     }
 
 
+
+
     /** AUTH */
+
 
 
     static async updateUserProfile(userData) {
@@ -26,11 +29,83 @@ export default class ApiService {
             throw error;
         }
     }
- /**AUTH */
 
-    /* This  register a new user */
+    /** AUTH */
 
     static async registerUser(registration) {
+        try {
+            const response = await axios.post(`${this.BASE_URL}/auth/register`, registration);
+            return response.data;
+        } catch (error) {
+            console.error('Error registering user:', error.response ? error.response.data : error.message);
+            throw error;
+        }
+    }
+
+    static async loginUser(loginDetails) {
+        try {
+            const response = await axios.post(`${this.BASE_URL}/auth/login`, loginDetails);
+            return response.data;
+        } catch (error) {
+            console.error('Error logging in user:', error.response ? error.response.data : error.message);
+            throw error;
+        }
+    }
+///test
+    static async forgotpass(email) {
+    try {
+        const response = await axios.post(`${this.BASE_URL}/forgotPassword/verifyMail/${email}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error sending OTP:', error.response ? error.response.data : error.message);
+        throw error;
+    }
+    }
+
+
+
+    
+        static async forgotPassword(email) {
+            try {
+                const response = await axios.post(`${this.BASE_URL}/forgotPassword/verifyMail/${email}`);
+                return response.data;
+            } catch (error) {
+                console.error('Error sending OTP:', error.response ? error.response.data : error.message);
+                throw error;
+            }
+        }
+    
+        static async verifyOtp(otp, email) {
+            try {
+                const response = await axios.post(`${this.BASE_URL}/forgotPassword/verifyOtp/${otp}/${email}`);
+                return response.data;
+            } catch (error) {
+                console.error('Error verifying OTP:', error.response ? error.response.data : error.message);
+                throw error;
+            }
+        }
+    
+      // Update resetPassword to accept password and repeatPassword
+      static async resetPassword(email, password, repeatPassword) {
+        try {
+            const response = await axios.post(
+                `${this.BASE_URL}/forgotPassword/changePassword/${email}`, 
+                { password, repeatPassword }, 
+                { headers: this.getHeader() } // Include authorization header
+            );
+            return response.data;
+        } catch (error) {
+            console.error('Error resetting password:', error.response ? error.response.data : error.message);
+            throw error;
+        }
+    }
+    
+    
+
+  
+
+    /**
+     static async registerUser(registration) {
         const response = await axios.post(`${this.BASE_URL}/auth/register`, registration);
         return response.data;
     }
@@ -39,32 +114,34 @@ export default class ApiService {
         const response = await axios.post(`${this.BASE_URL}/auth/login`, loginDetails);
         return response.data;
     }
+     */
 
 
     /** PRODUCTS */
     
 
     /*  This is  to get the user profile */
+
     static async getAllUsers() {
         const response = await axios.get(`${this.BASE_URL}/users/all`, {
             headers: this.getHeader()
-        })
-        return response.data
+        });
+        return response.data;
     }
 
     static async getUserProfile() {
         const response = await axios.get(`${this.BASE_URL}/users/get-logged-in-profile-info`, {
             headers: this.getHeader()
-        })
-        return response.data
+        });
+        return response.data;
     }
- /* This is to delete a user */
- static async deleteUser(userId) {
-    const response = await axios.delete(`${this.BASE_URL}/users/delete/${userId}`, {
-        headers: this.getHeader()
-    })
-    return response.data
-}
+
+    static async deleteUser(userId) {
+        const response = await axios.delete(`${this.BASE_URL}/users/delete/${userId}`, {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
 
 
     static async getProductsByColorPriceAndCategory(category, productColor, priceRange) {
@@ -113,6 +190,8 @@ export default class ApiService {
         }
     }
 
+
+
    // static async addProduct(productData) {
      //  const response = await axios.post(`${this.BASE_URL}/products/add`, productData, {
      //   headers: {
@@ -122,6 +201,7 @@ export default class ApiService {
       //  });
     // return response.data;
    // }
+
 
    
 

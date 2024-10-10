@@ -21,11 +21,19 @@ import Modelpage3 from './pages/3D pages/Modelpage3';
 import DisableForm from './pages/users/DisableForm';
 import Category from './pages/Category';
 import Employee from './pages/EmployeeDashboard/Employee';
+
+//import Customer from './pages/CustomerDashboard/Customer';
 import Customer from './pages/Customerpage/ProfilePage';
+
 
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
+import ForgotPassword from './pages/Auth/ForgotPassword';
+import ResetPassword from './pages/Auth/ResetPassword';
 import ApiService from './components/service/ApiService';
+import OtpForm from './pages/Auth/OtpForm';
+import Forgotpass from './pages/Auth/Forgotpass';
+
 import Sitemanager from './pages/SitemanagerDashboard/Sitemanager';
 import CreateEmployeeComponent from './components/Employee/CreateEmployeeComponent';
 import ListEmployeeComponent from './components/Employee/ListEmployeeComponent';
@@ -84,6 +92,12 @@ function App() {
               <Route path="/category" element={<Category />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/forgotPassword" element={<ForgotPassword />} />
+              <Route path="/forgotpass" element={<Forgotpass />} />
+
+
+              <Route path="/otpForm" element={<OtpForm />} />
+              <Route path="/resetPassword" element={<ResetPassword />} />
               <Route path="/uploader" element={<ImageUploader />} />
               <Route path="/order" element={<Order/>}/>
               {ApiService.adminOnly() && (
