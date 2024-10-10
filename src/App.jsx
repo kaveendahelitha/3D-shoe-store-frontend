@@ -79,6 +79,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/uploader" element={<ImageUploader />} />
               <Route path="/buy-now/:id" element={<BuyNow/>}/>
+              <Route path="/buy-product/:isSingleProductCheckout/:id" element={ <BuyProduct />} />
               {ApiService.adminOnly() && (
                 <>
 
@@ -156,7 +157,7 @@ function App() {
                 <>
                   <Route path="/customer" element={ <Customer />} />
                   
-                  <Route path="/buy-product" element={ <BuyProduct />} />
+                 
                 </>
               )}
 

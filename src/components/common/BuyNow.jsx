@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import productService from '../service/ProductService'; // Adjust the path accordingly
+import ApiService from '../service/ApiService'; 
 
 export default function BuyNow() {
   const { id } = useParams(); // Retrieve the product ID from the URL
@@ -8,6 +10,8 @@ export default function BuyNow() {
   const [loading, setLoading] = useState(true); // State to handle loading
   const [error, setError] = useState(null); // State to handle errors
   const API_BASE_URL = 'http://localhost:8080';
+  const navigate = useNavigate();
+  const [isSingleProductCheckout, setIsSingleProductCheckout] = useState(false);
 
   useEffect(() => {
     // Fetch product details when the component mounts
@@ -28,6 +32,21 @@ export default function BuyNow() {
 
     fetchProduct();
   }, [id]);
+
+  const handleBuyNow = () => {
+    // Check if the user is authenticated and has the role of "USER"
+    if (!ApiService.isAuthenticated()) {
+      alert('You need to be logged in to purchase this product!');
+      navigate('/login');
+    } else if (!ApiService.isUser()) {
+      alert('Only customer can purchase products!');
+      navigate('/login');
+    } else {
+      // Proceed to the buy-product page if authenticated
+      setIsSingleProductCheckout(false);
+      navigate(`/buy-product/${isSingleProductCheckout}/${product.id}`);
+    }
+  };
 
   if (loading) {
     return (
@@ -154,11 +173,9 @@ export default function BuyNow() {
 
           {/* Action Buttons */}
           <div className="flex flex-wrap gap-4 mt-8">
-            <button
-              type="button"
+          <button
               className="min-w-[200px] px-4 py-3 bg-yellow-400 hover:bg-yellow-500 text-white text-sm font-semibold rounded-lg"
-            
-              onClick={() => navigate(`/buy-product/${product.id}`)}
+              onClick={handleBuyNow}
             >
               Buy now
             </button>

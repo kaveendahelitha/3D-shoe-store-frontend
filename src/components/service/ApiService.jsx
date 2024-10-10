@@ -123,7 +123,17 @@ export default class ApiService {
     // return response.data;
    // }
 
-   
+   static async placeOrder(orderData) {
+    try {
+      const response = await axios.post(`${this.BASE_URL}/place-order`, orderData, {
+        headers: this.getHeader(),
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error placing order:", error.response ? error.response.data : error.message);
+      throw error;
+    }
+  }
 
    
 
@@ -133,6 +143,8 @@ export default class ApiService {
         });
         return response.data;
     }
+
+
 
     static logout() {
         localStorage.removeItem('token');
