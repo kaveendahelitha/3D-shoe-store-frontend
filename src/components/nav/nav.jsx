@@ -8,13 +8,17 @@ const navigation = [
   { name: 'Home', href: '/', current: false },
 
   { name: 'Customize', href: '/customize', current: false },
-    { name: 'Produts', href: '/category', current: false },
+  { name: 'Produts', href: '/category', current: false },
   { name: 'Employee', href: '/employee', current: false },
-  { name: 'Disableform', href: '/DisableForm', current: false },
-  
-  { name: 'Sitemanager', href: '/sitemanager', current: false },
   { name: 'DisableForm', href: '/disableform', current: false },
-  { name: 'Admin', href: '/admin', current: false },
+  
+  
+  { name: 'Sitemanager', href: '/site-manager', current: false },
+  { name: 'Customer', href: '/customer', current: false },
+  { name: 'Admin', href: '/dashboard', current: false },
+
+
+
 ];
 
 
@@ -39,7 +43,7 @@ export default function Nav() {
   };
 
   return (
-    <Disclosure as="nav" className="bg-gray-800 fixed inset-x-0 top-0 z-50">
+    <Disclosure as="nav" className="bg-blue-800 fixed inset-x-0 top-0 z-50">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
@@ -71,6 +75,7 @@ export default function Nav() {
                       if (
                         (item.name === 'Employee' && !isEmployee) ||
                         (item.name === 'Sitemanager' && !isSitemanager) ||
+                        (item.name === 'Customer' && !isUser)||
                         (item.name === 'DisableForm' && !isUser) ||
                         (item.name === 'Admin' && !isAdmin) ||
                         (!isAuthenticated && (item.name === 'Login' || item.name === 'Register'))
@@ -180,8 +185,9 @@ export default function Nav() {
                 if (
                   (item.name === 'Employee' && !isEmployee) ||
                   (item.name === 'Sitemanager' && !isSitemanager) ||
-                  (item.name === 'Profile' && !isUser) ||
+                  (item.name === 'Customer' && !isUser) ||
                   (item.name === 'Admin' && !isAdmin) ||
+                  
                   (!isAuthenticated && (item.name === 'Login' || item.name === 'Register'))
                 ) {
                   return null;

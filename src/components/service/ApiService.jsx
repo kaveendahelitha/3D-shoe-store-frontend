@@ -10,6 +10,14 @@ export default class ApiService {
             "Content-Type": "application/json"
         };
     }
+
+
+
+
+    /** AUTH */
+
+
+
     static async updateUserProfile(userData) {
         try {
             const response = await axios.put(`${this.BASE_URL}/users/update`, userData, {
@@ -93,6 +101,27 @@ export default class ApiService {
     }
     
     
+
+  
+
+    /**
+     static async registerUser(registration) {
+        const response = await axios.post(`${this.BASE_URL}/auth/register`, registration);
+        return response.data;
+    }
+
+    static async loginUser(loginDetails) {
+        const response = await axios.post(`${this.BASE_URL}/auth/login`, loginDetails);
+        return response.data;
+    }
+     */
+
+
+    /** PRODUCTS */
+    
+
+    /*  This is  to get the user profile */
+
     static async getAllUsers() {
         const response = await axios.get(`${this.BASE_URL}/users/all`, {
             headers: this.getHeader()
@@ -113,6 +142,7 @@ export default class ApiService {
         });
         return response.data;
     }
+
 
     static async getProductsByColorPriceAndCategory(category, productColor, priceRange) {
         const url = `${this.BASE_URL}/products/available-products-by-color-category-and-pricerange?category=${category}&productColor=${productColor}&priceRange=${priceRange}`;
@@ -160,29 +190,26 @@ export default class ApiService {
         }
     }
 
-    static async addProduct(productData) {
-        const response = await axios.post(`${this.BASE_URL}/products/add`, productData, {
-            headers: {
-                ...this.getHeader(),
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-        return response.data;
-    }
 
-    static async updateProduct(id, productData) {
-        const response = await axios.put(`${this.BASE_URL}/products/product-update/${id}`, productData, {
-            headers: {
-                ...this.getHeader(),
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-        return response.data;
-    }
+
+   // static async addProduct(productData) {
+     //  const response = await axios.post(`${this.BASE_URL}/products/add`, productData, {
+     //   headers: {
+      //          ...this.getHeader(),
+      //          'Content-Type': 'multipart/form-data', // Set for form-data requests
+       //     },
+      //  });
+    // return response.data;
+   // }
+
+
+   
+
+   
 
     static async deleteProduct(id) {
         const response = await axios.delete(`${this.BASE_URL}/products/product-delete/${id}`, {
-            headers: this.getHeader()
+            headers: this.getHeader(),
         });
         return response.data;
     }
@@ -217,19 +244,19 @@ export default class ApiService {
         return role === 'SITE_MANAGER';
     }
 
-    static adminOnly(){
+    static adminOnly() {
         return this.isAuthenticated() && this.isAdmin();
     }
 
-    static userOnly(){
+    static userOnly() {
         return this.isAuthenticated() && this.isUser();
     }
 
-    static employeeOnly(){
+    static employeeOnly() {
         return this.isAuthenticated() && this.isEmployee();
     }
 
-    static sitemanager(){
+    static sitemanager() {
         return this.isAuthenticated() && this.isSitemanager();
     }
 }

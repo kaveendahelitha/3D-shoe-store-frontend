@@ -21,7 +21,10 @@ import Modelpage3 from './pages/3D pages/Modelpage3';
 import DisableForm from './pages/users/DisableForm';
 import Category from './pages/Category';
 import Employee from './pages/EmployeeDashboard/Employee';
-import Customer from './pages/CustomerDashboard/Customer';
+
+//import Customer from './pages/CustomerDashboard/Customer';
+import Customer from './pages/Customerpage/ProfilePage';
+
 
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
@@ -44,7 +47,20 @@ import UpdateSaleComponent from './components/Sales/UpdateSaleComponent';
 import ImageUploader from './components/image/ImageUploader';
 import Dashboard from './pages/Dashboard';
 import Layout from './pages/Layout';
+import LayoutSitemanager from './pages/SitemanagerDashboard/LayoutSitemanager';
 import AdminViewProduts from './components/Products-Admin/AdminViewProduts';
+
+import Order from './components/common/Order'
+
+
+import CreateTask from './components/TaskManagement/CreateTask';
+import ListTask from './components/TaskManagement/ListTask';
+import Layer2 from './components/Layer2';
+import Layer3 from './components/Layer3';
+
+import { ThemeProvider } from './components/TaskManagement/ThemeContext';
+
+
 
 import './App.css';
 
@@ -83,16 +99,10 @@ function App() {
               <Route path="/otpForm" element={<OtpForm />} />
               <Route path="/resetPassword" element={<ResetPassword />} />
               <Route path="/uploader" element={<ImageUploader />} />
+              <Route path="/order" element={<Order/>}/>
               {ApiService.adminOnly() && (
                 <>
-                  <Route
-                    path="/admin"
-                    element={
-                      <Layout>
-                        <ListEmployeeComponent />
-                      </Layout>
-                    }
-                  />
+
                   <Route
                     path="/dashboard"
                     element={
@@ -102,29 +112,17 @@ function App() {
                     }
                   />
                   <Route
-                    path="/add-employee/:id"
+                    path="/admin"
                     element={
                       <Layout>
-                        <CreateEmployeeComponent />
+                        <Dashboard />
                       </Layout>
                     }
                   />
-                  <Route
-                    path="/update-employee/:id"
-                    element={
-                      <Layout>
-                        <UpdateEmployeeComponent />
-                      </Layout>
-                    }
-                  />
-                  <Route
-                    path="/view-employee/:id"
-                    element={
-                      <Layout>
-                        <ViewEmployeeComponent />
-                      </Layout>
-                    }
-                  />
+                  {/* add employee */}
+                  
+                  
+                 
                   <Route
                     path="/sales"
                     element={
@@ -149,6 +147,7 @@ function App() {
                       </Layout>
                     }
                   />
+                  {/* list employee */}
                   <Route
                     path="/employees"
                     element={
@@ -158,6 +157,7 @@ function App() {
                     }                 
                    />
 
+                  {/* product niew-adding-update-delete */}
                   <Route
                     path="/admin-product"
                     element={
@@ -175,7 +175,7 @@ function App() {
 
               {ApiService.userOnly() && (
                 <>
-                  <Route path="/customer" element={<Customer />} />
+                  <Route path="/customer" element={ <Customer />} />
                 </>
               )}
 
@@ -187,13 +187,84 @@ function App() {
 
               {ApiService.sitemanager() && (
                 <>
-                  <Route path="/site-manager" element={<Sitemanager />} />
+                  <Route path="/site-manager" 
+                  element={ 
+                  <LayoutSitemanager>
+                    <Sitemanager />
+                  </LayoutSitemanager>} />
+                   
+                 {/* product niew-adding-update-delete */}
+                  <Route
+                    path="/site-manager-view-product"
+                    element={
+                      <LayoutSitemanager>
+                        <AdminViewProduts /> 
+                      </LayoutSitemanager>
+                    }                 
+                   />
+                  {/* list employee */}
+                  <Route
+                    path="/employees"
+                    element={
+                      <LayoutSitemanager>
+                        <ListEmployeeComponent />  
+                      </LayoutSitemanager>
+                    }                 
+                   />
                 </>
               )}
               <Route path="*" element={<PageNotFound />} />
-              <Route path="/image" element={<ImageUploader />} />
+              
+
+
+{/* Task Management Routes (Wrapped with ThemeProvider) */}
+<Route
+            path="/tasks"
+            element={
+              <ThemeProvider>
+                <Layer2>
+                  <ListTask />
+                </Layer2>
+              </ThemeProvider>
+            }
+          />
+          <Route
+            path="/add-task/:id"
+            element={
+              <ThemeProvider>
+                <Layer2>
+                  <CreateTask />
+                </Layer2>
+              </ThemeProvider>
+            }
+          />
+
+  {/* User Management Routes (Wrapped with ThemeProvider) */}
+<Route
+            
+         
+            path="/image"
+            element={
+              <ThemeProvider>
+                <Layer3>
+                <ImageUploader />
+                </Layer3>
+              </ThemeProvider>
+            }
+          />
+
+
+
+
+
+
             </Routes>
           </>
+
+
+
+
+
         )}
       </BrowserRouter>
     </>
