@@ -36,7 +36,7 @@ const ProductResult = ({ productSearchResults }) => {
                   className="px-3 py-1.5 bg-green-500 text-white rounded hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
                   onClick={() => navigate(`/buy-now/${product.id}`)}
                 >
-                  Buy Now
+                 view
                 </button>
               </div>
             </div>

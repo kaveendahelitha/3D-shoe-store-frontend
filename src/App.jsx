@@ -50,8 +50,8 @@ import Layout from './pages/Layout';
 import LayoutSitemanager from './pages/SitemanagerDashboard/LayoutSitemanager';
 import AdminViewProduts from './components/Products-Admin/AdminViewProduts';
 
-import Order from './components/common/Order'
-
+import BuyNow from './components/common/BuyNow'
+import BuyProduct from './components/common/BuyProduct';
 
 import CreateTask from './components/TaskManagement/CreateTask';
 import ListTask from './components/TaskManagement/ListTask';
@@ -99,7 +99,8 @@ function App() {
               <Route path="/otpForm" element={<OtpForm />} />
               <Route path="/resetPassword" element={<ResetPassword />} />
               <Route path="/uploader" element={<ImageUploader />} />
-              <Route path="/order" element={<Order/>}/>
+              <Route path="/buy-now/:id" element={<BuyNow/>}/>
+              <Route path="/buy-product/:isSingleProductCheckout/:id" element={ <BuyProduct />} />
               {ApiService.adminOnly() && (
                 <>
 
@@ -176,6 +177,8 @@ function App() {
               {ApiService.userOnly() && (
                 <>
                   <Route path="/customer" element={ <Customer />} />
+                  
+                 
                 </>
               )}
 
