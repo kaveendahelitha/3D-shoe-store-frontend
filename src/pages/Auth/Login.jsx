@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ApiService from '../../components/service/ApiService';
 
 export default function Login() {
@@ -8,7 +7,6 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const location = useLocation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,10 +19,11 @@ export default function Login() {
 
     try {
       const response = await ApiService.loginUser({ email, password });
-      if (response.statusCode === 200) {
+      if (response.token) {
         localStorage.setItem('token', response.token);
         localStorage.setItem('role', response.role);
 
+        // Use navigate for redirection
         let redirectTo = '/';
         if (response.role === 'ADMIN') {
           redirectTo = '/admin';
@@ -33,11 +32,13 @@ export default function Login() {
         } else if (response.role === 'EMPLOYEE') {
           redirectTo = '/employee';
         } else if (response.role === 'SITE_MANAGER') {
-          redirectTo = '/sitemanager';
+          redirectTo = '/site-manager';
         }
 
-        // Refresh the page after setting the token and role
-        window.location.href = redirectTo;
+        
+        window.location.href = redirectTo;// Use navigate instead of window.location.href
+      } else {
+        setError('Login failed, please check your credentials.');
       }
     } catch (error) {
       setError(error.response?.data?.message || error.message);
@@ -55,7 +56,7 @@ export default function Login() {
             <p className="text-xs mt-4 text-[#002D74]">If you are already a member, easily log in</p>
 
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              <input 
+              <input
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -79,8 +80,10 @@ export default function Login() {
             </form>
             <div className="flex justify-between items-center">
               <div className="flex gap-2 item-center text-xs mt-4 text-[#002D74]">
-                <label htmlFor="Remember Me">Remember Me</label>
-                <input type="checkbox" className="checkbox" />
+              {/*  <label htmlFor="Remember Me">Remember Me</label>
+                <input type="checkbox" className="checkbox" />*/}
+                <span> <b><Link to='/ForgotPassword'>Forgot Password?</Link></b></span>
+
               </div>
             </div>
             <div className="mt-6 grid grid-cols-all items-center text-gray-400">
