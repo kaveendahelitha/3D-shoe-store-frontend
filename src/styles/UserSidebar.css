@@ -1,0 +1,107 @@
+/* Sidebar Styling */
+
+
+#user-sidebar {
+    background-color: #1e3a8a;  
+    color: white;  
+    width: 250px;
+    height: 100vh;
+    padding: 1rem;
+    position: fixed;
+    transition: transform 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    margin-top: 50px;
+}
+
+/* Light theme */
+:root.light-theme #user-sidebar {
+    background-color: #ffffff;  
+    color: black;  
+}
+
+/* Dark theme */
+:root.dark-theme #user-sidebar {
+    background-color: #252533;  
+    color: #ffffff;  
+}
+
+/* Responsive Sidebar */
+.user-sidebar-responsive {
+    margin-top: 200px;
+    transform: translateX(-100%);
+}
+
+/* Sidebar Header */
+.user-sidebar-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.user-sidebar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.user-icon_header {
+    font-size: 1.8rem;
+    margin-right: 0.5rem;
+}
+
+
+.user-sidebar-list {
+    list-style: none;
+    padding: 0;
+}
+
+.user-sidebar-list-item {
+    margin: 1rem 0;
+}
+
+.user-sidebar-list-item a {
+    color: white;  
+    text-decoration: none;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+:root.light-theme .user-sidebar-list-item a {
+    color: black;
+}
+
+
+:root.dark-theme .user-sidebar-list-item a {
+    color: #ffffff;
+}
+
+
+.user-sidebar-list-item:hover {
+    background-color: #2563eb;  
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+
+:root.light-theme .user-sidebar-list-item:hover {
+    background-color: #007bff; 
+}
+
+
+:root.dark-theme .user-sidebar-list-item:hover {
+    background-color: #61dafb;  
+}
+
+
+.user-icon {
+    font-size: 1.5rem;
+    margin-right: 0.8rem;
+}
+
+
+.user-sidebar-list-item:hover .user-icon {
+    color: #fff;
+}

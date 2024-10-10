@@ -1,8 +1,8 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Nav from './components/nav/nav';
-import Home from './pages/Home/home';
-import PageNotFound from './pages/404 Error/pageNotFound';
+import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Nav from "./components/nav/nav";
+import Home from "./pages/Home/home";
+import PageNotFound from "./pages/404 Error/pageNotFound";
 
 //import RegistrationPage from './pages/AdminDashboard/RegistrationPage';
 
@@ -12,37 +12,54 @@ import PageNotFound from './pages/404 Error/pageNotFound';
 //import UpdateUser from './pages/AdminDashboard/component/updateUser';
 
 //import UserManagement from './pages/AdminDashboard/component/UserManagementPage';
-import Loader from './components/Loader';
-import Customize from './pages/3D pages/Customize';
-import Modelpage1 from './pages/3D pages/Modelpage1';
-import Modelpage2 from './pages/3D pages/Modelpage2';
-import Modelpage3 from './pages/3D pages/Modelpage3';
+import Loader from "./components/Loader";
+import Customize from "./pages/3D pages/Customize";
+import Modelpage1 from "./pages/3D pages/Modelpage1";
+import Modelpage2 from "./pages/3D pages/Modelpage2";
+import Modelpage3 from "./pages/3D pages/Modelpage3";
 
-import DisableForm from './pages/users/DisableForm';
-import Category from './pages/Category';
-import Employee from './pages/EmployeeDashboard/Employee';
-import Customer from './pages/Customerpage/ProfilePage';
+import DisableForm from "./pages/users/DisableForm";
+import Category from "./pages/Category";
+import Employee from "./pages/EmployeeDashboard/Employee";
 
-import Login from './pages/Auth/Login';
-import Register from './pages/Auth/Register';
-import ApiService from './components/service/ApiService';
-import Sitemanager from './pages/SitemanagerDashboard/Sitemanager';
-import CreateEmployeeComponent from './components/Employee/CreateEmployeeComponent';
-import ListEmployeeComponent from './components/Employee/ListEmployeeComponent';
-import UpdateEmployeeComponent from './components/Employee/UpdateEmployeeComponent';
-import ViewEmployeeComponent from './components/Employee/ViewEmployeeComponent';
+//import Customer from './pages/CustomerDashboard/Customer';
+import Customer from "./pages/Customerpage/ProfilePage";
 
-import ListSaleComponent from './components/Sales/ListSaleComponent';
-import CreateSaleComponent from './components/Sales/CreateSaleComponent';
-import UpdateSaleComponent from './components/Sales/UpdateSaleComponent';
+import Login from "./pages/Auth/Login";
+import Register from "./pages/Auth/Register";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
+import ResetPassword from "./pages/Auth/ResetPassword";
+import ApiService from "./components/service/ApiService";
+import OtpForm from "./pages/Auth/OtpForm";
+import Forgotpass from "./pages/Auth/Forgotpass";
 
-import ImageUploader from './components/image/ImageUploader';
-import Dashboard from './pages/Dashboard';
-import Layout from './pages/Layout';
-import AdminViewProduts from './components/Products-Admin/AdminViewProduts';
+import Sitemanager from "./pages/SitemanagerDashboard/Sitemanager";
+import CreateEmployeeComponent from "./components/Employee/CreateEmployeeComponent";
+import ListEmployeeComponent from "./components/Employee/ListEmployeeComponent";
+import UpdateEmployeeComponent from "./components/Employee/UpdateEmployeeComponent";
+import ViewEmployeeComponent from "./components/Employee/ViewEmployeeComponent";
 
+import ListSaleComponent from "./components/Sales/ListSaleComponent";
+import CreateSaleComponent from "./components/Sales/CreateSaleComponent";
+import UpdateSaleComponent from "./components/Sales/UpdateSaleComponent";
 
-import './App.css';
+import ImageUploader from "./components/image/ImageUploader";
+import Dashboard from "./pages/Dashboard";
+import Layout from "./pages/Layout";
+import LayoutSitemanager from "./pages/SitemanagerDashboard/LayoutSitemanager";
+import AdminViewProduts from "./components/Products-Admin/AdminViewProduts";
+
+import BuyNow from "./components/common/BuyNow";
+import BuyProduct from "./components/common/BuyProduct";
+
+import CreateTask from "./components/TaskManagement/CreateTask";
+import ListTask from "./components/TaskManagement/ListTask";
+import Layer2 from "./components/Layer2";
+import Layer3 from "./components/Layer3";
+
+import { ThemeProvider } from "./components/TaskManagement/ThemeContext";
+
+import "./App.css";
 
 function App() {
   const [isLoading, setIsLoading] = React.useState(true); // Initial loading state
@@ -63,7 +80,7 @@ function App() {
             <Nav />
             <Routes>
               <Route path="/" element={<Home />} />
-              
+
               <Route path="/customize" element={<Customize />} />
               <Route path="/modelpage-1" element={<Modelpage1 />} />
               <Route path="/modelpage-2" element={<Modelpage2 />} />
@@ -72,17 +89,19 @@ function App() {
               <Route path="/category" element={<Category />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              <Route path="/forgotPassword" element={<ForgotPassword />} />
+              <Route path="/forgotpass" element={<Forgotpass />} />
+
+              <Route path="/otpForm" element={<OtpForm />} />
+              <Route path="/resetPassword" element={<ResetPassword />} />
               <Route path="/uploader" element={<ImageUploader />} />
+              <Route path="/buy-now/:id" element={<BuyNow />} />
+              <Route
+                path="/buy-product/:isSingleProductCheckout/:id"
+                element={<BuyProduct />}
+              />
               {ApiService.adminOnly() && (
                 <>
-                  <Route
-                    path="/admin"
-                    element={
-                      <Layout>
-                        <ListEmployeeComponent />
-                      </Layout>
-                    }
-                  />
                   <Route
                     path="/dashboard"
                     element={
@@ -92,29 +111,15 @@ function App() {
                     }
                   />
                   <Route
-                    path="/add-employee/:id"
+                    path="/admin"
                     element={
                       <Layout>
-                        <CreateEmployeeComponent />
+                        <Dashboard />
                       </Layout>
                     }
                   />
-                  <Route
-                    path="/update-employee/:id"
-                    element={
-                      <Layout>
-                        <UpdateEmployeeComponent />
-                      </Layout>
-                    }
-                  />
-                  <Route
-                    path="/view-employee/:id"
-                    element={
-                      <Layout>
-                        <ViewEmployeeComponent />
-                      </Layout>
-                    }
-                  />
+                  {/* add employee */}
+
                   <Route
                     path="/sales"
                     element={
@@ -139,27 +144,54 @@ function App() {
                       </Layout>
                     }
                   />
+                  {/* list employee */}
                   <Route
                     path="/employees"
                     element={
                       <Layout>
                         <ListEmployeeComponent />
                       </Layout>
-                    }                 
-                   />
+                    }
+                  />
 
+                  {/* product niew-adding-update-delete */}
                   <Route
                     path="/admin-product"
                     element={
                       <Layout>
                         <AdminViewProduts />
                       </Layout>
-                    }                 
-                   />
+                    }
+                  />
+
+                  {/* Task Management Routes (Wrapped with ThemeProvider) */}
+              <Route
+                path="/tasks"
+                element={
+                  //<ThemeProvider>
+                   // <Layer2>
+                   <Layout>
+                      <ListTask />
+                    </Layout>
+                    //</></Layer2>
+                  //</ThemeProvider>
+                }
+              />
+              <Route
+                path="/add-task/:id"
+                element={
+                  //<ThemeProvider>
+                  //  <Layer2>
+                  <Layout>
+                      <CreateTask />
+                  </Layout>
+                  // </Layer2>
+                  ///ThemeProvider>
+                }
+              />
 
                  
 
-                
                 </>
               )}
 
@@ -177,11 +209,50 @@ function App() {
 
               {ApiService.sitemanager() && (
                 <>
-                  <Route path="/site-manager" element={<Sitemanager />} />
+                  <Route
+                    path="/site-manager"
+                    element={
+                      <LayoutSitemanager>
+                        <Sitemanager />
+                      </LayoutSitemanager>
+                    }
+                  />
+
+                  {/* product niew-adding-update-delete */}
+                  <Route
+                    path="/site-manager-view-product"
+                    element={
+                      <LayoutSitemanager>
+                        <AdminViewProduts />
+                      </LayoutSitemanager>
+                    }
+                  />
+                  {/* list employee */}
+                  <Route
+                    path="/employees"
+                    element={
+                      <LayoutSitemanager>
+                        <ListEmployeeComponent />
+                      </LayoutSitemanager>
+                    }
+                  />
                 </>
               )}
               <Route path="*" element={<PageNotFound />} />
-              <Route path="/image" element={<ImageUploader />} />
+
+              
+
+              {/* User Management Routes (Wrapped with ThemeProvider) */}
+              <Route
+                path="/image"
+                element={
+                  <ThemeProvider>
+                    <Layer3>
+                      <ImageUploader />
+                    </Layer3>
+                  </ThemeProvider>
+                }
+              />
             </Routes>
           </>
         )}

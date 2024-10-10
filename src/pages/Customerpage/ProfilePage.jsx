@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import ApiService from '../../components/service/ApiService';
 import { useNavigate } from 'react-router-dom';
-import { FaUserCircle, FaEdit, FaSave, FaTimes, FaTrashAlt } from 'react-icons/fa';
+import { FaEdit, FaSave, FaTimes, FaTrashAlt } from 'react-icons/fa';
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
-    const [updatedUser, setUpdatedUser] = useState({});
+    const [updatedUser, setUpdatedUser] = useState({
+        userFirstname: '',
+        userLastname: '',
+        phoneNumber: '',
+        address: '',
+        email: '',
+        password: '',
+    });
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
     const navigate = useNavigate();
@@ -16,7 +23,14 @@ const ProfilePage = () => {
             try {
                 const response = await ApiService.getUserProfile();
                 setUser(response.user);
-                setUpdatedUser(response.user);
+                setUpdatedUser({
+                    userFirstname: response.user.userFirstname || '',
+                    userLastname: response.user.userLastname || '',
+                    phoneNumber: response.user.phoneNumber || '',
+                    address: response.user.address || '',
+                    email: response.user.email || '',
+                    password: '',
+                });
             } catch (error) {
                 setError(error.response ? error.response.data.message : error.message);
             }
@@ -33,12 +47,14 @@ const ProfilePage = () => {
     const handleEditClick = () => {
         setIsEditing(true);
         setSuccess(null);
+        setError(null);
     };
 
     const handleUpdateProfile = async () => {
+        setError(null);
         try {
             await ApiService.updateUserProfile(updatedUser);
-            setUser(updatedUser); // Ensure user state is updated with the latest data
+            setUser(updatedUser);
             setIsEditing(false);
             setSuccess('Profile updated successfully!');
         } catch (error) {
@@ -65,12 +81,11 @@ const ProfilePage = () => {
                     {/* Profile Picture Section */}
                     <div className="flex-shrink-0 mb-4 md:mb-0 md:mr-6">
                         <div className="w-24 h-24 bg-gray-300 rounded-full flex items-center justify-center text-white text-4xl">
-                            {/*<FaUserCircle />*/}
                             <img
-                          className="w-24 h-24 rounded-full"
-                          src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                          alt=""
-                        />
+                                className="w-24 h-24 rounded-full"
+                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                                alt="Profile"
+                            />
                         </div>
                     </div>
 
@@ -81,91 +96,109 @@ const ProfilePage = () => {
                         {success && <div className="text-green-500 mb-4">{success}</div>}
                         {user && (
                             <div className="space-y-4">
+                                {/* First Name */}
                                 <div className='flex items-center justify-between'>
-                                    <label htmlFor="firstname" className="text-gray-700 font-medium text-sm">First Name</label>
+                                    <label htmlFor="userFirstname" className="text-gray-700 font-medium text-sm">First Name</label>
                                     {isEditing ? (
                                         <input
                                             type="text"
+                                            id="userFirstname"
                                             name="userFirstname"
                                             value={updatedUser.userFirstname}
                                             onChange={handleInputChange}
                                             className="border p-2 rounded-md w-3/4"
                                         />
                                     ) : (
-                                        <p>{user.userFirstname}</p>
+                                        <p>{user.userFirstname || 'N/A'}</p>
                                     )}
                                 </div>
+
+                                {/* Last Name */}
                                 <div className='flex items-center justify-between'>
-                                    <label className="text-gray-700 font-medium text-sm">Last Name</label>
+                                    <label htmlFor="userLastname" className="text-gray-700 font-medium text-sm">Last Name</label>
                                     {isEditing ? (
                                         <input
                                             type="text"
+                                            id="userLastname"
                                             name="userLastname"
                                             value={updatedUser.userLastname}
                                             onChange={handleInputChange}
                                             className="border p-2 rounded-md w-3/4"
                                         />
                                     ) : (
-                                        <p>{user.userLastname}</p>
+                                        <p>{user.userLastname || 'N/A'}</p>
                                     )}
                                 </div>
+
+                                {/* Phone Number */}
                                 <div className='flex items-center justify-between'>
-                                    <label className="text-gray-700 font-medium text-sm">Phone Number</label>
+                                    <label htmlFor="phoneNumber" className="text-gray-700 font-medium text-sm">Phone Number</label>
                                     {isEditing ? (
                                         <input
                                             type="text"
+                                            id="phoneNumber"
                                             name="phoneNumber"
                                             value={updatedUser.phoneNumber}
                                             onChange={handleInputChange}
                                             className="border p-2 rounded-md w-3/4"
                                         />
                                     ) : (
-                                        <p>{user.phoneNumber || 'N/A'}</p> 
+                                        <p>{user.phoneNumber || 'N/A'}</p>
                                     )}
                                 </div>
+
+                                {/* Address */}
                                 <div className='flex items-center justify-between'>
-                                    <label className="text-gray-700 font-medium text-sm">Address</label>
+                                    <label htmlFor="address" className="text-gray-700 font-medium text-sm">Address</label>
                                     {isEditing ? (
                                         <input
                                             type="text"
+                                            id="address"
                                             name="address"
                                             value={updatedUser.address}
                                             onChange={handleInputChange}
                                             className="border p-2 rounded-md w-3/4"
                                         />
                                     ) : (
-                                        <p>{user.address || 'N/A'}</p> 
+                                        <p>{user.address || 'N/A'}</p>
                                     )}
                                 </div>
+
+                                {/* Email */}
                                 <div className='flex items-center justify-between'>
-                                    <label className="text-gray-700 font-medium text-sm">Email</label>
+                                    <label htmlFor="email" className="text-gray-700 font-medium text-sm">Email</label>
                                     {isEditing ? (
                                         <input
                                             type="email"
+                                            id="email"
                                             name="email"
                                             value={updatedUser.email}
                                             onChange={handleInputChange}
                                             className="border p-2 rounded-md w-3/4"
                                         />
                                     ) : (
-                                        <p>{user.email}</p>
-                                    )}
-                                </div>
-                                <div className='flex items-center justify-between'>
-                                    <label className="text-gray-700 font-medium text-sm">Password</label>
-                                    {isEditing ? (
-                                        <input
-                                            className="p-2 rounded-md border w-3/4"
-                                            type="password"
-                                            name="password"
-                                            value={updatedUser.password || ''}
-                                            onChange={handleInputChange}
-                                        />
-                                    ) : (
-                                        <p>********</p> 
+                                        <p>{user.email || 'N/A'}</p>
                                     )}
                                 </div>
 
+                                {/* Password */}
+                                <div className='flex items-center justify-between'>
+                                    <label htmlFor="password" className="text-gray-700 font-medium text-sm">Password</label>
+                                    {isEditing ? (
+                                        <input
+                                            type="password"
+                                            id="password"
+                                            name="password"
+                                            value={updatedUser.password}
+                                            onChange={handleInputChange}
+                                            className="p-2 rounded-md border w-3/4"
+                                        />
+                                    ) : (
+                                        <p>********</p>
+                                    )}
+                                </div>
+
+                                {/* Action Buttons */}
                                 <div className="flex gap-4 mt-4">
                                     {isEditing ? (
                                         <>

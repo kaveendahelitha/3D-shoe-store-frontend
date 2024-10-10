@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { BsCart3, BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsMenuButtonWideFill, BsFillGearFill } from 'react-icons/bs';
 
-function Sidebar({ openSidebarToggle, handleSidebarToggle }) {
+function SidebarSitemanager({ openSidebarToggle, handleSidebarToggle }) {
   return (
     <aside id="sidebar" className={openSidebarToggle ? "sidebar-responsive" : ""}>
       <div className='sidebar-title'>
@@ -23,10 +23,10 @@ function Sidebar({ openSidebarToggle, handleSidebarToggle }) {
             <BsFillArchiveFill className='icon' /> Employees
           </Link>
         </li>
-        
+      
 
         <li className='sidebar-list-item'>
-          <Link to="/admin-product">
+          <Link to="/site-manager-view-product">
             <BsPeopleFill className='icon' /> Product
           </Link>
         </li>
@@ -34,18 +34,6 @@ function Sidebar({ openSidebarToggle, handleSidebarToggle }) {
         <li className='sidebar-list-item'>
           <Link to="/sales">
             <BsFillGrid3X3GapFill className='icon' /> Sales
-          </Link>
-        </li>
-
-        <li className='sidebar-list-item'>
-          <Link to="/tasks">
-            <BsFillGrid3X3GapFill className='icon' /> Task
-          </Link>
-        </li>
-
-        <li className='sidebar-list-item'>
-          <Link to="/add-task/:id">
-            <BsFillGrid3X3GapFill className='icon' /> Create Task
           </Link>
         </li>
         
@@ -64,4 +52,4 @@ function Sidebar({ openSidebarToggle, handleSidebarToggle }) {
   );
 }
 
-export default Sidebar;
+export default SidebarSitemanager;

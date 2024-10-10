@@ -1,0 +1,38 @@
+/* Layer2.css */
+
+.layer2-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; 
+}
+
+.layer2-header {
+    background-color: #6a1b9a; 
+    color: white; 
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.layer2-header a {
+    color: white; 
+    text-decoration: none; 
+}
+
+.layer2-header a:hover {
+    text-decoration: underline; 
+}
+
+.layer2-body {
+    display: flex;
+    flex: 1; 
+    background-color: #8e14a4; 
+}
+
+.layer2-content {
+    flex: 1; 
+    padding: 20px;
+    background-color: #ffffff; 
+    border-left: 1px solid #6a1b9a; 
+}

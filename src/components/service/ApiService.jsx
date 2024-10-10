@@ -11,6 +11,13 @@ export default class ApiService {
         };
     }
 
+
+
+
+    /** AUTH */
+
+
+
     static async updateUserProfile(userData) {
         try {
             const response = await axios.put(`${this.BASE_URL}/users/update`, userData, {
@@ -22,43 +29,121 @@ export default class ApiService {
             throw error;
         }
     }
- /**AUTH */
 
-    /* This  register a new user */
+    /** AUTH */
+
     static async registerUser(registration) {
-        const response = await axios.post(`${this.BASE_URL}/auth/register`, registration)
-        return response.data
+        try {
+            const response = await axios.post(`${this.BASE_URL}/auth/register`, registration);
+            return response.data;
+        } catch (error) {
+            console.error('Error registering user:', error.response ? error.response.data : error.message);
+            throw error;
+        }
     }
 
-    /* This  login a registered user */
     static async loginUser(loginDetails) {
-        const response = await axios.post(`${this.BASE_URL}/auth/login`, loginDetails)
-        return response.data
+        try {
+            const response = await axios.post(`${this.BASE_URL}/auth/login`, loginDetails);
+            return response.data;
+        } catch (error) {
+            console.error('Error logging in user:', error.response ? error.response.data : error.message);
+            throw error;
+        }
     }
+///test
+    static async forgotpass(email) {
+    try {
+        const response = await axios.post(`${this.BASE_URL}/forgotPassword/verifyMail/${email}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error sending OTP:', error.response ? error.response.data : error.message);
+        throw error;
+    }
+    }
+
+
+
+    
+        static async forgotPassword(email) {
+            try {
+                const response = await axios.post(`${this.BASE_URL}/forgotPassword/verifyMail/${email}`);
+                return response.data;
+            } catch (error) {
+                console.error('Error sending OTP:', error.response ? error.response.data : error.message);
+                throw error;
+            }
+        }
+    
+        static async verifyOtp(otp, email) {
+            try {
+                const response = await axios.post(`${this.BASE_URL}/forgotPassword/verifyOtp/${otp}/${email}`);
+                return response.data;
+            } catch (error) {
+                console.error('Error verifying OTP:', error.response ? error.response.data : error.message);
+                throw error;
+            }
+        }
+    
+      // Update resetPassword to accept password and repeatPassword
+      static async resetPassword(email, password, repeatPassword) {
+        try {
+            const response = await axios.post(
+                `${this.BASE_URL}/forgotPassword/changePassword/${email}`, 
+                { password, repeatPassword }, 
+                { headers: this.getHeader() } // Include authorization header
+            );
+            return response.data;
+        } catch (error) {
+            console.error('Error resetting password:', error.response ? error.response.data : error.message);
+            throw error;
+        }
+    }
+    
+    
+
+  
+
+    /**
+     static async registerUser(registration) {
+        const response = await axios.post(`${this.BASE_URL}/auth/register`, registration);
+        return response.data;
+    }
+
+    static async loginUser(loginDetails) {
+        const response = await axios.post(`${this.BASE_URL}/auth/login`, loginDetails);
+        return response.data;
+    }
+     */
+
+
+    /** PRODUCTS */
+    
 
     /*  This is  to get the user profile */
+
     static async getAllUsers() {
         const response = await axios.get(`${this.BASE_URL}/users/all`, {
             headers: this.getHeader()
-        })
-        return response.data
+        });
+        return response.data;
     }
 
     static async getUserProfile() {
         const response = await axios.get(`${this.BASE_URL}/users/get-logged-in-profile-info`, {
             headers: this.getHeader()
-        })
-        return response.data
+        });
+        return response.data;
     }
- /* This is to delete a user */
- static async deleteUser(userId) {
-    const response = await axios.delete(`${this.BASE_URL}/users/delete/${userId}`, {
-        headers: this.getHeader()
-    })
-    return response.data
-}
 
-      /* This  gets all products from CPC */
+    static async deleteUser(userId) {
+        const response = await axios.delete(`${this.BASE_URL}/users/delete/${userId}`, {
+            headers: this.getHeader()
+        });
+        return response.data;
+    }
+
+
     static async getProductsByColorPriceAndCategory(category, productColor, priceRange) {
         const url = `${this.BASE_URL}/products/available-products-by-color-category-and-pricerange?category=${category}&productColor=${productColor}&priceRange=${priceRange}`;
         try {
@@ -70,11 +155,11 @@ export default class ApiService {
         }
     }
 
-     /* This  gets all products from the database */
     static async getAllProducts() {
-        const result = await axios.get(`${this.BASE_URL}/products/all`)
-        return result.data
+        const result = await axios.get(`${this.BASE_URL}/products/all`);
+        return result.data;
     }
+
     static async getAllProductsCategories() {
         try {
             const response = await axios.get(`${this.BASE_URL}/products/categories`);
@@ -84,7 +169,6 @@ export default class ApiService {
             throw error;
         }
     }
-    /* This  gets all products colors */
 
     static async getAllProductColors() {
         try {
@@ -95,7 +179,7 @@ export default class ApiService {
             throw error;
         }
     }
-    /* This  gets all products price */
+
     static async getAllProductsPriceLevels() {
         try {
             const response = await axios.get(`${this.BASE_URL}/products/priceranges`);
@@ -106,34 +190,41 @@ export default class ApiService {
         }
     }
 
-    static async addProduct(productData) {
-        const response = await axios.post(`${this.BASE_URL}/products/add`, productData, {
-            headers: {
-                ...this.getHeader(),
-                'Content-Type': 'multipart/form-data', // Explicitly set for form-data requests
-            },
-        });
-        return response.data;
-    }
 
-    static async updateProduct(id, productData) {
-        const response = await axios.put(`${this.BASE_URL}/products/product-update/${id}`, productData, {
-            headers: {
-                ...this.getHeader(),
-                'Content-Type': 'multipart/form-data',
-            },
-        });
-        return response.data;
+
+   // static async addProduct(productData) {
+     //  const response = await axios.post(`${this.BASE_URL}/products/add`, productData, {
+     //   headers: {
+      //          ...this.getHeader(),
+      //          'Content-Type': 'multipart/form-data', // Set for form-data requests
+       //     },
+      //  });
+    // return response.data;
+   // }
+
+
+   static async placeOrder(orderData) {
+    try {
+      const response = await axios.post(`${this.BASE_URL}/place-order`, orderData, {
+        headers: this.getHeader(),
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error placing order:", error.response ? error.response.data : error.message);
+      throw error;
     }
+  }
+
+
+   
 
     static async deleteProduct(id) {
         const response = await axios.delete(`${this.BASE_URL}/products/product-delete/${id}`, {
-            headers: this.getHeader()
+            headers: this.getHeader(),
         });
         return response.data;
     }
 
-    
 
 
     static logout() {
@@ -166,19 +257,19 @@ export default class ApiService {
         return role === 'SITE_MANAGER';
     }
 
-    static adminOnly(){
+    static adminOnly() {
         return this.isAuthenticated() && this.isAdmin();
     }
 
-    static userOnly(){
+    static userOnly() {
         return this.isAuthenticated() && this.isUser();
     }
 
-    static employeeOnly(){
+    static employeeOnly() {
         return this.isAuthenticated() && this.isEmployee();
     }
 
-    static sitemanager(){
+    static sitemanager() {
         return this.isAuthenticated() && this.isSitemanager();
     }
 }
