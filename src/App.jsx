@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Nav from "./components/nav/nav";
 import Home from "./pages/Home/home";
 import PageNotFound from "./pages/404 Error/pageNotFound";
+import Cart from './components/common/cart';  // Import Cart component
 
 //import RegistrationPage from './pages/AdminDashboard/RegistrationPage';
 
@@ -100,6 +101,8 @@ function App() {
                 path="/buy-product/:isSingleProductCheckout/:id"
                 element={<BuyProduct />}
               />
+              <Route path="/cart" element={<Cart />} />  {/* Add Cart route */}
+              
               {ApiService.adminOnly() && (
                 <>
                   <Route
