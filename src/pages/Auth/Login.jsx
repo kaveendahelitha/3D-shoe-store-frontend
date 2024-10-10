@@ -32,10 +32,11 @@ export default function Login() {
         } else if (response.role === 'EMPLOYEE') {
           redirectTo = '/employee';
         } else if (response.role === 'SITE_MANAGER') {
-          redirectTo = '/sitemanager';
+          redirectTo = '/site-manager';
         }
 
-        navigate(redirectTo); // Use navigate instead of window.location.href
+        
+        window.location.href = redirectTo;// Use navigate instead of window.location.href
       } else {
         setError('Login failed, please check your credentials.');
       }

@@ -36,6 +36,18 @@ function Sidebar({ openSidebarToggle, handleSidebarToggle }) {
             <BsFillGrid3X3GapFill className='icon' /> Sales
           </Link>
         </li>
+
+        <li className='sidebar-list-item'>
+          <Link to="/tasks">
+            <BsFillGrid3X3GapFill className='icon' /> Task
+          </Link>
+        </li>
+
+        <li className='sidebar-list-item'>
+          <Link to="/add-task/:id">
+            <BsFillGrid3X3GapFill className='icon' /> Create Task
+          </Link>
+        </li>
         
         <li className='sidebar-list-item'>
           <Link to="/reports">
