@@ -57,6 +57,15 @@ import ListTask from "./components/TaskManagement/ListTask";
 import Layer2 from "./components/Layer2";
 import Layer3 from "./components/Layer3";
 
+
+import EmployeeList from './components/EmployeeDashboard/EmployeeList';
+import EmployeeUpdate from './components/EmployeeDashboard/EmployeeUpdate';
+import TaskList from './components/EmployeeDashboard/TaskList';
+import Layout2 from './pages/Layout2';
+import EmpDash from './pages/EmpDash';
+
+
+
 import { ThemeProvider } from "./components/TaskManagement/ThemeContext";
 
 import "./App.css";
@@ -253,6 +262,54 @@ function App() {
                   </ThemeProvider>
                 }
               />
+
+
+<Route
+          path="/employeeDash"
+            element={
+              <Layout2>
+                < EmpDash />
+              </Layout2>
+            }
+          />
+
+
+
+
+
+
+
+<Route
+          path="/employeelist"
+            element={
+              <Layout2>
+                <EmployeeList />
+              </Layout2>
+            }
+          />
+
+
+      <Route
+     path="/tasklist"
+            element={
+              <Layout2>
+                <TaskList />
+              </Layout2>
+            }
+          />
+
+    <Route
+      path="/employeeupdate"
+            element={
+              <Layout2>
+                <EmployeeUpdate />
+              </Layout2>
+            }
+          />
+
+
+
+
             </Routes>
           </>
         )}
