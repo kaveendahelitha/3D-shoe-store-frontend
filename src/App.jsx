@@ -63,6 +63,7 @@ import { ThemeProvider } from './components/TaskManagement/ThemeContext';
 
 
 import './App.css';
+import ProfilePage from './pages/Customerpage/ProfilePage';
 
 function App() {
   const [isLoading, setIsLoading] = React.useState(true); // Initial loading state
@@ -94,6 +95,7 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/forgotPassword" element={<ForgotPassword />} />
               <Route path="/forgotpass" element={<Forgotpass />} />
+              <Route path="/profilePage" element={<ProfilePage />} />
 
 
               <Route path="/otpForm" element={<OtpForm />} />

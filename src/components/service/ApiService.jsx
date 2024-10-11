@@ -51,16 +51,7 @@ export default class ApiService {
             throw error;
         }
     }
-///test
-    static async forgotpass(email) {
-    try {
-        const response = await axios.post(`${this.BASE_URL}/forgotPassword/verifyMail/${email}`);
-        return response.data;
-    } catch (error) {
-        console.error('Error sending OTP:', error.response ? error.response.data : error.message);
-        throw error;
-    }
-    }
+
 
 
 
