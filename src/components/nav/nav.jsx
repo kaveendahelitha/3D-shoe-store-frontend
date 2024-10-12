@@ -121,7 +121,7 @@ export default function Nav() {
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
-                {isAuthenticated && (
+                {isAuthenticated && isUser && (
                   // Show Cart Icon if the user is authenticated
                   <button
                     type="button"
@@ -134,7 +134,7 @@ export default function Nav() {
                   </button>
                 )}
                 
-                {isAuthenticated ? (
+                {isAuthenticated ?  (
                   // User is authenticated, show profile dropdown
                   <Menu as="div" className="relative ml-3">
                     <div>

@@ -11,14 +11,14 @@ function TaskSidebar({ openSidebarToggle, OpenSidebar }) {
         <aside id="task-sidebar" className={openSidebarToggle ? "task-sidebar-responsive" : ""}>
             <div className="task-sidebar-title">
                 <div className="task-sidebar-brand">
-                    <BsFillClipboardDataFill className="task-icon_header" /> Task Management
+                    <BsFillClipboardDataFill className="task-icon_header" /> Customer Management
                 </div>
             </div>
 
             <ul className="task-sidebar-list">
                 <li className="task-sidebar-list-item">
-                    <Link to="/tasks">
-                        <BsListCheck className="task-icon" /> Task List
+                    <Link to="/customer-orders">
+                        <BsListCheck className="task-icon" /> Orders
                     </Link>
                 </li>
                 <li className="task-sidebar-list-item">

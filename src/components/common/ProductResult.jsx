@@ -16,9 +16,9 @@ const ProductResult = ({ productSearchResults }) => {
 
       // If authenticated, proceed to add the product to the cart
       const response = await ApiService.addToCart(productId);
-      console.log("Product added to cart:", response);
+      alert("Product added to cart:", response);
     } catch (error) {
-      console.error("Failed to add product to cart:", error);
+      alert("Failed to add product to cart:", error);
     }
   };
   return (

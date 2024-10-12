@@ -28,7 +28,7 @@ const  productService= {
 
   getProductDetails: (isSingleProductCheckout, productId) => {
     return axios.get(`${API_BASE_URL}/getProductDetails/${isSingleProductCheckout}/${productId}`);
-}
+   }
 
 
 

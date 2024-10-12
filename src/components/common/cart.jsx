@@ -24,6 +24,7 @@ const descriptionColumnStyles = {
 };
 
 const Cart = () => {
+  const API_BASE_URL = "http://localhost:8080";
   const [cartDetails, setCartDetails] = useState([]);
   const navigate = useNavigate();
 
@@ -36,22 +37,26 @@ const Cart = () => {
       const response = await ApiService.getCartDetails();
       setCartDetails(response);
     } catch (error) {
-      console.error("Error fetching cart details:", error);
+      alert("Error fetching cart details:", error);
     }
   };
 
   const deleteItem = async (cartId) => {
     try {
       await ApiService.deleteCartItem(cartId);
-      getCartDetails(); // Refresh cart details after deletion
+     
+      getCartDetails();
+      alert(" are you want to delete item:", deleteItem);
+      alert("item delete")
+       // Refresh cart details after deletion
     } catch (error) {
-      console.error("Error deleting item:", error);
+      alert("Error deleting item:", error);
     }
   };
 
   const checkout = () => {
-    navigate("/buyProduct", {
-      state: { isSingleProductCheckout: false, id: 0 },
+    navigate("/buy-product/false/0", {
+      
     });
   };
 
@@ -78,7 +83,7 @@ const Cart = () => {
             <tr key={element.cartId}>
               <td style={tdStyles}>
                 <img
-                  src={element.product.productPhotoUrl} // product image URL
+                  src={`${API_BASE_URL}/products/image/${element.product.productPhotoUrl}`} // product image URL
                   alt={element.product.productName}
                   style={imageStyles}
                 />

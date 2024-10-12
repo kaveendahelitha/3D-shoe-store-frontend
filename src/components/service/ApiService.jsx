@@ -10,6 +10,25 @@ export default class ApiService {
       "Content-Type": "application/json",
     };
   }
+  
+
+ 
+  static async createTransaction(amount) {
+    try {
+      const response = await axios.get(
+        `${this.BASE_URL}/createTransaction/${amount}`,
+        {
+          headers: this.getHeader(),
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error in Transaction:", error.message);
+      throw error;
+    }
+  }
+
+
 
   /** AUTH */
 
@@ -267,10 +286,10 @@ export default class ApiService {
   // return response.data;
   // }
 
-  static async placeOrder(orderData) {
+  static async placeOrder(orderData, isSingleProductCheckout) {
     try {
       const response = await axios.post(
-        `${this.BASE_URL}/place-order`,
+        `${this.BASE_URL}/place-order/${isSingleProductCheckout}`,
         orderData,
         {
           headers: this.getHeader(),
@@ -282,6 +301,49 @@ export default class ApiService {
         "Error placing order:",
         error.response ? error.response.data : error.message
       );
+      throw error;
+    }
+  }
+
+  static async getOrderDetails() {
+    try {
+      const response = await axios.get(`${this.BASE_URL}/getOrderDetails`, {
+        headers: this.getHeader(),
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error geting orders:", error.message);
+      throw error;
+    }
+  }
+
+  static async getAllOrderDetails(status) {
+    try {
+      const response = await axios.get(
+        `${this.BASE_URL}/getAllOrderDetails/${status}`,
+        {
+          headers: this.getHeader(),
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error getting orders:", error.message);
+      throw error;
+    }
+  }
+
+  // Function to mark an order as delivered
+  static async markOrderAsDelivered(orderId) {
+    try {
+      const response = await axios.get(
+        `${this.BASE_URL}/markOrderAsDelivered/${orderId}`,
+        {
+          headers: this.getHeader(),
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error marking order as delivered:", error.message);
       throw error;
     }
   }

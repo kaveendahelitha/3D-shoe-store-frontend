@@ -31,6 +31,13 @@ function Sidebar({ openSidebarToggle, handleSidebarToggle }) {
           </Link>
         </li>
 
+        
+        <li className='sidebar-list-item'>
+          <Link to="/orders-information/All">
+            <BsPeopleFill className='icon' /> Orders
+          </Link>
+        </li>
+
         <li className='sidebar-list-item'>
           <Link to="/sales">
             <BsFillGrid3X3GapFill className='icon' /> Sales

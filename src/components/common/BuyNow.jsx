@@ -11,7 +11,7 @@ export default function BuyNow() {
   const [error, setError] = useState(null); // State to handle errors
   const API_BASE_URL = 'http://localhost:8080';
   const navigate = useNavigate();
-  const [isSingleProductCheckout, setIsSingleProductCheckout] = useState(false);
+  const [isSingleProductCheckout, setIsSingleProductCheckout] = useState(true);
 
   useEffect(() => {
     // Fetch product details when the component mounts

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import productService from '../service/ProductService';
-import ApiService from '../service/ApiService';
+import ApiService from '../service/ApiService'; // Import ApiService
 import { useParams, useNavigate } from 'react-router-dom';
 
 export default function BuyProduct() {
   const API_BASE_URL = 'http://localhost:8080';
-  const { id } = useParams(); // Get productId from the URL
+  const { isSingleProductCheckout, id } = useParams();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -13,41 +13,91 @@ export default function BuyProduct() {
     contactNumber: '',
     alternateContactNumber: '',
     fullAddress: '',
-    orderProductQuantityList: [{
-      productId: id,
-      quantity: 2 // Default quantity
-    }]
+    orderProductQuantityList: [] // Will be initialized after fetching products
   });
 
-  const [productDetails, setProductDetails] = useState(null);
+  const [productDetails, setProductDetails] = useState([]); // Initialize as empty array
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [paymentTitle, setPaymentTitle] = useState(''); // Add for payment title
 
-  // Fetch product details when the component loads
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await productService.getProductById(id);
-        if (response.data.statusCode === 200) {
-          setProductDetails(response.data.product); // Assuming response contains the product details in 'product'
+        const response = await productService.getProductDetails(isSingleProductCheckout, id);
+        if (Array.isArray(response.data) && response.data.length > 0) {
+          setProductDetails(response.data);
+
+          // Initialize orderProductQuantityList based on fetched products
+          setFormData((prevFormData) => ({
+            ...prevFormData,
+            orderProductQuantityList: response.data.map(product => ({
+              productId: product.productId,
+              quantity: 1 // Default quantity
+            }))
+          }));
+
+          // Set payment title for the products
+          setPaymentTitle(response.data.map(product => product.productName).join(', '));
         } else {
-          setError(response.data.message || 'Product not found.');
+          setError('Product not found.');
         }
       } catch (err) {
-        setError(err.response?.data?.message || 'An error occurred while fetching the product.');
+        setError('An error occurred while fetching the product.');
       } finally {
         setLoading(false);
       }
     };
 
     fetchProduct();
-  }, [id]);
+  }, [isSingleProductCheckout, id]);
+
+  // Use the ApiService to fetch transaction details
+  const pay = async () => {
+    try {
+      // Calculate total amount
+      const totalAmount = productDetails.reduce((total, product) => {
+        const quantity = formData.orderProductQuantityList.find(item => item.productId === product.productId)?.quantity || 1;
+        return total + (product.productPrice * quantity);
+      }, 0);
+
+      // Fetch transaction details from ApiService
+      const transactionData = await ApiService.createTransaction(totalAmount);
+
+      // Construct the payment object using fetched transaction details
+      const payment = {
+        sandbox: true,
+        merchant_id: "1228411",   // Change your merchant_id
+        return_url: "http://localhost:5173/customer-orders",
+        cancel_url: `http://localhost:5173/buy-product/${isSingleProductCheckout}/${id}`,
+        notify_url: "http://sample.com/notify", // Important: Needs a public URL, not localhost, to receive data
+        order_id: transactionData.orderId,
+        items: paymentTitle,
+        amount: transactionData.amount,
+        currency: transactionData.currency,
+        hash: transactionData.key,
+        first_name: formData.fullName,
+        last_name: "nimal",  // Add additional info if needed
+        email: "helitha@gmail.com",  // Add email if needed
+        phone: formData.contactNumber,
+        address: formData.fullAddress,
+        city: "horana",
+        country: "srilanka",
+      };
+
+      // Start the payment process
+      window.payhere.startPayment(payment);
+    } catch (error) {
+      console.error('Payment initiation error:', error);
+      alert('Failed to initiate payment. Please try again.');
+    }
+  };
 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await ApiService.placeOrder(formData);
+      await ApiService.placeOrder(formData, isSingleProductCheckout);
       alert('Order placed successfully!');
       navigate('/'); // Redirect to another page or show success message
     } catch (error) {
@@ -56,13 +106,12 @@ export default function BuyProduct() {
   };
 
   // Handle quantity change
-  const handleQuantityChange = (e) => {
-    const updatedQuantity = parseInt(e.target.value, 10);
+  const handleQuantityChange = (productId, newQuantity) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      orderProductQuantityList: [
-        { productId: id, quantity: updatedQuantity }
-      ]
+      orderProductQuantityList: prevFormData.orderProductQuantityList.map(item =>
+        item.productId === productId ? { ...item, quantity: newQuantity } : item
+      )
     }));
   };
 
@@ -86,31 +135,31 @@ export default function BuyProduct() {
           <div className="relative h-full">
             <div className="px-4 py-8 overflow-auto h-auto">
               <div className="space-y-4">
-                {productDetails && (
-                  <div className="flex items-start gap-4">
+                {productDetails.map((product) => (
+                  <div key={product.productId} className="flex items-start gap-4">
                     <div className="w-32 h-28 lg:w-24 lg:h-24 flex p-3 shrink-0 bg-gray-300 rounded-md">
                       <img
-                        src={
-                          `${API_BASE_URL}/products/image/${productDetails.productPhotoUrl}` ||
-                          'https://via.placeholder.com/150'
-                        }
-                        alt="Product"
+                        src={`${API_BASE_URL}/products/image/${product.productPhotoUrl}`}
+                        alt={product.productName}
                         className="w-full object-contain"
+                        onError={(e) => { e.target.onerror = null; e.target.src = 'https://via.placeholder.com/150'; }}
                       />
                     </div>
                     <div className="w-full">
-                      <h3 className="text-base text-white">{productDetails.productName}</h3>
+                      <h3 className="text-base text-white">{product.productName}</h3>
                       <ul className="text-xs text-gray-300 space-y-2 mt-2">
                         <li className="flex justify-between">
                           <span>Price</span>
-                          <span>${productDetails.productPrice}</span>
+                          <span>${product.productPrice.toFixed(2)}</span>
                         </li>
                         <li className="flex justify-between items-center">
                           <span>Quantity</span>
                           <select
                             className="ml-auto px-2 py-1 rounded-md bg-gray-700 text-white"
-                            value={formData.orderProductQuantityList[0].quantity}
-                            onChange={handleQuantityChange}
+                            value={
+                              formData.orderProductQuantityList.find(item => item.productId === product.productId)?.quantity || 1
+                            }
+                            onChange={(e) => handleQuantityChange(product.productId, parseInt(e.target.value, 10))}
                           >
                             {[...Array(10).keys()].map((x) => (
                               <option key={x + 1} value={x + 1}>
@@ -122,7 +171,7 @@ export default function BuyProduct() {
                       </ul>
                     </div>
                   </div>
-                )}
+                ))}
               </div>
             </div>
             {/* Total Price Section */}
@@ -131,9 +180,10 @@ export default function BuyProduct() {
                 Total
                 <span>
                   $
-                  {productDetails
-                    ? (productDetails.productPrice * formData.orderProductQuantityList[0].quantity).toFixed(2)
-                    : '0.00'}
+                  {productDetails.reduce((total, product) => {
+                    const quantity = formData.orderProductQuantityList.find(item => item.productId === product.productId)?.quantity || 1;
+                    return total + (product.productPrice * quantity);
+                  }, 0).toFixed(2)}
                 </span>
               </h4>
             </div>
@@ -143,7 +193,9 @@ export default function BuyProduct() {
         {/* Order Form Section */}
         <div className="max-w-4xl w-full h-max rounded-md px-4 py-8">
           <h2 className="text-2xl font-bold text-gray-800">Complete your order</h2>
-          <form className="mt-8" onSubmit={handleSubmit}>
+
+
+      <form className="mt-8" onSubmit={handleSubmit}>
             {/* Personal Details */}
             <div>
               <h3 className="text-base text-gray-800 mb-4">Personal Details</h3>
@@ -201,15 +253,15 @@ export default function BuyProduct() {
                 Cancel
               </button>
               <button
-                type="submit"
+                type="submit" onClick={pay}
                 className="rounded-md px-6 py-3 w-full text-sm tracking-wide bg-blue-600 hover:bg-blue-700 text-white"
               >
-                Place Order
+                Pay with Payhere
               </button>
             </div>
           </form>
-        </div>
-      </div>
     </div>
+</div>
+      </div>
   );
 }
