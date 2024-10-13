@@ -28,6 +28,8 @@ export default class ApiService {
     }
   }
 
+  
+
 
 
   /** AUTH */
@@ -351,6 +353,16 @@ export default class ApiService {
   static async deleteProduct(id) {
     const response = await axios.delete(
       `${this.BASE_URL}/products/product-delete/${id}`,
+      {
+        headers: this.getHeader(),
+      }
+    );
+    return response.data;
+  }
+
+  static async deleteOrderItem(orderId) {
+    const response = await axios.delete(
+      `${this.BASE_URL}/deleteOrder/${orderId}`,
       {
         headers: this.getHeader(),
       }

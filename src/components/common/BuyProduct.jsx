@@ -87,6 +87,34 @@ export default function BuyProduct() {
 
       // Start the payment process
       window.payhere.startPayment(payment);
+
+      // Listen for payment completion and place the order
+      window.payhere.onCompleted = async function onCompleted(orderId) {
+        try {
+          // Handle the order placement on successful payment
+          await ApiService.placeOrder(formData, isSingleProductCheckout);
+          alert('Order placed successfully!');
+
+          // Redirect or navigate to the order summary page
+          navigate('/customer-orders');
+        } catch (error) {
+          console.error('Order placement failed:', error);
+          alert('Failed to place order after payment completion.');
+        }
+      };
+
+      // Handle payment failure
+      window.payhere.onError = function onError(error) {
+        console.error('Payment failed:', error);
+        alert('Payment failed. Please try again.');
+      };
+
+      // Handle payment cancellation
+      window.payhere.onDismissed = function onDismissed() {
+        alert('Payment was dismissed by the user.');
+        navigate(`/buy-product/${isSingleProductCheckout}/${id}`);
+      };
+
     } catch (error) {
       console.error('Payment initiation error:', error);
       alert('Failed to initiate payment. Please try again.');
@@ -94,15 +122,10 @@ export default function BuyProduct() {
   };
 
   // Handle form submission
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await ApiService.placeOrder(formData, isSingleProductCheckout);
-      alert('Order placed successfully!');
-      navigate('/'); // Redirect to another page or show success message
-    } catch (error) {
-      alert('Failed to place order. Please try again.');
-    }
+    // Trigger the payment process when form is submitted
+    pay();
   };
 
   // Handle quantity change
@@ -150,7 +173,7 @@ export default function BuyProduct() {
                       <ul className="text-xs text-gray-300 space-y-2 mt-2">
                         <li className="flex justify-between">
                           <span>Price</span>
-                          <span>${product.productPrice.toFixed(2)}</span>
+                          <span>LKR.{product.productPrice.toFixed(2)}</span>
                         </li>
                         <li className="flex justify-between items-center">
                           <span>Quantity</span>
@@ -179,7 +202,7 @@ export default function BuyProduct() {
               <h4 className="flex justify-between text-base text-white">
                 Total
                 <span>
-                  $
+                  LKR.
                   {productDetails.reduce((total, product) => {
                     const quantity = formData.orderProductQuantityList.find(item => item.productId === product.productId)?.quantity || 1;
                     return total + (product.productPrice * quantity);
@@ -194,8 +217,7 @@ export default function BuyProduct() {
         <div className="max-w-4xl w-full h-max rounded-md px-4 py-8">
           <h2 className="text-2xl font-bold text-gray-800">Complete your order</h2>
 
-
-      <form className="mt-8" onSubmit={handleSubmit}>
+          <form className="mt-8" onSubmit={handleSubmit}>
             {/* Personal Details */}
             <div>
               <h3 className="text-base text-gray-800 mb-4">Personal Details</h3>
@@ -253,15 +275,15 @@ export default function BuyProduct() {
                 Cancel
               </button>
               <button
-                type="submit" onClick={pay}
+                type="submit"
                 className="rounded-md px-6 py-3 w-full text-sm tracking-wide bg-blue-600 hover:bg-blue-700 text-white"
               >
                 Pay with Payhere
               </button>
             </div>
           </form>
-    </div>
-</div>
+        </div>
       </div>
+    </div>
   );
 }
