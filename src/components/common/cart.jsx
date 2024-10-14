@@ -41,11 +41,15 @@ const Cart = () => {
   };
 
   const deleteItem = async (cartId) => {
-    try {
-      await ApiService.deleteCartItem(cartId);
-      getCartDetails(); // Refresh cart details after deletion
-    } catch (error) {
-      console.error("Error deleting item:", error);
+    const confirmDelete = window.confirm("Are you sure you want to remove this item from your cart?");
+    
+    if (confirmDelete) {
+      try {
+        await ApiService.deleteCartItem(cartId);
+        getCartDetails(); // Refresh cart details after deletion
+      } catch (error) {
+        console.error("Error deleting item:", error);
+      }
     }
   };
 
