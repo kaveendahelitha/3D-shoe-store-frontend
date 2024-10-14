@@ -14,6 +14,12 @@ const ProductResult = ({ productSearchResults }) => {
         return;
       }
 
+      // Confirmation alert before adding to cart
+      const confirmAdd = window.confirm("Are you sure you want to add this item to your cart?");
+      if (!confirmAdd) {
+        return; // If the user cancels, exit the function
+      }
+      
       // If authenticated, proceed to add the product to the cart
       const response = await ApiService.addToCart(productId);
       console.log("Product added to cart:", response);
