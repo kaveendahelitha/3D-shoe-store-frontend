@@ -10,7 +10,9 @@ export default class ApiService {
       "Content-Type": "application/json",
     };
   }
-
+  static isAuthenticated() {
+    return !!localStorage.getItem("token"); 
+  }
   /** AUTH */
 
   static async updateUserProfile(userData) {
@@ -67,6 +69,71 @@ export default class ApiService {
     );
     return response.data;
   }
+
+  // Feedback and Rating Methods
+
+  /** Get feedback for a product */
+  static async getFeedbackForProduct(productId) {
+    if (!this.isAuthenticated()) {
+      throw new Error("User is not authenticated");
+    }
+
+    try {
+      const response = await axios.get(
+        `${this.BASE_URL}/api/feedback/product/${productId}`,
+        { headers: this.getHeader() }
+      );
+      return response.data;
+    } catch (error) {
+      console.error(
+        "Error fetching feedbacks:",
+        error.response?.data || error.message
+      );
+      throw error;
+    }
+  }
+
+  /** Submit feedback for a product */
+  static async submitFeedback(productId, feedbackText, rating) {
+    if (!this.isAuthenticated()) {
+      throw new Error("User is not authenticated");
+    }
+
+    try {
+      const response = await axios.post(
+        `${this.BASE_URL}/api/feedback/product/${productId}`,
+        { feedbackText, rating },
+        { headers: this.getHeader() }
+      );
+      return response.data;
+    } catch (error) {
+      console.error(
+        "Error submitting feedback:",
+        error.response?.data || error.message
+      );
+      throw error;
+    }
+  }
+
+  /** Delete feedback */
+  static async deleteFeedback(feedbackId) {
+    try {
+      const response = await axios.delete(
+        `${this.BASE_URL}/api/feedback/${feedbackId}`,
+        {
+          headers: this.getHeader(),
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error(
+        "Error deleting feedback:",
+        error.response ? error.response.data : error.message
+      );
+      throw error;
+    }
+  }
+
   /** AUTH */
 
   static async registerUser(registration) {
