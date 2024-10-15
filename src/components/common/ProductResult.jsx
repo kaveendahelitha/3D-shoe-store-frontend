@@ -47,7 +47,7 @@ const ProductResult = ({ productSearchResults }) => {
                 </p>
 
                 <button
-                  className="px-3 py-1.5 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                  className="px-3 mx-3 py-1.5 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                   onClick={() => handleAddToCart(product.id)} // Handle "Add to Cart"
                 >
                   Add to Cart

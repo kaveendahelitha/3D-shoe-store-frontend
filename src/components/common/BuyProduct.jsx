@@ -94,6 +94,7 @@ export default function BuyProduct() {
           // Handle the order placement on successful payment
           await ApiService.placeOrder(formData, isSingleProductCheckout);
           alert('Order placed successfully!');
+          alert('Order will delivery within 4-5 days !');
 
           // Redirect or navigate to the order summary page
           navigate('/customer-orders');

@@ -49,7 +49,7 @@ export default function Nav() {
   };
 
   return (
-    <Disclosure as="nav" className="bg-blue-800 fixed inset-x-0 top-0 z-50">
+    <Disclosure as="nav" className="bg-slate-900 fixed inset-x-0 top-0 z-50">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
