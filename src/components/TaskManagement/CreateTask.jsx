@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TaskService from '../../services/TaskService';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; 
 import '../../styles/CreateTaskComponent.css'; 
 
 const CreateTaskComponent = () => {
@@ -24,17 +26,20 @@ const CreateTaskComponent = () => {
 
         TaskService.createTask(task)
             .then(response => {
-                console.log("Task created successfully:", response.data);
-                navigate('/tasks'); 
+                toast.success("Task created successfully!"); // Success message
+                setTimeout(() => {
+                    navigate('/tasks'); 
+                }, 2000); 
             })
             .catch(error => {
                 console.error("Error creating task:", error);
-                alert("An error occurred while saving the task. Please try again.");
+                toast.error("An error occurred while saving the task. Please try again."); // Error message
             });
     };
 
     return (
         <div className="add-task-container">
+            <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
             <h2 className="add-task-title">Assign the Task</h2>
             <div className="add-task-card">
                 <div className="add-task-card-body">
