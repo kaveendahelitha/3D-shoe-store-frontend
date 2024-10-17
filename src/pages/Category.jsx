@@ -4,6 +4,11 @@ import Pagination from '../components/common/Pagination';
 import ProductResult from '../components/common/ProductResult';
 import ProductSearch from '../components/common/ProductSearch';
 
+// Utility function to capitalize the first letter
+const capitalizeFirstLetter = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+};
+
 const Category = () => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -37,7 +42,9 @@ const Category = () => {
     const fetchCategories = async () => {
       try {
         const categories = await ApiService.getAllProductsCategories();
-        setCategories(categories);
+        // Capitalize the first letter of each category
+        const formattedCategories = categories.map(capitalizeFirstLetter);
+        setCategories(formattedCategories);
       } catch (error) {
         console.error('Error fetching products categories:', error.message);
       }
@@ -46,7 +53,9 @@ const Category = () => {
     const fetchProductColors = async () => {
       try {
         const colors = await ApiService.getAllProductColors();
-        setProductColors(colors);
+        // Capitalize the first letter of each color
+        const formattedColors = colors.map(capitalizeFirstLetter);
+        setProductColors(formattedColors);
       } catch (error) {
         console.error('Error fetching products colors:', error.message);
       }
