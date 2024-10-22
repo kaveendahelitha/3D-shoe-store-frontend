@@ -11,9 +11,6 @@ export default class ApiService {
     };
   }
 
-  
-
- 
   static async createTransaction(amount) {
     try {
       const response = await axios.get(
@@ -28,18 +25,21 @@ export default class ApiService {
       throw error;
     }
   }
-
-
-    static async loginUser(loginDetails) {
-        try {
-            const response = await axios.post(`${this.BASE_URL}/auth/login`, loginDetails);
-            return response.data;
-        } catch (error) {
-            console.error('Error logging in user:', error.response ? error.response.data : error.message);
-            throw error;
-        }
+  static async loginUser(loginDetails) {
+    try {
+      const response = await axios.post(
+        `${this.BASE_URL}/auth/login`,
+        loginDetails
+      );
+      return response.data;
+    } catch (error) {
+      console.error(
+        "Error logging in user:",
+        error.response ? error.response.data : error.message
+      );
+      throw error;
     }
-
+  }
 
   static async getTaskDetails() {
     try {
@@ -58,14 +58,6 @@ export default class ApiService {
       throw error;
     }
   }
-
-
-
-  
-
-
-
-
   /** AUTH */
 
   static async updateUserProfile(userData) {
@@ -86,9 +78,6 @@ export default class ApiService {
       throw error;
     }
   }
-
-  
-
 
   /**Sends a request to add a product to the cart based on the product ID. */
   static async addToCart(productId) {
@@ -131,14 +120,11 @@ export default class ApiService {
 
   /** Get feedback for a product */
   static async getFeedbackForProduct(productId) {
-    if (!this.isAuthenticated()) {
-      throw new Error("User is not authenticated");
-    }
-
+   
     try {
       const response = await axios.get(
         `${this.BASE_URL}/api/feedback/product/${productId}`,
-        { headers: this.getHeader() }
+        
       );
       return response.data;
     } catch (error) {

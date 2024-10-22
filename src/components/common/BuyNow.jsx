@@ -23,7 +23,7 @@ export default function BuyNow() {
         const feedbackResponse = await ApiService.getFeedbackForProduct(id);
         if (response.data.statusCode === 200) {
           setProduct(response.data.product);
-          setFeedbacks(feedbackResponse);
+        setFeedbacks(feedbackResponse);
         } else {
           setError(response.data.message || 'Product not found.');
         }
