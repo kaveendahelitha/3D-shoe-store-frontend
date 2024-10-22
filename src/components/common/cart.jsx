@@ -42,6 +42,7 @@ const Cart = () => {
   };
 
   const deleteItem = async (cartId) => {
+
     try {
       await ApiService.deleteCartItem(cartId);
      
@@ -51,6 +52,7 @@ const Cart = () => {
        // Refresh cart details after deletion
     } catch (error) {
       alert("Error deleting item:", error);
+
     }
   };
 
