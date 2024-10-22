@@ -14,7 +14,7 @@ export default function BuyNow() {
   const [rating, setRating] = useState(0); 
   const API_BASE_URL = 'http://localhost:8080';
   const navigate = useNavigate();
-  const [isSingleProductCheckout, setIsSingleProductCheckout] = useState(false);
+  const [isSingleProductCheckout, setIsSingleProductCheckout] = useState(true);
 
   useEffect(() => {
     const fetchProductAndFeedback = async () => {

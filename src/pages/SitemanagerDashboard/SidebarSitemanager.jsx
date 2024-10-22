@@ -31,19 +31,22 @@ function SidebarSitemanager({ openSidebarToggle, handleSidebarToggle }) {
           </Link>
         </li>
 
+      
         <li className='sidebar-list-item'>
-          <Link to="/sales">
-            <BsFillGrid3X3GapFill className='icon' /> Sales
+          <Link to="/orders-information/All">
+            <BsFillGrid3X3GapFill className='icon' /> Orders
+          </Link>
+        </li>
+
+        <li className='sidebar-list-item'>
+          <Link to="/tasks">
+            <BsFillGrid3X3GapFill className='icon' /> Task
           </Link>
         </li>
         
+        
         <li className='sidebar-list-item'>
-          <Link to="/reports">
-            <BsMenuButtonWideFill className='icon' /> Reports
-          </Link>
-        </li>
-        <li className='sidebar-list-item'>
-          <Link to="/settings">
+          <Link to="/site-manager">
             <BsFillGearFill className='icon' /> Settings
           </Link>
         </li>

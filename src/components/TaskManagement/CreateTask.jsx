@@ -1,17 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import axios from 'axios'; // Use axios directly for API calls
+
 import TaskService from '../../services/TaskService';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
+
 import '../../styles/CreateTaskComponent.css'; 
 
 const CreateTaskComponent = () => {
     const [taskName, setTaskName] = useState('');
-    const [status, setStatus] = useState('Processing'); 
+    const [status, setStatus] = useState('Processing');
     const [createdDate, setCreatedDate] = useState('');
     const [completedDate, setCompletedDate] = useState('');
     const [employeeId, setEmployeeId] = useState('');
+    const [employees, setEmployees] = useState([]); // State to store employees list
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // Fetch the employees for the dropdown
+        axios.get('http://localhost:8080/api/v1/employees/dropdown')
+            .then(response => {
+                setEmployees(response.data); // Store the employees data in state
+            })
+            .catch(error => {
+                console.error("Error fetching employees:", error);
+            });
+    }, []);
 
     const saveTask = (e) => {
         e.preventDefault();
@@ -21,11 +37,22 @@ const CreateTaskComponent = () => {
             status,
             createdDate,
             completedDate,
-            employee: { id: employeeId } 
+            employee: { id: employeeId },  // ensure employeeId is a number
+            user: { id: 15 }               // Set user ID statically for now or dynamically
         };
 
-        TaskService.createTask(task)
+        // Use axios to make the POST request
+        axios.post('http://localhost:8080/api/v1/tasks', task)
             .then(response => {
+
+                alert("Task created successfully:", response.data);
+                navigate('/tasks'); // Navigate to the task list page
+            })
+            .catch(error => {
+                // Capture and display the detailed error message from the backend
+                console.error("Error creating task:", error.response.data);
+                alert("An error occurred while saving the task. Error: " + error.response.data);
+
                 toast.success("Task created successfully!"); // Success message
                 setTimeout(() => {
                     navigate('/tasks'); 
@@ -34,6 +61,7 @@ const CreateTaskComponent = () => {
             .catch(error => {
                 console.error("Error creating task:", error);
                 toast.error("An error occurred while saving the task. Please try again."); // Error message
+
             });
     };
 
@@ -91,15 +119,21 @@ const CreateTaskComponent = () => {
                             />
                         </div>
                         <div className="add-task-form-group">
-                            <label htmlFor="employeeId">Employee ID:</label>
-                            <input 
-                                type="number" 
-                                id="employeeId" 
-                                className="add-task-input" 
-                                value={employeeId} 
-                                onChange={(e) => setEmployeeId(e.target.value)} 
-                                required 
-                            />
+                            <label htmlFor="employeeId">Assign to Employee:</label>
+                            <select
+                                id="employeeId"
+                                className="add-task-select"
+                                value={employeeId}
+                                onChange={(e) => setEmployeeId(e.target.value)} // Set employeeId when an email is selected
+                                required
+                            >
+                                <option value="">Select Employee</option>
+                                {employees.map(employee => (
+                                    <option key={employee.id} value={employee.id}>
+                                        {employee.emailId} {/* Display emailId */}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
                         <button type="submit" className="add-task-btn-save">Assign the Task</button>
                     </form>

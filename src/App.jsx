@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Nav from "./components/nav/nav";
 import Home from "./pages/Home/home";
 import PageNotFound from "./pages/404 Error/pageNotFound";
-import Cart from './components/common/cart';  // Import Cart component
+import Cart from "./components/common/cart"; // Import Cart component
 
 //import RegistrationPage from './pages/AdminDashboard/RegistrationPage';
 
@@ -58,17 +58,18 @@ import ListTask from "./components/TaskManagement/ListTask";
 import Layer2 from "./components/Layer2";
 import Layer3 from "./components/Layer3";
 
+import EmployeeList from "./components/EmployeeDashboard/EmployeeList";
+import EmployeeUpdate from "./components/EmployeeDashboard/EmployeeUpdate";
+import TaskList from "./components/EmployeeDashboard/TaskList";
+import Layout2 from "./pages/Layout2";
+import EmpDash from "./pages/EmpDash";
 
-import EmployeeList from './components/EmployeeDashboard/EmployeeList';
-import EmployeeUpdate from './components/EmployeeDashboard/EmployeeUpdate';
-import TaskList from './components/EmployeeDashboard/TaskList';
-import Layout2 from './pages/Layout2';
-import EmpDash from './pages/EmpDash';
-
-
+import OrderDeetails from "./pages/Customerpage/OrderDeetails";
+import OrderPlaceAdmin from "./components/Products-Admin/OrderPlaceAdmin";
 
 import { ThemeProvider } from "./components/TaskManagement/ThemeContext";
-
+import LayoutEmployeemanager from "./pages/EmployeeDashboard/LayoutEmployeemanager";
+import Task from "./pages/EmployeeDashboard/Task";
 import "./App.css";
 
 function App() {
@@ -90,18 +91,16 @@ function App() {
             <Nav />
             <Routes>
               <Route path="/" element={<Home />} />
-
               <Route path="/customize" element={<Customize />} />
               <Route path="/modelpage-1" element={<Modelpage1 />} />
               <Route path="/modelpage-2" element={<Modelpage2 />} />
               <Route path="/modelpage-3" element={<Modelpage3 />} />
               <Route path="/DisableForm" element={<DisableForm />} />
-              <Route path="/category" element={<Category />} />
+              <Route path="/category/:categoryName" element={<Category />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/forgotPassword" element={<ForgotPassword />} />
               <Route path="/forgotpass" element={<Forgotpass />} />
-
               <Route path="/otpForm" element={<OtpForm />} />
               <Route path="/resetPassword" element={<ResetPassword />} />
               <Route path="/uploader" element={<ImageUploader />} />
@@ -110,8 +109,8 @@ function App() {
                 path="/buy-product/:isSingleProductCheckout/:id"
                 element={<BuyProduct />}
               />
-              <Route path="/cart" element={<Cart />} />  {/* Add Cart route */}
-              
+              <Route path="/cart" element={<Cart />} /> {/* Add Cart route */}
+              {/*  ------------------------------- */}
               {ApiService.adminOnly() && (
                 <>
                   <Route
@@ -166,6 +165,24 @@ function App() {
                     }
                   />
 
+                  <Route
+                    path="/orders-information/All"
+                    element={
+                      <Layout>
+                        <OrderPlaceAdmin />
+                      </Layout>
+                    }
+                  />
+
+                  <Route
+                    path="/settings"
+                    element={
+                      <Layout>
+                        <Customer />
+                      </Layout>
+                    }
+                  />
+
                   {/* product niew-adding-update-delete */}
                   <Route
                     path="/admin-product"
@@ -177,55 +194,128 @@ function App() {
                   />
 
                   {/* Task Management Routes (Wrapped with ThemeProvider) */}
-              <Route
-                path="/tasks"
-                element={
-                  //<ThemeProvider>
-                   // <Layer2>
-                   <Layout>
-                      <ListTask />
-                    </Layout>
-                    //</></Layer2>
-                  //</ThemeProvider>
-                }
-              />
-              <Route
-                path="/add-task/:id"
-                element={
-                  //<ThemeProvider>
-                  //  <Layer2>
-                  <Layout>
-                      <CreateTask />
-                  </Layout>
-                  // </Layer2>
-                  ///ThemeProvider>
-                }
-              />
-
-                 
-
+                  <Route
+                    path="/tasks"
+                    element={
+                      //<ThemeProvider>
+                      // <Layer2>
+                      <Layout>
+                        <ListTask />
+                      </Layout>
+                      //</></Layer2>
+                      //</ThemeProvider>
+                    }
+                  />
+                  <Route
+                    path="/add-task/:id"
+                    element={
+                      //<ThemeProvider>
+                      //  <Layer2>
+                      <Layout>
+                        <CreateTask />
+                      </Layout>
+                      // </Layer2>
+                      ///ThemeProvider>
+                    }
+                  />
                 </>
               )}
-
+              {/*  ------------------------------- */}
               {ApiService.userOnly() && (
                 <>
-                  <Route path="/customer" element={<Customer />} />
+                  <Route
+                    path="/customer"
+                    element={
+                      <ThemeProvider>
+                        <Layer2>
+                          <Customer />
+                        </Layer2>
+                      </ThemeProvider>
+                    }
+                  />
+
+                  <Route
+                    path="/customer-orders"
+                    element={
+                      <ThemeProvider>
+                        <Layer2>
+                          <OrderDeetails />
+                        </Layer2>
+                      </ThemeProvider>
+                    }
+                  />
                 </>
               )}
-
+              {/*  ------------------------------- */}
               {ApiService.employeeOnly() && (
                 <>
-                  <Route path="/employee" element={<Employee />} />
+                  <Route
+                    path="/employee"
+                    element={
+                      <LayoutEmployeemanager>
+                        <Customer />
+                      </LayoutEmployeemanager>
+                    }
+                  />
+
+                  <Route
+                    path="/task"
+                    element={
+                      <LayoutEmployeemanager>
+                        <Task />
+                      </LayoutEmployeemanager>
+                    }
+                  />
                 </>
               )}
-
+              {/*  ------------------------------- */}
               {ApiService.sitemanager() && (
                 <>
                   <Route
                     path="/site-manager"
                     element={
                       <LayoutSitemanager>
-                        <Sitemanager />
+                        <Customer />
+                      </LayoutSitemanager>
+                    }
+                  />
+
+                  <Route
+                    path="/dashboard"
+                    element={
+                      <LayoutSitemanager>
+                        <Dashboard />
+                      </LayoutSitemanager>
+                    }
+                  />
+
+                  <Route
+                    path="/tasks"
+                    element={
+                      <LayoutSitemanager>
+                        <ListTask />
+                      </LayoutSitemanager>
+                    }
+                  />
+
+                  <Route
+                    path="/add-task/:id"
+                    element={
+                      //<ThemeProvider>
+                      //  <Layer2>
+                      <LayoutSitemanager>
+                        <CreateTask />
+                      </LayoutSitemanager>
+                      // </Layer2>
+                      ///ThemeProvider>
+                    }
+                  />
+
+                  <Route
+                    path="/orders-information/All"
+                    element={
+                      <LayoutSitemanager>
+                        <OrderPlaceAdmin />
                       </LayoutSitemanager>
                     }
                   />
@@ -251,10 +341,7 @@ function App() {
                 </>
               )}
               <Route path="*" element={<PageNotFound />} />
-
-              
-
-              {/* User Management Routes (Wrapped with ThemeProvider) */}
+              {/* User Management Routes (Wrapped with ThemeProvider) 
               <Route
                 path="/image"
                 element={
@@ -265,54 +352,38 @@ function App() {
                   </ThemeProvider>
                 }
               />
-
-
-<Route
-          path="/employeeDash"
-            element={
-              <Layout2>
-                < EmpDash />
-              </Layout2>
-            }
-          />
-
-
-
-
-
-
-
-<Route
-          path="/employeelist"
-            element={
-              <Layout2>
-                <EmployeeList />
-              </Layout2>
-            }
-          />
-
-
-      <Route
-     path="/tasklist"
-            element={
-              <Layout2>
-                <TaskList />
-              </Layout2>
-            }
-          />
-
-    <Route
-      path="/employeeupdate"
-            element={
-              <Layout2>
-                <EmployeeUpdate />
-              </Layout2>
-            }
-          />
-
-
-
-
+              <Route
+                path="/employeeDash"
+                element={
+                  <Layout2>
+                    <EmpDash />
+                  </Layout2>
+                }
+              />
+              <Route
+                path="/employeelist"
+                element={
+                  <Layout2>
+                    <EmployeeList />
+                  </Layout2>
+                }
+              />
+              <Route
+                path="/tasklist"
+                element={
+                  <Layout2>
+                    <TaskList />
+                  </Layout2>
+                }
+              />
+              <Route
+                path="/employeeupdate"
+                element={
+                  <Layout2>
+                    <EmployeeUpdate />
+                  </Layout2>
+                }
+              />*/}
             </Routes>
           </>
         )}

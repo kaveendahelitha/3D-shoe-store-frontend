@@ -37,6 +37,16 @@ function Sidebar({ openSidebarToggle, handleSidebarToggle }) {
             <BsFillBoxSeamFill className='icon' /> Product
           </Link>
         </li>
+
+
+        
+        <li className='sidebar-list-item'>
+          <Link to="/orders-information/All">
+            <BsPeopleFill className='icon' /> Orders
+          </Link>
+        </li>
+
+
         <li className='sidebar-list-item'>
           <Link to="/sales">
             <BsFillBagFill className='icon' /> Sales
@@ -47,9 +57,17 @@ function Sidebar({ openSidebarToggle, handleSidebarToggle }) {
             <BsFillClipboardCheckFill className='icon' /> Task
           </Link>
         </li>
+
+       
+        
+       
+        <li className='sidebar-list-item'>
+          <Link to="/settings">
+            <BsFillGearFill className='icon' /> Settings
         <li className='sidebar-list-item'>
           <Link to="/add-task/:id">
             <BsFillClipboardCheckFill className='icon' /> Create Task
+
           </Link>
         </li>
        

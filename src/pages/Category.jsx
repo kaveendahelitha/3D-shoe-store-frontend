@@ -1,14 +1,18 @@
+// Category.jsx
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import ApiService from '../components/service/ApiService';
 import Pagination from '../components/common/Pagination';
 import ProductResult from '../components/common/ProductResult';
 import ProductSearch from '../components/common/ProductSearch';
 
 const Category = () => {
+  const { categoryName } = useParams(); // Retrieve category from URL
+
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(categoryName || '');
   const [productColors, setProductColors] = useState([]);
   const [selectedProductColor, setSelectedProductColor] = useState('');
   const [priceRanges, setPriceRanges] = useState([]);
@@ -39,7 +43,7 @@ const Category = () => {
         const categories = await ApiService.getAllProductsCategories();
         setCategories(categories);
       } catch (error) {
-        console.error('Error fetching products categories:', error.message);
+        console.error('Error fetching product categories:', error.message);
       }
     };
 
@@ -48,7 +52,7 @@ const Category = () => {
         const colors = await ApiService.getAllProductColors();
         setProductColors(colors);
       } catch (error) {
-        console.error('Error fetching products colors:', error.message);
+        console.error('Error fetching product colors:', error.message);
       }
     };
 
@@ -58,7 +62,7 @@ const Category = () => {
         console.log('Price Levels:', priceLevels); // Debug: log price levels
         setPriceRanges(priceLevels);
       } catch (error) {
-        console.error('Error fetching products price levels:', error.message);
+        console.error('Error fetching product price levels:', error.message);
       }
     };
 
@@ -67,6 +71,11 @@ const Category = () => {
     fetchProductColors();
     fetchProductPriceRanges();
   }, []);
+
+  // Update selectedCategory when categoryName changes
+  useEffect(() => {
+    setSelectedCategory(categoryName || '');
+  }, [categoryName]);
 
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
@@ -80,9 +89,11 @@ const Category = () => {
     setSelectedPriceRange(e.target.value);
   };
 
+  // Filter products whenever filters change or products are fetched
   useEffect(() => {
     filterProducts();
-  }, [selectedCategory, selectedProductColor, selectedPriceRange]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedCategory, selectedProductColor, selectedPriceRange, products]);
 
   const computePriceRange = (price) => {
     if (price > 10000) return '10000+';
@@ -102,19 +113,27 @@ const Category = () => {
     }); // Debug: log selected filters
 
     let filtered = products;
+
     if (selectedCategory) {
-      filtered = filtered.filter(product => product.category === selectedCategory);
+      filtered = filtered.filter(
+        (product) => product.category.toLowerCase() === selectedCategory.toLowerCase()
+      );
     }
+
     if (selectedProductColor) {
-      filtered = filtered.filter(product => product.productColor === selectedProductColor);
+      filtered = filtered.filter(
+        (product) => product.productColor.toLowerCase() === selectedProductColor.toLowerCase()
+      );
     }
+
     if (selectedPriceRange) {
-      filtered = filtered.filter(product => {
+      filtered = filtered.filter((product) => {
         const priceRange = computePriceRange(product.productPrice);
         console.log('Product Price Range:', priceRange); // Debug: log each computed price range
         return priceRange === selectedPriceRange;
       });
     }
+
     console.log('Filtered Products:', filtered); // Debug: log filtered products
     setFilteredProducts(filtered);
     setCurrentPage(1);
@@ -132,7 +151,9 @@ const Category = () => {
         <div className="top-0">
           <h2 className="text-lg font-semibold mb-4">Filter by Product Category</h2>
           <div className="mb-4">
-            <label htmlFor="categorySelect" className="block mb-2 ">Category</label>
+            <label htmlFor="categorySelect" className="block mb-2 ">
+              Category
+            </label>
             <select
               id="categorySelect"
               value={selectedCategory}
@@ -141,7 +162,7 @@ const Category = () => {
             >
               <option value="">All</option>
               {categories.map((category, index) => (
-                <option key={index} value={category}>
+                <option key={index} value={category.toLowerCase()}>
                   {category}
                 </option>
               ))}
@@ -170,8 +191,8 @@ const Category = () => {
                   type="radio"
                   id={`color-${index}`}
                   name="productColor"
-                  value={color}
-                  checked={selectedProductColor === color}
+                  value={color.toLowerCase()}
+                  checked={selectedProductColor === color.toLowerCase()}
                   onChange={handleColorChange}
                   className="mr-2"
                 />
@@ -215,7 +236,9 @@ const Category = () => {
       </aside>
 
       <main className="flex-1 pt-8 px-4 pb-2">
-        <h2 className="text-xl font-semibold mb-4">All Products</h2>
+        <h2 className="text-xl font-semibold mb-4">
+          Products {selectedCategory ? `in ${selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}` : ''}
+        </h2>
         <ProductSearch handleSearchResult={handleSearchResult} />
         <ProductResult productSearchResults={currentProducts} />
         <Pagination
