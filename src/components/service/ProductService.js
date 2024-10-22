@@ -20,6 +20,18 @@ const  productService= {
             },
         });
     },
+
+     // New method to get product by ID
+  getProductById: (id) => {
+    return axios.get(`${API_BASE_URL}/product/${id}`);
+  },
+
+  getProductDetails: (isSingleProductCheckout, productId) => {
+    return axios.get(`${API_BASE_URL}/getProductDetails/${isSingleProductCheckout}/${productId}`);
+   }
+
+
+
 };
 
 export default productService;

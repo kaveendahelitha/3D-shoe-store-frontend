@@ -1,6 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BsCart3, BsGrid1X2Fill, BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsMenuButtonWideFill, BsFillGearFill } from 'react-icons/bs';
+import { 
+  BsCart3, 
+  BsGrid1X2Fill, 
+  BsFillBoxSeamFill, 
+  BsFillBagFill, 
+  BsFillClipboardCheckFill, 
+  BsFillPersonPlusFill, 
+  BsFileBarGraphFill, 
+  BsFillGearFill 
+} from 'react-icons/bs';  // Updated icons
 
 function Sidebar({ openSidebarToggle, handleSidebarToggle }) {
   return (
@@ -20,33 +29,48 @@ function Sidebar({ openSidebarToggle, handleSidebarToggle }) {
         </li>
         <li className='sidebar-list-item'>
           <Link to="/employees">
-            <BsFillArchiveFill className='icon' /> Employees
+            <BsFillPersonPlusFill className='icon' /> Employees
           </Link>
         </li>
-        
-
         <li className='sidebar-list-item'>
           <Link to="/admin-product">
-            <BsPeopleFill className='icon' /> Product
+            <BsFillBoxSeamFill className='icon' /> Product
           </Link>
         </li>
+
+
+        
+        <li className='sidebar-list-item'>
+          <Link to="/orders-information/All">
+            <BsPeopleFill className='icon' /> Orders
+          </Link>
+        </li>
+
 
         <li className='sidebar-list-item'>
           <Link to="/sales">
-            <BsFillGrid3X3GapFill className='icon' /> Sales
+            <BsFillBagFill className='icon' /> Sales
           </Link>
         </li>
-        
         <li className='sidebar-list-item'>
-          <Link to="/reports">
-            <BsMenuButtonWideFill className='icon' /> Reports
+          <Link to="/tasks">
+            <BsFillClipboardCheckFill className='icon' /> Task
           </Link>
         </li>
+
+       
+        
+       
         <li className='sidebar-list-item'>
           <Link to="/settings">
             <BsFillGearFill className='icon' /> Settings
+        <li className='sidebar-list-item'>
+          <Link to="/add-task/:id">
+            <BsFillClipboardCheckFill className='icon' /> Create Task
+
           </Link>
         </li>
+       
       </ul>
     </aside>
   );
