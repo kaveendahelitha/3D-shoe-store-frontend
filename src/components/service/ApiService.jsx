@@ -29,6 +29,18 @@ export default class ApiService {
     }
   }
 
+
+    static async loginUser(loginDetails) {
+        try {
+            const response = await axios.post(`${this.BASE_URL}/auth/login`, loginDetails);
+            return response.data;
+        } catch (error) {
+            console.error('Error logging in user:', error.response ? error.response.data : error.message);
+            throw error;
+        }
+    }
+
+
   static async getTaskDetails() {
     try {
       const response = await axios.get(
@@ -46,6 +58,7 @@ export default class ApiService {
       throw error;
     }
   }
+
 
 
   

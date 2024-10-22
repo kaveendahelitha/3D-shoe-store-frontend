@@ -24,6 +24,18 @@ import Category from "./pages/Category";
 import Employee from "./pages/EmployeeDashboard/Employee";
 
 //import Customer from './pages/CustomerDashboard/Customer';
+
+
+import Order from './components/common/Order'
+
+
+
+
+
+
+
+import ProfilePage from './pages/Customerpage/ProfilePage';
+
 import Customer from "./pages/Customerpage/ProfilePage";
 
 import Login from "./pages/Auth/Login";
@@ -72,6 +84,7 @@ import LayoutEmployeemanager from "./pages/EmployeeDashboard/LayoutEmployeemanag
 import Task from "./pages/EmployeeDashboard/Task";
 import "./App.css";
 
+
 function App() {
   const [isLoading, setIsLoading] = React.useState(true); // Initial loading state
 
@@ -101,6 +114,11 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route path="/forgotPassword" element={<ForgotPassword />} />
               <Route path="/forgotpass" element={<Forgotpass />} />
+
+              <Route path="/profilePage" element={<ProfilePage />} />
+
+
+
               <Route path="/otpForm" element={<OtpForm />} />
               <Route path="/resetPassword" element={<ResetPassword />} />
               <Route path="/uploader" element={<ImageUploader />} />
