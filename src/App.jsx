@@ -68,7 +68,8 @@ import OrderDeetails from "./pages/Customerpage/OrderDeetails";
 import OrderPlaceAdmin from "./components/Products-Admin/OrderPlaceAdmin";
 
 import { ThemeProvider } from "./components/TaskManagement/ThemeContext";
-
+import LayoutEmployeemanager from "./pages/EmployeeDashboard/LayoutEmployeemanager";
+import Task from "./pages/EmployeeDashboard/Task";
 import "./App.css";
 
 function App() {
@@ -95,7 +96,7 @@ function App() {
               <Route path="/modelpage-2" element={<Modelpage2 />} />
               <Route path="/modelpage-3" element={<Modelpage3 />} />
               <Route path="/DisableForm" element={<DisableForm />} />
-              <Route path="/category" element={<Category />} />
+              <Route path="/category/:categoryName" element={<Category />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/forgotPassword" element={<ForgotPassword />} />
@@ -109,6 +110,7 @@ function App() {
                 element={<BuyProduct />}
               />
               <Route path="/cart" element={<Cart />} /> {/* Add Cart route */}
+              {/*  ------------------------------- */}
               {ApiService.adminOnly() && (
                 <>
                   <Route
@@ -172,6 +174,15 @@ function App() {
                     }
                   />
 
+                  <Route
+                    path="/settings"
+                    element={
+                      <Layout>
+                        <Customer />
+                      </Layout>
+                    }
+                  />
+
                   {/* product niew-adding-update-delete */}
                   <Route
                     path="/admin-product"
@@ -209,6 +220,7 @@ function App() {
                   />
                 </>
               )}
+              {/*  ------------------------------- */}
               {ApiService.userOnly() && (
                 <>
                   <Route
@@ -234,18 +246,76 @@ function App() {
                   />
                 </>
               )}
+              {/*  ------------------------------- */}
               {ApiService.employeeOnly() && (
                 <>
-                  <Route path="/employee" element={<Employee />} />
+                  <Route
+                    path="/employee"
+                    element={
+                      <LayoutEmployeemanager>
+                        <Customer />
+                      </LayoutEmployeemanager>
+                    }
+                  />
+
+                  <Route
+                    path="/task"
+                    element={
+                      <LayoutEmployeemanager>
+                        <Task />
+                      </LayoutEmployeemanager>
+                    }
+                  />
                 </>
               )}
+              {/*  ------------------------------- */}
               {ApiService.sitemanager() && (
                 <>
                   <Route
                     path="/site-manager"
                     element={
                       <LayoutSitemanager>
-                        <Sitemanager />
+                        <Customer />
+                      </LayoutSitemanager>
+                    }
+                  />
+
+                  <Route
+                    path="/dashboard"
+                    element={
+                      <LayoutSitemanager>
+                        <Dashboard />
+                      </LayoutSitemanager>
+                    }
+                  />
+
+                  <Route
+                    path="/tasks"
+                    element={
+                      <LayoutSitemanager>
+                        <ListTask />
+                      </LayoutSitemanager>
+                    }
+                  />
+
+                  <Route
+                    path="/add-task/:id"
+                    element={
+                      //<ThemeProvider>
+                      //  <Layer2>
+                      <LayoutSitemanager>
+                        <CreateTask />
+                      </LayoutSitemanager>
+                      // </Layer2>
+                      ///ThemeProvider>
+                    }
+                  />
+
+                  <Route
+                    path="/orders-information/All"
+                    element={
+                      <LayoutSitemanager>
+                        <OrderPlaceAdmin />
                       </LayoutSitemanager>
                     }
                   />
@@ -271,7 +341,7 @@ function App() {
                 </>
               )}
               <Route path="*" element={<PageNotFound />} />
-              {/* User Management Routes (Wrapped with ThemeProvider) */}
+              {/* User Management Routes (Wrapped with ThemeProvider) 
               <Route
                 path="/image"
                 element={
@@ -313,7 +383,7 @@ function App() {
                     <EmployeeUpdate />
                   </Layout2>
                 }
-              />
+              />*/}
             </Routes>
           </>
         )}

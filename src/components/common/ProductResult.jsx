@@ -10,7 +10,7 @@ const ProductResult = ({ productSearchResults }) => {
       // Check if the user is authenticated
       if (!ApiService.isAuthenticated()) {
         // If not authenticated, redirect to the sign-up page
-        navigate("/register"); // Redirect to the signup page (adjust the route as needed)
+        navigate("/login"); // Redirect to the log in page (adjust the route as needed)
         return;
       }
 

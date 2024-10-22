@@ -1,125 +1,147 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import EmployeeService from '../../services/EmployeeService';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import '../../styles/CreateEmployeeComponent.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "../../styles/CreateEmployeeComponent.css";
+import ApiService from "../service/ApiService";
 
 const CreateEmployeeComponent = () => {
-    const { id } = useParams();
-    const navigate = useNavigate();
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [emailId, setEmailId] = useState('');
+  const [formData, setFormData] = useState({
+    phoneNumber: "",
+    email: "",
+    password: "",
+  });
 
-    useEffect(() => {
-        if (id !== '_add') {
-            EmployeeService.getEmployeeById(id).then((res) => {
-                let employee = res.data;
-                setFirstName(employee.firstName);
-                setLastName(employee.lastName);
-                setEmailId(employee.emailId);
-            }).catch(error => {
-                toast.error('Error fetching employee data');
-            });
-        }
-    }, [id]);
+  const validateForm = () => {
+    const {
+      
+      phoneNumber,
+      email,
+      password,
+    } = formData;
+    if (
+      
+      !phoneNumber ||
+      !email ||
+      !password
+    ) {
+      return false;
+    }
+    return true;
+  };
 
-    const saveOrUpdateEmployee = (e) => {
-        e.preventDefault();
-        let employee = { firstName, lastName, emailId };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!validateForm()) {
+      setErrorMessage("Please fill all the fields.");
+      setTimeout(() => setErrorMessage(""), 5000);
+      return;
+    }
+    try {
+      // Call the register method from UserService without the token
+      const response = await ApiService.registerUser(formData);
 
-        if (id === '_add') {
-            EmployeeService.createEmployee(employee).then(res => {
-                toast.success('Employee added successfully!');
-                navigate('/employees');
-            }).catch(error => {
-                toast.error('Error adding employee');
-            });
-        } else {
-            EmployeeService.updateEmployee(employee, id).then(res => {
-                toast.success('Employee updated successfully!');
-                navigate('/employees');
-            }).catch(error => {
-                toast.error('Error updating employee');
-            });
-        }
-    };
+      // Clear the form fields after successful registration
+      if (response.statusCode === 200) {
+        setFormData({
+         
+          phoneNumber: "",
+          email: "",
+          password: "",
+          role: "EMPLOYEE"
+        });
 
-    const changeFirstNameHandler = (event) => {
-        setFirstName(event.target.value);
-    };
-
-    const changeLastNameHandler = (event) => {
-        setLastName(event.target.value);
-    };
-
-    const changeEmailHandler = (event) => {
-        setEmailId(event.target.value);
-    };
-
-    const cancel = () => {
-        navigate('/employees');
-    };
-
-    const getTitle = () => {
-        if (id === '_add') {
-            return <h3 className="text-center">Add Employee</h3>
-        } else {
-            return <h3 className="text-center">Update Employee</h3>
-        }
-    };
-
-    return (
-        <div>
-            <ToastContainer />
-            <br></br>
-            <div className="container">
-                <div className="row">
-                    <div className="card col-md-6 offset-md-3 offset-md-3">
-                        {getTitle()}
-                        <div className="card-body">
-                            <form>
-                                <div className="form-group">
-                                    <label> First Name </label>
-                                    <input
-                                        placeholder="First Name"
-                                        name="firstName"
-                                        className="form-control"
-                                        value={firstName}
-                                        onChange={changeFirstNameHandler}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label> Last Name </label>
-                                    <input
-                                        placeholder="Last Name"
-                                        name="lastName"
-                                        className="form-control"
-                                        value={lastName}
-                                        onChange={changeLastNameHandler}
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label> Email Id </label>
-                                    <input
-                                        placeholder="Email Address"
-                                        name="emailId"
-                                        className="form-control"
-                                        value={emailId}
-                                        onChange={changeEmailHandler}
-                                    />
-                                </div>
-
-                                <button className="btn btn-success" onClick={saveOrUpdateEmployee}>Save</button>
-                                <button className="btn btn-danger" onClick={cancel} style={{ marginLeft: "10px" }}>Cancel</button>
-                            </form>
-                        </div>
-                    </div>
+        setSuccessMessage("Employee registered successfully");
+        setTimeout(() => {
+          setSuccessMessage("");
+          navigate("/employees");
+        }, 3000);
+      }
+    } catch (error) {
+      setErrorMessage(error.response?.data?.message || error.message);
+      setTimeout(() => setErrorMessage(""), 5000);
+    }
+  };
+  return (
+    <div>
+      <ToastContainer />
+      <br></br>
+      <div className="container">
+        <div className="row">
+          <div className="card col-md-6 offset-md-3 offset-md-3">
+           
+            <div className="card-body">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                
+                <div className="text-left my-2">
+                  <label
+                    htmlFor="phoneNumber"
+                    className="text-xs text-[#002D74]"
+                  >
+                    Contact Number:
+                  </label>
+                  <input
+                    required
+                    value={formData.phoneNumber}
+                    onChange={handleInputChange}
+                    id="phoneNumber"
+                    className="block p-2 mt-2 rounded-xl border w-full"
+                    type="text"
+                    name="phoneNumber"
+                  />
                 </div>
+
+                
+
+                <div className="text-left my-2">
+                  <label htmlFor="email" className="text-xs text-[#002D74]">
+                    Enter Your Email Address
+                  </label>
+                  <input
+                    required
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="form-control p-2 mt-4 rounded-xl border w-full"
+                    type="email"
+                    id="email"
+                    placeholder="Email"
+                    name="email"
+                  />
+                </div>
+
+                <div className="relative text-left my-2">
+                  <label htmlFor="password" className="text-xs text-[#002D74]">
+                    Enter Your Password
+                  </label>
+
+                  <input
+                    required
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    className="p-2 mt-4 rounded-xl border w-full"
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    name="password"
+                    minLength="8"
+                  />
+                  {/* password icon */}
+                </div>
+
+                <button
+                  type="submit"
+                  className="bg-[#002D74] rounded-xl text-white py-2 hover:scale-105 duration-300"
+                >
+                  Add Employee
+                </button>
+              </form>
             </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default CreateEmployeeComponent;

@@ -28,6 +28,25 @@ export default class ApiService {
     }
   }
 
+  static async getTaskDetails() {
+    try {
+      const response = await axios.get(
+        `${this.BASE_URL}/api/v1/getTaskDetails`,
+        {
+          headers: this.getHeader(),
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error(
+        "Error getting task details",
+        error.response ? error.response.data : error.message
+      );
+      throw error;
+    }
+  }
+
+
   
 
 
@@ -52,6 +71,10 @@ export default class ApiService {
       throw error;
     }
   }
+
+  
+
+
   /**Sends a request to add a product to the cart based on the product ID. */
   static async addToCart(productId) {
     try {

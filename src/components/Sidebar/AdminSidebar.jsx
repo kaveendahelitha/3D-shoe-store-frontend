@@ -50,17 +50,9 @@ function Sidebar({ openSidebarToggle, handleSidebarToggle }) {
           </Link>
         </li>
 
-        <li className='sidebar-list-item'>
-          <Link to="/add-task/:id">
-            <BsFillGrid3X3GapFill className='icon' /> Create Task
-          </Link>
-        </li>
+       
         
-        <li className='sidebar-list-item'>
-          <Link to="/reports">
-            <BsMenuButtonWideFill className='icon' /> Reports
-          </Link>
-        </li>
+       
         <li className='sidebar-list-item'>
           <Link to="/settings">
             <BsFillGearFill className='icon' /> Settings
