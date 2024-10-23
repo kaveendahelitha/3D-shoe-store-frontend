@@ -82,6 +82,9 @@ import OrderPlaceAdmin from "./components/Products-Admin/OrderPlaceAdmin";
 import { ThemeProvider } from "./components/TaskManagement/ThemeContext";
 import LayoutEmployeemanager from "./pages/EmployeeDashboard/LayoutEmployeemanager";
 import Task from "./pages/EmployeeDashboard/Task";
+import AboutUs from './components/AboutUs';
+
+
 import "./App.css";
 
 
@@ -402,6 +405,12 @@ function App() {
                   </Layout2>
                 }
               />*/}
+
+<Route path="/about-us" element={<AboutUs />} />
+
+
+
+
             </Routes>
           </>
         )}
