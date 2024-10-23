@@ -26,7 +26,7 @@ import Employee from "./pages/EmployeeDashboard/Employee";
 //import Customer from './pages/CustomerDashboard/Customer';
 
 
-import Order from './components/common/Order'
+//import Order from './components/common/Order'
 
 
 
