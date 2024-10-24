@@ -5,6 +5,8 @@ import ApiService from '../service/ApiService';
 import StarRating from './StarRating';
 
 export default function BuyNow() {
+
+   
   const { id } = useParams(); 
   const [product, setProduct] = useState(null); 
   const [loading, setLoading] = useState(true); 
@@ -87,6 +89,7 @@ export default function BuyNow() {
   }
 
   return (
+    
     <div className="font-sans p-8 tracking-wide max-lg:max-w-2xl mt-12">
       <div className="grid items-start grid-cols-1 lg:grid-cols-2 gap-10">
         <div className="space-y-4 text-center lg:sticky top-8">

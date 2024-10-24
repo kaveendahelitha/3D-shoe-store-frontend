@@ -192,6 +192,8 @@ export default function BuyProduct() {
                             ))}
                           </select>
                         </li>
+
+                        
                       </ul>
                     </div>
                   </div>
