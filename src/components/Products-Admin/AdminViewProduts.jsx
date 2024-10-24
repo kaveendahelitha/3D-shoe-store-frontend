@@ -154,7 +154,9 @@ const AdminViewProducts = () => {
               <th className="py-3 px-4 border-b text-center">ID</th>
               <th className="py-3 px-4 border-b text-center">Name</th>
               <th className="py-3 px-4 border-b text-center">Category</th>
-              <th className="py-3 px-4 border-b text-center">Price Rs</th>
+
+              <th className="py-3 px-4 border-b text-center">Price(RS.)</th>
+
               <th className="py-3 px-4 border-b text-center">Image</th>
               <th className="py-3 px-4 border-b text-center">Color</th>
               <th className="py-3 px-4 border-b text-center">Actions</th>
