@@ -5,6 +5,11 @@ import ApiService from "../service/ApiService"; // Import the service
 const ProductResult = ({ productSearchResults }) => {
   const API_BASE_URL = "http://localhost:8080";
   const navigate = useNavigate();
+
+  const imageStyles = {
+    width: "280px",
+    height: "280px", // Set a fixed size for the product image
+  };
   const handleAddToCart = async (productId) => {
     try {
       // Check if the user is authenticated
@@ -19,6 +24,7 @@ const ProductResult = ({ productSearchResults }) => {
       if (!confirmAdd) {
         return; // If the user cancels, exit the function
       }
+      
       
       // If authenticated, proceed to add the product to the cart
       const response = await ApiService.addToCart(productId);
@@ -40,7 +46,7 @@ const ProductResult = ({ productSearchResults }) => {
               <img
                 src={`${API_BASE_URL}/products/image/${product.productPhotoUrl}`}
                 alt={product.productName}
-                className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                style={imageStyles}
               />
             </div>
 
