@@ -202,7 +202,7 @@ export default function BuyProduct() {
                             placeholder="Size"
                             value={formData.size} // Size input value binding
                             onChange={handleInputChange}
-                            className="ml-auto px-2 py-1 rounded-md bg-gray-100 focus:bg-transparent text-gray-800 w-full text-sm focus:outline-blue-600"
+                            className="ml-auto px-2 py-1 rounded-md bg-gray-600 focus:bg-transparent  focus:outline-blue-600"
                             required
                           />
                         </li>
