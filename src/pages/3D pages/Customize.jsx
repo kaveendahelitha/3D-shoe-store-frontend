@@ -1,21 +1,27 @@
-import React from 'react'
+import React from 'react';
+import { FaComments } from 'react-icons/fa';
 
 const Customize = () => {
+
+  const handleClick = () => {
+    window.location.href = 'https://gsm-mart-chat-app-client.vercel.app/';
+  };
   return (
     <>
 
-    <div className="flex flex-col md:flex-row justify-center items-center px-4 py-8 ">
-      <div className="banner-desc md:w-1/2 flex flex-col items-center gap-4">
-        <h1 className="text-thin text-4xl font-light">
-          <strong>See</strong>
-          &nbsp;everything with&nbsp;
-          <strong>3D</strong>
-        </h1>
-        
-        
-      </div>
-      <div className="banner-img md:w-1/2">
-        <img src="https://www.kindpng.com/picc/m/1-18288_nike-shoes-hd-png-transparent-png.png" alt="Banner Image" className="w-full h-auto object-cover rounded-lg" />
+    
+
+
+    <div class="bg-[#182b50] px-8 py-16 font-[sans-serif] mt-12">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 justify-center items-center gap-12">
+        <div class="text-center md:text-left">
+          <h2 class="text-4xl lg:text-5xl font-extrabold text-white mb-6 md:!leading-[55px]">Customize by own</h2>
+          <p class="text-lg lg:text-xl text-white"></p>
+          
+        </div>
+        <div class="text-center">
+          <img src="blue_shoe.png" alt="Premium Benefits" class="w-full mx-auto" />
+        </div>
       </div>
     </div>
 
@@ -67,6 +73,16 @@ const Customize = () => {
         </ul>
       </div>
     </div> 
+    </div>
+
+
+    <div className="fixed bottom-4 right-4">
+      <button
+        className="p-3 bg-green-500 rounded-full text-white shadow-lg hover:bg-green-800 focus:outline-none"
+        onClick={handleClick}
+      >
+        <FaComments size={40} />
+      </button>
     </div>
     </>
   )
