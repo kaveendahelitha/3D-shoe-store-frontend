@@ -189,7 +189,70 @@ const ListEmployeeComponent = () => {
             <h3 className="text-xl font-bold mb-4 text-center">
               {modalType === "add" ? "Add Employee" : "Update Employee"}
             </h3>
+
+
+
+
+
+
+
+
+
+
+
+            
             <form onSubmit={saveOrUpdateEmployee}>
+
+
+            <div className="text-left my-2">
+                <label htmlFor="userFirstname" className="text-xs text-[#002D74]">
+                  Enter Your first name
+                </label>
+                <input
+                  required
+                  value={formData.userFirstname}
+                  onChange={handleInputChange}
+                  className="form-control p-2 mt-4 rounded-xl border w-full"
+                  type="text"
+                  id="userFirstname"
+                  placeholder="First name"
+                  name="userFirstname"
+                />
+              </div>
+
+
+
+              <div className="text-left my-2">
+                <label htmlFor="userLastname" className="text-xs text-[#002D74]">
+                  Enter Your Last name
+                </label>
+                <input
+                  required
+                  value={formData.userLastname}
+                  onChange={handleInputChange}
+                  className="form-control p-2 mt-4 rounded-xl border w-full"
+                  type="text"
+                  id="userLastname"
+                  placeholder="First name"
+                  name="userLastname"
+                />
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
               <div className="text-left my-2">
                 <label htmlFor="email" className="text-xs text-[#002D74]">
                   Enter Your Email Address

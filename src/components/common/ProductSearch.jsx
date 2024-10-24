@@ -118,7 +118,7 @@ const ProductSearch = ({ handleSearchResult }) => {
               onChange={(e) => setPriceRange(e.target.value)}
             >
               <option disabled value="">
-                Select Price Range
+                Select Price Range (Rs.)
               </option>
               {priceRanges.map(({ priceRange }, index) => (
                 <option key={index} value={priceRange}>

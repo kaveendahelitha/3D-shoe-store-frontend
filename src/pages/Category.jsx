@@ -212,7 +212,7 @@ const Category = () => {
         </div>
 
         <div className="top-0">
-          <h2 className="text-lg font-semibold mb-4">Filter by Product Price Range</h2>
+          <h2 className="text-lg font-semibold mb-4">Filter by Product Price Range (Rs.)</h2>
           <div className="mb-4">
             <div className="flex items-center mb-2">
               <input
