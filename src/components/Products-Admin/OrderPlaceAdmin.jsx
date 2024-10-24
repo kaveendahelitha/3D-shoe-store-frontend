@@ -136,8 +136,13 @@ export default function OrderPlaceAdmin() {
                 <th className="p-4 text-left text-sm font-medium text-white">
                   Status
                 </th>
+               
                 <th className="p-4 text-left text-sm font-medium text-white">
                   Actions
+                </th>
+
+                <th className="p-4 text-left text-sm font-medium text-white">
+                  Size
                 </th>
               </tr>
             </thead>
@@ -189,6 +194,11 @@ export default function OrderPlaceAdmin() {
                       </button>
                     )}
                   </td>
+
+                  <td className="p-4 text-sm text-black">
+                    {order.orderSize}
+                  </td>
+
                 </tr>
               ))}
             </tbody>
