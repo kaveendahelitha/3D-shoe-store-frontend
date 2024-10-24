@@ -13,7 +13,7 @@ const navigation = [
   { name: "Home", href: "/", current: false },
 
   { name: "Customize", href: "/customize", current: false },
-  { name: "Produts", href: "/category", current: false },
+  { name: "Produts", href: "/category/men", current: false },
   { name: "Employee", href: "/employee", current: false },
   { name: "DisableForm", href: "/disableform", current: false },
 
@@ -49,7 +49,7 @@ export default function Nav() {
   };
 
   return (
-    <Disclosure as="nav" className="bg-blue-800 fixed inset-x-0 top-0 z-50">
+    <Disclosure as="nav" className="bg-slate-900 fixed inset-x-0 top-0 z-50">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8 ">
@@ -112,16 +112,8 @@ export default function Nav() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
-                  type="button"
-                  className="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  <span className="absolute -inset-1.5" />
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
-
-                {isAuthenticated && (
+                
+                {isAuthenticated && isUser && (
                   // Show Cart Icon if the user is authenticated
                   <button
                     type="button"
@@ -134,7 +126,7 @@ export default function Nav() {
                   </button>
                 )}
                 
-                {isAuthenticated ? (
+                {isAuthenticated ?  (
                   // User is authenticated, show profile dropdown
                   <Menu as="div" className="relative ml-3">
                     <div>

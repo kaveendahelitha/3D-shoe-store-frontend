@@ -2,6 +2,7 @@ import React from 'react';
 import { FaComments } from 'react-icons/fa';
 import Header from '../../components/Home/header';
 import HomePageFeatures from '../../components/Home/HomePageFeatures';
+import HomePageFeatures2 from '../../components/Home/HomePageFeatures2';
 //import Carousel from '../../components/Home/carousel';
 //import ProductSection from '../../components/Home/product';
 import Footer from '../../components/Footer/footer';
@@ -15,8 +16,11 @@ const Home = () => {
     <>
       <Header />
       <HomePageFeatures />
+      <HomePageFeatures2/>
     
       <Footer />
+
+      
 
       <div className="fixed bottom-4 right-4">
       <button

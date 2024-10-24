@@ -10,7 +10,7 @@ const ProductResult = ({ productSearchResults }) => {
       // Check if the user is authenticated
       if (!ApiService.isAuthenticated()) {
         // If not authenticated, redirect to the sign-up page
-        navigate("/register"); // Redirect to the signup page (adjust the route as needed)
+        navigate("/login"); // Redirect to the log in page (adjust the route as needed)
         return;
       }
 
@@ -22,9 +22,9 @@ const ProductResult = ({ productSearchResults }) => {
       
       // If authenticated, proceed to add the product to the cart
       const response = await ApiService.addToCart(productId);
-      console.log("Product added to cart:", response);
+      alert("Product added to cart:", response);
     } catch (error) {
-      console.error("Failed to add product to cart:", error);
+      alert("Failed to add product to cart:", error);
     }
   };
   return (
@@ -53,7 +53,7 @@ const ProductResult = ({ productSearchResults }) => {
                 </p>
 
                 <button
-                  className="px-3 py-1.5 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                  className="px-3 mx-3 py-1.5 bg-blue-500 text-white rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                   onClick={() => handleAddToCart(product.id)} // Handle "Add to Cart"
                 >
                   Add to Cart
