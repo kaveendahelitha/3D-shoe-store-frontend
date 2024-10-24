@@ -38,6 +38,8 @@ export default function OrderDetails() {
             <th className="p-4 text-left text-sm font-medium text-white">Product Name</th>
             <th className="p-4 text-left text-sm font-medium text-white">Product Price</th>
             <th className="p-4 text-left text-sm font-medium text-white">Status</th>
+            <th className="p-4 text-left text-sm font-medium text-white">Size</th>
+
             <th className="p-4 text-left text-sm font-medium text-white">Amount</th>
             <th className="p-4 text-left text-sm font-medium text-white">Delete Order</th>
           </tr>
@@ -49,6 +51,7 @@ export default function OrderDetails() {
               <td className="p-4 text-sm text-black">{order.product.productName}</td>
               <td className="p-4 text-sm text-black">{order.product.productPrice}</td>
               <td className="p-4 text-sm text-black">{order.orderStatus}</td>
+              <td className="p-4 text-sm text-black">{order.orderSize}</td>
               <td className="p-4 text-sm text-black">{order.orderAmount}</td>
               <td className="p-4 text-sm text-black">
                 <button
