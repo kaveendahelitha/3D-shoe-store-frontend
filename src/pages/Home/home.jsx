@@ -3,6 +3,7 @@ import { FaComments } from 'react-icons/fa';
 import Header from '../../components/Home/header';
 import HomePageFeatures from '../../components/Home/HomePageFeatures';
 import HomePageFeatures2 from '../../components/Home/HomePageFeatures2';
+import HomePageFeatures3 from '../../components/Home/HomePageFeatures3';
 //import Carousel from '../../components/Home/carousel';
 //import ProductSection from '../../components/Home/product';
 import Footer from '../../components/Footer/footer';
@@ -17,6 +18,7 @@ const Home = () => {
       <Header />
       <HomePageFeatures />
       <HomePageFeatures2/>
+      <HomePageFeatures3/>
     
       <Footer />
 

@@ -71,7 +71,7 @@ const UpdateSaleComponent = () => {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label> Given Price: </label>
+                                    <label> Given Price Rs: </label>
                                     <input
                                         placeholder="Given Price"
                                         name="givenPrice"
@@ -81,7 +81,7 @@ const UpdateSaleComponent = () => {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label> Sold Price: </label>
+                                    <label> Sold Price Rs: </label>
                                     <input
                                         placeholder="Sold Price"
                                         name="soldPrice"
@@ -91,7 +91,7 @@ const UpdateSaleComponent = () => {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label> Profit: </label>
+                                    <label> Profit Rs: </label>
                                     <input
                                         placeholder="Profit"
                                         name="profit"
