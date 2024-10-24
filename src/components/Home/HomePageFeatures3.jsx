@@ -7,7 +7,7 @@ const HomePageFeatures3 = () => {
     <div class="lg:max-w-7xl max-w-lg mx-auto px-6 py-8 bg-white rounded-lg shadow-md">
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <div class="max-h-80">
-          <img src="https://readymadeui.com/management-img.webp" alt="Image" class="rounded-md object-cover w-full h-full" />
+          <img src="home.jpg" alt="Image" class="rounded-md object-cover w-full h-full" />
         </div>
         <div>
           <h2 class="text-3xl font-extrabold text-purple-700 mb-4">Unique Footwear for Unique Companies</h2>

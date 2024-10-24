@@ -112,14 +112,6 @@ export default function BuyNow() {
             <h3 className="text-gray-800 text-4xl font-bold">Rs {product.productPrice.toFixed(2)}</h3>
           </div>
 
-          <div className="mt-8">
-            <h3 className="text-xl font-bold text-gray-800">Choose a Size</h3>
-            <div className="flex flex-wrap gap-4 mt-4">
-              {['06', '07', '08'].map(size => (
-                <button key={size} type="button" className="w-10 h-10 border hover:border-yellow-400 font-semibold text-sm rounded-lg flex items-center justify-center">{size}</button>
-              ))}
-            </div>
-          </div>
 
           <div className="flex flex-wrap gap-4 mt-8">
             <button
