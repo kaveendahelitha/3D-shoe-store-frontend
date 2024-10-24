@@ -19,7 +19,8 @@ const navigation = [
 
   { name: "Sitemanager", href: "/site-manager", current: false },
   { name: "Customer", href: "/customer", current: false },
-  { name: "Admin", href: "/dashboard", current: false },
+  { name: "Admin", href: "/dashboard", current: false }, 
+  { name: " About-us", href: "/about-us", current: false },
 ];
 
 function classNames(...classes) {

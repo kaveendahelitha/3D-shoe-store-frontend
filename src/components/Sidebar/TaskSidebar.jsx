@@ -21,11 +21,7 @@ function TaskSidebar({ openSidebarToggle, OpenSidebar }) {
                         <BsListCheck className="task-icon" /> Orders
                     </Link>
                 </li>
-                <li className="task-sidebar-list-item">
-                    <Link to="/add-task/:id">
-                        <BsPlusCircle className="task-icon" /> Add Task
-                    </Link>
-                </li>
+                
                 
                 <li className="task-sidebar-list-item" onClick={toggleTheme}>
                     {isDarkMode ? (
