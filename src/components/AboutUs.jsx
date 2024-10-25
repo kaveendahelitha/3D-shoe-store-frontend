@@ -1,7 +1,7 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faWhatsapp, faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons"; // for email icon
+//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//import { faWhatsapp, faTwitter } from "@fortawesome/free-brands-svg-icons";
+//import { faEnvelope } from "@fortawesome/free-solid-svg-icons"; // for email icon
 
 import helitha1 from '../assets/image/helitha1.jpg'; 
 import gimhani from '../assets/image/gimhani.jpg';
