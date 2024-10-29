@@ -64,9 +64,11 @@ const ListSaleComponent = () => {
                         <tr>
                             <th> Item Id </th>
                             <th> Item Name </th>
-                            <th> Given Price </th>
-                            <th> Sold Price </th>
-                            <th> Profit </th>
+
+                            <th> Given Price (RS.) </th>
+                            <th> Sold Price(RS.) </th>
+                            <th> Profit(RS.) </th>
+
                             <th className="actions"> Actions </th>
                         </tr>
                     </thead>

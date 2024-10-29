@@ -10,8 +10,10 @@ const ListEmployeeComponent = () => {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
 
   const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
     phoneNumber: "",
-    email: "",
+    emailId: "",
     password: "",
     role: "EMPLOYEE", // Default role
   });
@@ -37,25 +39,37 @@ const ListEmployeeComponent = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({ ...prevState, [name]: value })); // Updated to handle formData
+    setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const openModal = (type, employee = null) => {
+  const openModal = async (type, employee = null) => {
     setModalType(type);
     setSelectedEmployee(employee);
-    if (employee) {
-      setFormData({
-        firstName: employee.firstName,
-        lastName: employee.lastName,
-        emailId: employee.emailId,
-        phoneNumber: employee.phoneNumber || "", // Assuming employee may have a phone number
-        password: "", // Leave password empty for updates
-        role: "EMPLOYEE", // Default role
-      });
+    
+    if (type === "update" && employee) {
+      try {
+        const response = await EmployeeService.getEmployeeById(employee.id);
+        const employeeData = response.data;
+
+        // Populate formData with the fetched employee data
+        setFormData({
+          firstName: employeeData.firstName || employeeData.user.userFirstname,
+          lastName: employeeData.lastName || employeeData.user.userLastname,
+          emailId: employeeData.emailId || employeeData.user.email,
+          phoneNumber: employeeData.user.phoneNumber || "",
+          password: "", // Leave password empty for updates
+          role: employeeData.user.role || "EMPLOYEE", // Assuming the role is stored in user object
+        });
+      } catch (error) {
+        console.error("Error fetching employee details", error);
+        toast.error("Error fetching employee details!");
+      }
     } else {
       setFormData({
+        firstName: "",
+        lastName: "",
         phoneNumber: "",
-        email: "",
+        emailId: "",
         password: "",
         role: "EMPLOYEE", // Default for adding new employees
       });
@@ -71,11 +85,13 @@ const ListEmployeeComponent = () => {
     e.preventDefault(); // Prevent form from submitting
     if (modalType === "add") {
       try {
-        const response = await ApiService.registerUser(formData); // Capture the response
+        const response = await ApiService.registerUser(formData);
         if (response.statusCode === 200) {
           setFormData({
+            firstName: "",
+            lastName: "",
             phoneNumber: "",
-            email: "",
+            emailId: "",
             password: "",
             role: "EMPLOYEE", // Reset role to default
           });
@@ -89,7 +105,7 @@ const ListEmployeeComponent = () => {
       }
     } else if (modalType === "update") {
       try {
-        await EmployeeService.updateEmployee(formData, selectedEmployee.id); // Use ApiService for updating
+        await EmployeeService.updateEmployee(formData, selectedEmployee.id);
         toast.success("Employee updated successfully!");
         fetchEmployees();
         closeModal();
@@ -189,20 +205,83 @@ const ListEmployeeComponent = () => {
             <h3 className="text-xl font-bold mb-4 text-center">
               {modalType === "add" ? "Add Employee" : "Update Employee"}
             </h3>
+
+
+
+
+
+
+
+
+
+
+
+            
             <form onSubmit={saveOrUpdateEmployee}>
+
+
+            <div className="text-left my-2">
+                <label htmlFor="userFirstname" className="text-xs text-[#002D74]">
+                  Enter Your first name
+                </label>
+                <input
+                  required
+                  value={formData.userFirstname}
+                  onChange={handleInputChange}
+                  className="form-control p-2 mt-4 rounded-xl border w-full"
+                  type="text"
+                  id="userFirstname"
+                  placeholder="First name"
+                  name="userFirstname"
+                />
+              </div>
+
+
+
               <div className="text-left my-2">
-                <label htmlFor="email" className="text-xs text-[#002D74]">
+                <label htmlFor="userLastname" className="text-xs text-[#002D74]">
+                  Enter Your Last name
+                </label>
+                <input
+                  required
+                  value={formData.userLastname}
+                  onChange={handleInputChange}
+                  className="form-control p-2 mt-4 rounded-xl border w-full"
+                  type="text"
+                  id="userLastname"
+                  placeholder="First name"
+                  name="userLastname"
+                />
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              <div className="text-left my-2">
+                <label htmlFor="emailId" className="text-xs text-[#002D74]">
                   Enter Your Email Address
                 </label>
                 <input
                   required
-                  value={formData.email}
+                  value={formData.emailId}
                   onChange={handleInputChange}
                   className="form-control p-2 mt-4 rounded-xl border w-full"
                   type="email"
-                  id="email"
+                  id="emailId"
                   placeholder="Email"
-                  name="email"
+                  name="emailId"
                 />
               </div>
 
@@ -263,7 +342,7 @@ const ListEmployeeComponent = () => {
       )}
 
       {/* Delete Confirmation Modal */}
-      {modalType === "delete" && selectedEmployee && (
+      {modalType === "delete" && (
         <div
           className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
           aria-modal="true"
@@ -271,22 +350,21 @@ const ListEmployeeComponent = () => {
         >
           <div className="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative">
             <h3 className="text-xl font-bold mb-4 text-center">
-              Delete Employee
+              Confirm Delete
             </h3>
-            <p className="text-center">
-              Are you sure you want to delete{" "}
-              <strong>{selectedEmployee.firstName}</strong>?
+            <p className="text-center mb-6">
+              Are you sure you want to delete this employee?
             </p>
-            <div className="flex justify-end mt-6">
+            <div className="flex justify-center">
               <button
-                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2"
                 onClick={deleteEmployee}
+                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mr-2"
               >
                 Delete
               </button>
               <button
-                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
                 onClick={closeModal}
+                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded"
               >
                 Cancel
               </button>

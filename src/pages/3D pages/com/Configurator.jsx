@@ -75,7 +75,7 @@ const Configurator =  ({ onDownload }) => {
 
         <div className="configurator__section">
           <div className="configurator__section__title uppercase font-bold font-poppins text-white">
-            Shoe Color
+           Primary Colour
           </div>
           <div className="configurator__section__values flex flex-row gap-8 items-center flex-wrap py-4">
             {chairColors.map((item, index) => (
@@ -108,7 +108,7 @@ const Configurator =  ({ onDownload }) => {
 
         <div className="configurator__section">
           <div className="configurator__section__title uppercase font-bold font-poppins text-white">
-            Cushion Color
+            Secondary Colour
           </div>
           <div className="configurator__section__values flex flex-row gap-8 items-center flex-wrap py-4">
             {cushionColors.map((item, index) => (

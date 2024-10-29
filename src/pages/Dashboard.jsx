@@ -2,9 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { BsFillArchiveFill, BsFillGrid3X3GapFill, BsPeopleFill, BsFillBellFill } from 'react-icons/bs';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
 
+import { FaComments } from "react-icons/fa";
 function Dashboard() {
     const [dashboardData, setDashboardData] = useState({});
     const [chartData, setChartData] = useState([]);
+
+    const handleClick = () => {
+        window.open('https://gsm-mart-chat-app-client.vercel.app/', '_blank');
+      };
 
     useEffect(() => {
         fetch('http://localhost:8080/api/v1/dashboard')
@@ -44,13 +49,7 @@ function Dashboard() {
                     </div>
                     <h1>{dashboardData.customersCount}</h1>
                 </div>
-                <div className='card'>
-                    <div className='card-inner'>
-                        <h3>ALERTS</h3>
-                        <BsFillBellFill className='card_icon'/>
-                    </div>
-                    <h1>{dashboardData.alertsCount}</h1>
-                </div>
+               
             </div>
 
             <div className='charts'>
@@ -93,6 +92,15 @@ function Dashboard() {
                         <Line type="monotone" dataKey="profit" stroke="#82ca9d" />
                     </LineChart>
                 </ResponsiveContainer>
+            </div>
+            
+            <div className="fixed bottom-4 right-4">
+            <button
+          className="p-3 bg-green-500 rounded-full text-white shadow-lg hover:bg-green-800 focus:outline-none"
+          onClick={handleClick}
+        >
+          <FaComments size={40} />
+           </button>
             </div>
         </main>
     );

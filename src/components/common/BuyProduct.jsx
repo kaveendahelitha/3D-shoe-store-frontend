@@ -13,6 +13,7 @@ export default function BuyProduct() {
     contactNumber: '',
     alternateContactNumber: '',
     fullAddress: '',
+    size:'',
     orderProductQuantityList: [] // Will be initialized after fetching products
   });
 
@@ -192,6 +193,21 @@ export default function BuyProduct() {
                             ))}
                           </select>
                         </li>
+
+                        <li className="flex justify-between items-center">
+                          <span>Size</span>
+                          <input
+                            type="number"
+                            name="size"
+                            placeholder="Size"
+                            value={formData.size} // Size input value binding
+                            onChange={handleInputChange}
+                            className="ml-auto px-2 py-1 rounded-md bg-gray-600 focus:bg-transparent  focus:outline-blue-600"
+                            required
+                          />
+                        </li>
+
+                        
                       </ul>
                     </div>
                   </div>
